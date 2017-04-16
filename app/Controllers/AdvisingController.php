@@ -1,14 +1,5 @@
 <?php
 
-namespace App\Controllers;
-
-use Models\Bean\Appointment;
-use Models\Bean\AppointmentType;
-use Models\Bean\WaitList;
-use Models\CompositeTimeSlot;
-use Models\Db\DatabaseManager;
-use Models\Login\StudentUser;
-
 class AdvisingController
 {
     public function getAdvisingInfoAction()

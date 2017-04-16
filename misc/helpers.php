@@ -1,5 +1,4 @@
 <?php
-use App\Application;
 
 if (!function_exists('config')) {
     /**

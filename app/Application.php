@@ -1,10 +1,11 @@
 <?php
+require (ROOT . "/misc/helpers.php");
 
 class Application
 {
-    static $container = [];
+    static $container = array();
 
-    public function __construct($config = [])
+    public function __construct($config = array())
     {
         self::$container["config"] = $config;
     }
@@ -21,12 +22,11 @@ class Application
     }
 
     private function dispatch() {
-        require (__DIR__ . "../misc/helpers.php");
         $c = isset($_REQUEST['c']) ? mav_decrypt($_REQUEST['c']) : "index"; //Default Login
         $a = isset($_REQUEST['a']) ? mav_decrypt($_REQUEST['a']) : "default"; //Use defaultAction() as default
 //print_r($c . " || " . $a);die();
         if(isset(self::$container["route"][$c]) && isset(self::$container["route"][$c][$a])){
-            require (__DIR__ . "/Controllers/" . ucfirst($c) . "Controller.php");
+            require (ROOT . "/app/Controllers/" . ucfirst($c) . "Controller.php");
             $controller = ucfirst($c) . "Controller";
             $controller = new $controller();
             $action = $a . "Action";

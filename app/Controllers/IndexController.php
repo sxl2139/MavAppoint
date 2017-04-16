@@ -1,11 +1,5 @@
 <?php
 
-namespace App\Controllers;
-
-
-use Models\Db\DatabaseManager;
-use Models\Login\StudentUser;
-
 class IndexController
 {
     public function defaultAction(){

@@ -1,8 +1,4 @@
 <?php
-namespace App\Controllers;
-
-use Models\Db\DatabaseManager;
-use Models\Bean\GetSet;
 
 class LoginController
 {

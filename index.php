@@ -1,11 +1,13 @@
 <?php
 session_start();
 
-require (__DIR__ . "app/Application.php");
+define("ROOT", __DIR__);
+
+require (ROOT . "/app/Application.php");
 
 date_default_timezone_set("America/Chicago");
 
-$config = require(__DIR__ . '/config/web.php');
+$config = require(ROOT . '/config/web.php');
 
 $app = new Application($config);
 
@@ -13,7 +15,7 @@ $app->run();
 
 //define("DS", DIRECTORY_SEPARATOR);
 
-//define("ROOT", __DIR__ . DS);
+;
 //define("APP", ROOT . 'app' . DS);
 //echo ROOT.'<br>';
 //echo APP.'<br>';
