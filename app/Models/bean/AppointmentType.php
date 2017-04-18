@@ -5,8 +5,6 @@
  * Date: 2017/2/13
  * Time: 2:15
  */
-namespace Models\Bean;
-
 class AppointmentType{
     private $type;
     private $duration;

@@ -5,10 +5,7 @@
  * Date: 2017/3/28
  * Time: 12:14
  */
-
-namespace Models\Command;
-use Models\Bean\WaitList;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetFirstWaitList extends SQLCmd
 {
     private $appointment_id;

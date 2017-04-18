@@ -1,10 +1,5 @@
 <?php
-
-namespace Models\Command;
-
-
-use Models\Bean\Appointment;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAppointmentById extends SQLCmd
 {
     private $id;

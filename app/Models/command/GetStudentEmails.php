@@ -6,9 +6,7 @@
  * Time: 18:19
  */
 
-namespace Models\Command;
-
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetStudentEmails extends SQLCmd{
 
     function __construct() {

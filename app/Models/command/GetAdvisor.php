@@ -1,13 +1,11 @@
 <?php
-namespace Models\Command;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/13
  * Time: 17:06
  */
-use Models\Login\AdvisorUser;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAdvisor extends SQLCmd {
 	private $email,$id,$majors;
 

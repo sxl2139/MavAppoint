@@ -1,12 +1,11 @@
 <?php
-namespace Models\Login;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/13
  * Time: 3:02
  */
-require_once "LoginUser.php";
+include_once dirname(__FILE__) . "/LoginUser.php";
 class AdvisorUser extends LoginUser{
     private $pName;
     private $dept;

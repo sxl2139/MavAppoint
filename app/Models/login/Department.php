@@ -5,8 +5,6 @@
  * Date: 2017/2/13
  * Time: 3:05
  */
-namespace Models\Login;
-
 class Department{
     private $name;
     private $majors;

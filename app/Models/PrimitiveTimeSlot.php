@@ -5,10 +5,7 @@
  * Date: 3/14/17
  * Time: 12:57 AM
  */
-
-namespace Models;
-
-
+include_once dirname(__FILE__) . "/TimeSlotComponent.php";
 class PrimitiveTimeSlot extends TimeSlotComponent
 {
     private $name;

@@ -1,13 +1,9 @@
 <?php
-namespace Models\Command;
-
-use Models\Login as login;
-use Models\bean\Appointment;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAppointments extends SQLCmd{
     private $user;
 
-    function __construct(login\LoginUser $user) {
+    function __construct(LoginUser $user) {
         $this->user = $user;
     }
 
@@ -15,13 +11,13 @@ class GetAppointments extends SQLCmd{
         $email = $this->user->getEmail();
         $id = $this->user->getUserId();
 
-        if($this->user instanceof login\AdvisorUser){
+        if($this->user instanceof AdvisorUser){
             $query = "SELECT ma_appointments.*, ma_user_advisor.pName AS pName, ma_user.email AS email
                       FROM ma_appointments,ma_user_advisor,ma_user
                       WHERE ma_user.email= '$email' 
                       AND ma_user_advisor.userId = ma_appointments.advisorUserId 
                       AND ma_user.userId = ma_appointments.advisorUserId";
-        }else if($this->user instanceof login\StudentUser){
+        }else if($this->user instanceof StudentUser){
             $query = "SELECT ma_appointments.*, ma_user_advisor.pName AS pName, ma_user.email AS email
                       FROM ma_appointments,ma_user_advisor,ma_user
                       WHERE ma_appointments.studentEmail= '$email' 

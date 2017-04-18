@@ -5,7 +5,6 @@
  * Date: 2017/2/13
  * Time: 2:08
  */
-namespace Models\Bean;
 
 class AdvisingType{
     private $type;

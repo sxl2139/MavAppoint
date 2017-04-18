@@ -1,12 +1,11 @@
 <?php
-namespace Models\Command;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/21
  * Time: 14:33
  */
-use Models\Bean\AllocateTime;
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class DeleteTimeSlot extends SQLCmd{
     private $time;
 

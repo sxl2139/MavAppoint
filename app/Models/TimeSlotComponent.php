@@ -5,7 +5,6 @@
  * Date: 3/14/17
  * Time: 12:41 AM
  */
-namespace Models;
 abstract class TimeSlotComponent{
     public function add( TimeSlotComponent $ts ){}
     public function remove( TimeSlotComponent $ts){}

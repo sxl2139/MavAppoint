@@ -1,14 +1,12 @@
 <?php
-namespace Models\Command;
+
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/14
  * Time: 10:25
  */
-
-use Models\bean\Appointment;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAppointment extends SQLCmd{
     private $date,$email;
 

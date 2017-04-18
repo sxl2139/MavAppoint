@@ -1,11 +1,11 @@
 <?php
-namespace Models\Command;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/14
  * Time: 16:32
  */
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class DeleteAdvisor extends SQLCmd{
     private $id;
 

@@ -5,8 +5,7 @@
  * Date: 2017/2/14
  * Time: 6:17
  */
-namespace Models\Command;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class SetCutOffTime extends SQLCmd
 {
 

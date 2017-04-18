@@ -5,10 +5,7 @@
  * Date: 2017/4/10
  * Time: 17:11
  */
-
-namespace Models\Command;
-
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class DeleteWaitListSchedule extends SQLCmd
 {
     private $id;

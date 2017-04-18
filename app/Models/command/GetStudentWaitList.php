@@ -5,11 +5,7 @@
  * Date: 2017/4/11
  * Time: 0:17
  */
-
-namespace Models\Command;
-use Models\bean\WaitList;
-
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetStudentWaitList extends SQLCmd
 {
     private $user_id,$appointment_id;

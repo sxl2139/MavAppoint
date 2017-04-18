@@ -1,13 +1,11 @@
 <?php
-namespace Models\Command;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/14
  * Time: 16:09
  */
-use Models\Login\AdvisorUser;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAdvisorsOfDepartment extends SQLCmd{
     private $dep;
 
@@ -25,6 +23,7 @@ class GetAdvisorsOfDepartment extends SQLCmd{
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/login/AdvisorUser.php";
         $arr = array();
         while($rs = mysqli_fetch_array($this->result)){
             $user = new AdvisorUser();

@@ -1,9 +1,5 @@
 <?php
-namespace Models\Db;
-
-use Models\Bean as bean;
-use Models\Login as login;
-use Models\TimeSlotComponent;
+include_once dirname(__FILE__) . "/RDBImpl.php";
 
 class DatabaseManager{
     private $impl;
@@ -12,10 +8,6 @@ class DatabaseManager{
         $this->impl = new RDBImpl();
     }
 
-    /**
-     * @param int $aptId
-     * @return bean\WaitList
-     */
     function getFirstWaitList($aptId){
         return $this->impl->getFirstWaitList($aptId);
     }
@@ -28,7 +20,7 @@ class DatabaseManager{
         return $this->impl->getWaitListScheduleCount($aptId);
     }
 
-    function setWaitListSchedule(bean\WaitList $waitList){
+    function setWaitListSchedule($waitList){
         return $this->impl->setWaitListSchedule($waitList);
     }
 
@@ -44,10 +36,6 @@ class DatabaseManager{
         return $this->impl->getCSEStudent($studentId);
     }
 
-    /**
-     * @param string $netId
-     * @return login\CSEStudent
-     */
     public function getCSEStudentByNetId($netId) {
         return $this->impl->getCSEStudentByNetId($netId);
     }
@@ -56,19 +44,19 @@ class DatabaseManager{
         return $this->impl->setCutOffTime($id,$time);
     }
 
-    function addAppointmentType($userId, bean\AppointmentType $at){
+    function addAppointmentType($userId,$at){
        return $this->impl->addAppointmentType($userId,$at);
     }
 
-    function createAppointment(bean\Appointment $apt, $email){
+    function createAppointment($apt, $email){
         return $this->impl->createAppointment($apt, $email);
     }
 
-    function addTimeSlot(bean\AllocateTime $time, $id){
+    function addTimeSlot($time, $id){
         return $this->impl->addTimeSlot($time, $id);
     }
 
-    function deleteTimeSlot(bean\AllocateTime $time){
+    function deleteTimeSlot($time){
         return $this->impl->deleteTimeSlot($time);
     }
 
@@ -76,23 +64,23 @@ class DatabaseManager{
         return $this->impl->cancelAppointment($id);
     }
 
-    function createAdvisor(login\AdvisorUser $advisorUser){
+    function createAdvisor($advisorUser){
         return $this->impl->createAdvisor($advisorUser);
     }
 
-    function createUser(login\LoginUser $loginUser){
+    function createUser($loginUser){
         return $this->impl->createUser($loginUser);
     }
 
-    function createStudent(login\StudentUser $user){
+    function createStudent($user){
         return $this->impl->createStudent($user);
     }
 
-    function checkUser(bean\GetSet $set){
+    function checkUser($set){
         return $this->impl->checkUser($set);
     }
 
-    function deleteAppointmentType($userId, bean\AppointmentType $at){
+    function deleteAppointmentType($userId,$at){
         return $this->impl->deleteAppointmentType($userId,$at);
     }
 
@@ -104,10 +92,6 @@ class DatabaseManager{
         return $this->impl->getUserIdByEmail($email);
     }
 
-    /**
-     * @param $email
-     * @return login\AdvisorUser
-     */
     function getAdvisor($email){
         return $this->impl->getAdvisor($email);
     }
@@ -116,18 +100,10 @@ class DatabaseManager{
         return $this->impl->getAdvisors();
     }
 
-    /**
-     * @param $dep
-     * @return login\AdvisorUser[]
-     */
     function getAdvisorsOfDepartment($dep){
         return $this->impl->getAdvisorsOfDepartment($dep);
     }
 
-    /**
-     * @param string $email
-     * @return login\StudentUser
-     */
     function getStudent($email){
         return $this->impl->getStudent($email);
     }
@@ -176,19 +152,11 @@ class DatabaseManager{
         return $this->impl->getAppointmentByStuId($id,$date);
     }
 
-    /**
-     * @param $id
-     * @return bean\Appointment
-     */
     function getAppointmentById($id) {
         return $this->impl->getAppointmentById($id);
     }
 
-    /**
-     * @param login\LoginUser $user
-     * @return bean\Appointment[]
-     */
-    function getAppointments(login\LoginUser $user){
+    function getAppointments($user){
         return $this->impl->getAppointments($user);
     }
 
@@ -196,15 +164,12 @@ class DatabaseManager{
         return $this->impl->getappointmentsByDate($start, $end);
     }
 
-    /**
-     * @param $pName
-     * @return bean\AppointmentType[]
-     */
+
     function getAppointmentTypes($pName){
         return $this->impl->getAppointmentTypes($pName);
     }
 
-    function updateUser(login\LoginUser $user){
+    function updateUser($user){
         return $this->impl->updateUser($user);
     }
 
@@ -212,15 +177,15 @@ class DatabaseManager{
         return $this->impl->updatePassword($email,$password);
     }
 
-    function updateAppointment(bean\Appointment $apt){
+    function updateAppointment($apt){
         return $this->impl->updateAppointment($apt);
     }
 
-    function updateAdvisor(login\AdvisorUser $user){
+    function updateAdvisor($user){
         return $this->impl->updateAdvisor($user);
     }
 
-    function updateUserNotification(login\LoginUser $user,$notification){
+    function updateUserNotification($user,$notification){
         return $this->impl->updateNotification($user,$notification);
     }
 

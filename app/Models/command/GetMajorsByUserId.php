@@ -5,10 +5,7 @@
  * Date: 2017/4/11
  * Time: 16:35
  */
-
-namespace Models\Command;
-
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetMajorsByUserId extends SQLCmd
 {
     private $userId;

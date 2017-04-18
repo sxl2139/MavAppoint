@@ -1,10 +1,5 @@
 <?php
-namespace Models\Helper;
-
-use Models\CompositeTimeSlot;
-use Models\PrimitiveTimeSlot;
-
-
+include_once dirname(dirname(__FILE__)) . "/CompositeTimeSlot.php";
 class TimeSlotHelper {
     function count($start,$end){
         $start_split = explode(':',$start);
@@ -220,9 +215,8 @@ class TimeSlotHelper {
             /** @var PrimitiveTimeSlot $children */
             $children = unserialize($TimeSlotComponentArray[$i]);
 
-//            if ($children->getDate() . " " . $children->getStartTime() == "2017-04-05 15:00:00") echo "hehe" . "<br>";
             if(count($newComponent->getChildren()) == 0){
-//                echo ">>>>>>>>" . $children->getDate() . " " . $children->getStartTime() . "<br>";
+
                 $newComponent->add($children);
             }elseif($newComponent->getEndTime() == $children->getStartTime()
                 && $newComponent->getDate() == $children->getDate()){

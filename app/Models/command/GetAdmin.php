@@ -1,13 +1,11 @@
 <?php
-namespace Models\Command;
-use Models\Login\LoginUser;
-
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/14
  * Time: 7:28
  */
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAdmin extends SQLCmd{
     private $email;
 

@@ -5,7 +5,7 @@
  * Date: 2017/2/13
  * Time: 3:06
  */
-namespace Models\Login;
+include_once dirname(__FILE__) . "/LoginUser.php";
 
 Class StudentUser extends LoginUser{
     private $studentId;

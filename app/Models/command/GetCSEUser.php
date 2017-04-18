@@ -5,12 +5,7 @@
  * Date: 2017/3/20
  * Time: 16:47
  */
-
-namespace Models\Command;
-
-
-use Models\Login\AdvisorUser;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetCSEUser extends SQLCmd
 {
     private $Fname;

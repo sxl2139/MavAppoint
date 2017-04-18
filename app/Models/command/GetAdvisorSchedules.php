@@ -1,15 +1,11 @@
 <?php
-namespace Models\Command;
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 2017/2/14
  * Time: 8:04
  */
-
-use Models\Helper\TimeSlotHelper;
-use Models\PrimitiveTimeSlot;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAdvisorSchedules extends SQLCmd{
     private $advisors,$available;
 
@@ -49,6 +45,9 @@ class GetAdvisorSchedules extends SQLCmd{
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/PrimitiveTimeSlot.php";
+        include_once dirname(dirname(__FILE__)) . "/helper/TimeSlotHelper.php";
+
         $num = count($this->result);
         $PrimitiveTimeSlotArr = array();
         for($i=0;$i<$num;++$i){

@@ -11,25 +11,26 @@ use Models\Login as login;
 
 interface DBImplInterface
 {
+    /*User method*/
+    function createUser($user);
+    function updateUser($user);
+    function checkUser($set);
+    function getUserIdByEmail($email);
+    function updatePassword($email,$password);
+
     function setCutOffTime($id,$time);
-    function createAppointment(bean\Appointment $a, $email);
-    function updateAppointment(bean\Appointment $a);
+    function createAppointment($a, $email);
+    function updateAppointment($a);
     function cancelAppointment($id);
     function getAppointment($d,$e);
     function getAppointments($user);
     function getAppointmentsByDate($start, $end);
 
-    function addAppointmentType($userId, bean\AppointmentType $type);
+    function addAppointmentType($userId,$type);
     function getAppointmentTypes($pName);
-    function deleteAppointmentType($userId, bean\AppointmentType $type);
+    function deleteAppointmentType($userId,$type);
 
-    function createUser(login\LoginUser $user);
-    function updateUser(login\LoginUser $user);
-    function checkUser(bean\GetSet $set);
-    function getUserIdByEmail($email);
-    function updatePassword($email,$password);
-
-    function createAdvisor(login\AdvisorUser $user);
+    function createAdvisor($user);
     function getAdvisor($email);
     function getAdvisors();
     function getAdvisorsOfDepartment($department);
@@ -40,18 +41,14 @@ interface DBImplInterface
 
     function updateNotification($user,$notification);
 
-    function createStudent(login\StudentUser $user);
+    function createStudent($user);
     function getStudent($email);
 
     function getAdmin($email);
     function getFaculty($email);
 
-    function createWaitlist(bean\WaitList $list);
-
-    function addTimeSlot(bean\AllocateTime $at, $id);
-    function deleteTimeSlot(bean\AllocateTime $at);
-
-    function updateCutOffTime(login\AdvisorUser $user, $time);
+    function addTimeSlot($at, $id);
+    function deleteTimeSlot($at);
 
     function getDepartment($id);
     function getMajorsOfDepartment($name);
@@ -66,5 +63,5 @@ interface DBImplInterface
     function getWaitListScheduleCount($aptId);
     function getStudentWaitList($userId, $aptId);
     function getFirstWaitList($aptId);
-    function setWaitListSchedule(bean\WaitList $waitList);
+    function setWaitListSchedule($waitList);
 }

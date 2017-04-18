@@ -5,11 +5,7 @@
  * Date: 2017/3/25
  * Time: 9:12
  */
-
-namespace Models\Command;
-
-use Models\Login\StudentUser;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetCSEStudent extends SQLCmd
 {
     private $studentId;
@@ -18,7 +14,6 @@ class GetCSEStudent extends SQLCmd
     function __construct($studentId)
     {
         $this->studentId = $studentId;
-        $this->user = new StudentUser();
     }
 
     function queryDB()
@@ -34,6 +29,8 @@ class GetCSEStudent extends SQLCmd
 
     function processResult()
     {
+        include_once dirname(dirname(__FILE__)) . "/login/StudentUser.php";
+        $this->user = new StudentUser();
         if ($this->result != null) {
             $this->user->setRole('student');
             $this->user->setStudentId($this->result["STUID"]);

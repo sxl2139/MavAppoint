@@ -1,9 +1,5 @@
 <?php
-
-namespace Models\Command;
-
-use Models\Login\CSEStudent;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetCSEStudentByNetId extends SQLCmd
 {
     private $netId;

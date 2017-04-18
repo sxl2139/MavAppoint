@@ -1,5 +1,4 @@
 <?php
-namespace Models\Bean;
 
 class GetSet{
     private $password;

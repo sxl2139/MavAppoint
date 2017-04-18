@@ -5,12 +5,7 @@
  * Date: 2017/3/28
  * Time: 11:58
  */
-
-namespace Models\Command;
-
-
-use Models\Bean\WaitList;
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class SetWaitListSchedule extends SQLCmd
 {
     private $apt;

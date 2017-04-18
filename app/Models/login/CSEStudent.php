@@ -1,8 +1,4 @@
 <?php
-
-namespace Models\Login;
-
-
 class CSEStudent
 {
 

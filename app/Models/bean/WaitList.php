@@ -5,7 +5,6 @@
  * Date: 2017/2/13
  * Time: 2:24
  */
-namespace Models\Bean;
 
 class WaitList{
     private $id;

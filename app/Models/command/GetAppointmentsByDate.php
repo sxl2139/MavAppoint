@@ -5,11 +5,7 @@
  * Date: 2017/4/10
  * Time: 17:08
  */
-
-namespace Models\Command;
-use Models\bean\Appointment;
-
-
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetAppointmentsByDate extends SQLCmd
 {
 

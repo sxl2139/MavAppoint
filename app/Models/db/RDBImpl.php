@@ -1,173 +1,195 @@
 <?php
-namespace Models\Db;
+include_once dirname(__FILE__) . "/dbInterface/DBImplInterface.php";
 
-use Models\CompositeTimeSlot;
-use Models\Db\DbInterface\DBImplInterface;
-use Models\Bean as Bean;
-use Models\Login as Login;
-use Models\Command as Command;
-use Models\PrimitiveTimeSlot as PrimitiveTimeSlot;
-use Models\Helper as Helper;
+class RDBImpl implements \Models\Db\DbInterface\DBImplInterface
+{
 
-class RDBImpl implements DBImplInterface{
-
-    function setWaitListSchedule(Bean\WaitList $waitList)
+    function setWaitListSchedule($waitList)
     {
-        $cmd = new Command\SetWaitListSchedule($waitList);
+        include_once dirname(dirname(__FILE__)) . "/command/SetWaitListSchedule.php";
+        $cmd = SetWaitListSchedule($waitList);
         return $cmd->execute();
     }
 
     function getStudentWaitList($userId, $aptId)
     {
-        $cmd = new Command\GetStudentWaitList($userId, $aptId);
+        include_once dirname(dirname(__FILE__)) . "/command/GetStudentWaitList.php";
+        $cmd = new GetStudentWaitList($userId, $aptId);
         return $cmd->execute();
     }
 
     function getFirstWaitList($aptId)
     {
-        $cmd = new Command\GetFirstWaitList($aptId);
+        include_once dirname(dirname(__FILE__)) . "/command/GetFirstWaitList.php";
+        $cmd = new GetFirstWaitList($aptId);
         return $cmd->execute();
     }
 
     function getWaitListScheduleCount($aptId)
     {
-        $cmd = new Command\GetWaitListScheduleCount($aptId);
+        include_once dirname(dirname(__FILE__)) . "/command/GetWaitListScheduleCount.php";
+        $cmd = new GetWaitListScheduleCount($aptId);
         return $cmd->execute();
     }
 
     function getStudentEmails()
     {
-        $cmd = new Command\GetStudentEmails();
+        include_once dirname(dirname(__FILE__)) . "/command/GetStudentEmails.php";
+        $cmd = new GetStudentEmails();
         return $cmd->execute();
     }
 
     function setCutOffTime($id, $time)
     {
-        $cmd = new Command\SetCutOffTime($id, $time);
+        include_once dirname(dirname(__FILE__)) . "/command/SetCutOffTime.php";
+        $cmd = new SetCutOffTime($id, $time);
         return $cmd->execute();
     }
 
-    function createAppointment(Bean\Appointment $a, $email)
+    function createAppointment($a, $email)
     {
-        $cmd = new Command\CreateAppointment($a, $email);
+        include_once dirname(dirname(__FILE__)) . "/command/CreateAppointment.php";
+        $cmd = new CreateAppointment($a, $email);
         return $cmd->execute();
     }
 
-    function updateAppointment(Bean\Appointment $a)
+    function updateAppointment($a)
     {
-        $cmd = new Command\UpdateAppointment($a);
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateAppointment.php";
+        $cmd = new UpdateAppointment($a);
         return $cmd->execute();
     }
 
     function getAppointment($d, $e)
     {
-        $cmd = new Command\GetAppointment($d, $e);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointment.php";
+        $cmd = new GetAppointment($d, $e);
         return $cmd->execute();
     }
 
     function getAppointmentsByDate($start, $end)
     {
-        $cmd = new Command\GetAppointmentsByDate($start, $end);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointmentsByDate.php";
+        $cmd = new GetAppointmentsByDate($start, $end);
         return $cmd->execute();
     }
 
     function cancelAppointment($id)
     {
-        $cmd = new Command\CancelAppointment($id);
+        include_once dirname(dirname(__FILE__)) . "/command/CancelAppointment.php";
+        $cmd = new CancelAppointment($id);
         return $cmd->execute();
     }
 
-    function getAppointmentByStuId($id,$date)
+    function getAppointmentByStuId($id, $date)
     {
-        $cmd = new Command\GetAppointmentByStuId($id,$date);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointmentByStuId.php";
+        $cmd = new GetAppointmentByStuId($id, $date);
         return $cmd->execute();
     }
 
-    function getAppointmentById($id){
-        $cmd = new Command\GetAppointmentById($id);
+    function getAppointmentById($id)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointmentById.php";
+        $cmd = new GetAppointmentById($id);
         return $cmd->execute();
     }
 
     function getAppointments($user)
     {
-        $cmd = new Command\GetAppointments($user);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointments.php";
+        $cmd = new GetAppointments($user);
         return $cmd->execute();
     }
 
-    function addAppointmentType($userId, Bean\AppointmentType $type)
+    function addAppointmentType($userId, $type)
     {
-        $cmd = new Command\AddAppointmentType($userId,$type);
+        include_once dirname(dirname(__FILE__)) . "/command/AddAppointmentType.php";
+        $cmd = new AddAppointmentType($userId, $type);
         return $cmd->execute();
     }
 
     function getAppointmentTypes($pName)
     {
-        $cmd = new Command\GetAppointmentTypes($pName);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAppointmentTypes.php";
+        $cmd = new GetAppointmentTypes($pName);
         return $cmd->execute();
     }
 
-    function deleteAppointmentType($userId, Bean\AppointmentType $type)
+    function deleteAppointmentType($userId, $type)
     {
-        $cmd = new Command\DeleteAppointmentType($userId,$type);
+        include_once dirname(dirname(__FILE__)) . "/command/DeleteAppointmentType.php";
+        $cmd = new DeleteAppointmentType($userId, $type);
         return $cmd->execute();
     }
 
-    function createUser(Login\LoginUser $user)
+    function createUser($user)
     {
-        $cmd = new Command\CreateUser($user);
+        include_once dirname(dirname(__FILE__)) . "/command/CreateUser.php";
+        $cmd = new CreateUser($user);
         return $cmd->execute();
     }
 
-    function updateUser(Login\LoginUser $user)
+    function updateUser($user)
     {
-        $cmd = new Command\UpdateUser($user);
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateUser.php";
+        $cmd = new UpdateUser($user);
         return $cmd->execute();
     }
 
-    function checkUser(Bean\GetSet $set)
+    function checkUser($set)
     {
-        $cmd = new Command\CheckUser($set);
+        include_once dirname(dirname(__FILE__)) . "/command/CheckUser.php";
+        $cmd = new CheckUser($set);
         return $cmd->execute();
     }
 
-    function getUserIdByEmail($email){
-        $cmd = new Command\GetUserIdByEmail($email);
+    function getUserIdByEmail($email)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetUserIdByEmail.php";
+        $cmd = new GetUserIdByEmail($email);
         return $cmd->execute();
     }
 
     function updatePassword($email, $password)
     {
-        $cmd = new Command\UpdatePassword($email,$password);
+        include_once dirname(dirname(__FILE__)) . "/command/UpdatePassword.php";
+        $cmd = new UpdatePassword($email, $password);
         return $cmd->execute();
     }
 
-    function createAdvisor(Login\AdvisorUser $user)
+    function createAdvisor($user)
     {
-        $cmd = new Command\CreateAdvisor($user);
+        include_once dirname(dirname(__FILE__)) . "/command/CreateAdvisor.php";
+        $cmd = new CreateAdvisor($user);
         return $cmd->execute();
     }
 
-    function updateAdvisor(Login\AdvisorUser $advisorUser)
+    function updateAdvisor(AdvisorUser $advisorUser)
     {
-        $cmd = new Command\UpdateAdvisor($advisorUser);
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateAdvisor.php";
+        $cmd = new UpdateAdvisor($advisorUser);
         return $cmd->execute();
     }
 
     function getAdvisor($email)
     {
-        $cmd = new Command\GetAdvisor($email);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisor.php";
+        $cmd = new GetAdvisor($email);
         return $cmd->execute();
     }
 
     function getAdvisors()
     {
-        $cmd = new Command\GetAdvisors();
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisors.php";
+        $cmd = new GetAdvisors();
         return $cmd->execute();
     }
 
     function getAdvisorsOfDepartment($department)
     {
-        $cmd = new Command\GetAdvisorsOfDepartment($department);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisorsOfDepartment.php";
+        $cmd = new GetAdvisorsOfDepartment($department);
         return $cmd->execute();
     }
 
@@ -177,210 +199,136 @@ class RDBImpl implements DBImplInterface{
      * @param null $date
      * @return array : adviser(s)'s schedule
      */
-    function getAdvisorSchedule($name,$includeReserved = false, $date=null)
+    function getAdvisorSchedule($name, $includeReserved = false, $date = null)
     {
-        $PrimitiveTimeSlotArr = array();
-        $adviserSchedule = array();
-        try {
-            $conn = new \mysqli( env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
-            if($includeReserved == true && $date!=null){
-                // get one specific adviser's all time slots(include reserved).
-                $command = "SELECT pName,date,start,end,id 
-                            FROM ma_user,ma_advising_schedule,ma_user_advisor 
-                            WHERE ma_user.userId=ma_user_advisor.userId 
-                            AND ma_user.userId=ma_advising_schedule.userId 
-                            AND ma_user.userId=ma_advising_schedule.userId 
-                            AND ma_user_advisor.pName='$name'";
-
-            }else{
-                if ($name === "all" && $includeReserved==false) {
-                    //get all advisers' available time slots.
-                    $command = "SELECT pName,date,start,end,id 
-                                FROM ma_user,ma_advising_schedule,ma_user_advisor 
-                                WHERE ma_user.userId=ma_user_advisor.userId 
-                                AND ma_user.userId=ma_advising_schedule.userId 
-                                AND studentId is null";
-                } else {
-                    //get one specific adviser's available time slots
-                    $command = "SELECT pName,date,start,end,id 
-                                FROM ma_user,ma_advising_schedule,ma_user_advisor 
-                                WHERE ma_user.userId=ma_user_advisor.userId 
-                                AND ma_user.userId=ma_advising_schedule.userId 
-                                AND ma_user.userId=ma_advising_schedule.userId 
-                                AND ma_user_advisor.pName='$name' 
-                                AND studentId is null";
-                }
-
-            }
-
-
-
-            $res = $conn->query($command);
-
-            while ($rs = mysqli_fetch_assoc($res)) {
-                $set = new PrimitiveTimeSlot();
-                $set->setName($rs["pName"]);
-                $set->setDate($rs["date"]);
-                $set->setStartTime($rs["start"]);
-                $set->setEndTime($rs["end"]);
-                $set->setUniqueId($rs["id"]);
-                array_push($PrimitiveTimeSlotArr, serialize($set));
-            }
-
-            $compositeTimeSlotArr = Helper\TimeSlotHelper::createCompositeTimeSlot($PrimitiveTimeSlotArr);
-
-
-            if($date!=null){
-                for ($i = 0; $i < sizeof($compositeTimeSlotArr); $i++) {
-                    $scheduleObject = unserialize($compositeTimeSlotArr[$i]);
-                    $startDate = $scheduleObject->getDate();
-                    if($startDate==$date)
-                    {
-                        array_push($adviserSchedule,$scheduleObject);
-
-                    }
-                }
-
-            }
-            else{
-                for ($i = 0; $i < sizeof($compositeTimeSlotArr); $i++) {
-                    $scheduleObject = unserialize($compositeTimeSlotArr[$i]);
-                    $startDate = $scheduleObject->getDate();
-                    date_default_timezone_set('America/Chicago');
-                    $todayDate = date("Y-m-d");
-                    if($startDate>$todayDate)
-                    {
-                        array_push($adviserSchedule,$scheduleObject);
-
-                    }
-                }
-
-            }
-
-            $conn->close();
-
-        } catch (\Exception $e) {
-
-        }
-        return $adviserSchedule;
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisorSchedule.php";
+        $cmd = new GetAdvisorSchedule($name, $includeReserved, $date);
+        return $cmd->execute();
     }
 
     function getAdvisorSchedules(array $advisorUsers)
     {
-        $cmd = new Command\GetAdvisorSchedules($advisorUsers,true);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisorSchedules.php";
+        $cmd = new GetAdvisorSchedules($advisorUsers, true);
         return $cmd->execute();
     }
 
     function getAdvisorWaitlistSchedules(array $advisorUsers)
     {
-        $cmd = new Command\GetAdvisorSchedules($advisorUsers,false);
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdvisorSchedules.php";
+        $cmd = new GetAdvisorSchedules($advisorUsers, false);
         return $cmd->execute();
     }
 
     function deleteAdvisor($id)
     {
-        $cmd = new Command\DeleteAdvisor($id);
+        include_once dirname(dirname(__FILE__)) . "/command/DeleteAdvisor.php";
+        $cmd = new DeleteAdvisor($id);
         return $cmd->execute();
     }
 
     function updateNotification($user, $notification)
     {
-        $cmd = new Command\UpdateNotification($user,$notification);
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateNotification.php";
+        $cmd = new UpdateNotification($user, $notification);
         return $cmd->execute();
     }
 
-    function createStudent(Login\StudentUser $user)
+    function createStudent($user)
     {
-        $cmd = new Command\CreateStudent($user);
+        include_once dirname(dirname(__FILE__)) . "/command/CreateStudent.php";
+        $cmd = new CreateStudent($user);
         return $cmd->execute();
     }
 
     function getStudent($email)
     {
-        $cmd = new Command\GetStudent($email);
-
+        include_once dirname(dirname(__FILE__)) . "/command/GetStudent.php";
+        $cmd = new GetStudent($email);
         return $cmd->execute();
     }
 
     function getAdmin($email)
     {
-//        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
-        $cmd = new Command\GetAdmin($email);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
+        $cmd = new GetAdmin($email);
         return $cmd->execute();
     }
 
     function getFaculty($email)
     {
-//        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
-        $cmd = new Command\GetAdmin($email);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
+        $cmd = new GetAdmin($email);
         return $cmd->execute();
     }
 
-    function createWaitlist(Bean\WaitList $list)
+    function addTimeSlot($at, $id)
     {
-    }
-
-    function addTimeSlot(Bean\AllocateTime $at, $id)
-    {
-//        include_once dirname(dirname(__FILE__)) . "/Command/AddTimeSlot.php";
-        $cmd = new Command\AddTimeSlot($at,$id);
+        include_once dirname(dirname(__FILE__)) . "/Command/AddTimeSlot.php";
+        $cmd = new AddTimeSlot($at, $id);
         return $cmd->execute();
     }
 
-    function deleteTimeSlot(Bean\AllocateTime $at)
+    function deleteTimeSlot($at)
     {
-//        include_once dirname(dirname(__FILE__)) . "/Command/DeleteTimeSlot.php";
-        $cmd = new Command\DeleteTimeSlot($at);
+        include_once dirname(dirname(__FILE__)) . "/Command/DeleteTimeSlot.php";
+        $cmd = new DeleteTimeSlot($at);
         return $cmd->execute();
-    }
-
-    function updateCutOffTime(Login\AdvisorUser $user, $time)
-    {
     }
 
     function getDepartment($id)
     {
-//        include_once dirname(dirname(__FILE__)) . "/Command/GetDepartment.php";
-        $cmd = new Command\GetDepartment($id);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetDepartment.php";
+        $cmd = new GetDepartment($id);
         return $cmd->execute();
     }
 
     function getMajorsOfDepartment($name)
     {
-//        include_once dirname(dirname(__FILE__)) . "/Command/GetMajorsOfDepartment.php";
-        $cmd = new Command\GetMajorsOfDepartment($name);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetMajorsOfDepartment.php";
+        $cmd = new GetMajorsOfDepartment($name);
         return $cmd->execute();
     }
 
     function getMajor($id)
     {
-        $cmd = new Command\GetMajor($id);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetMajor.php";
+        $cmd = new GetMajor($id);
         return $cmd->execute();
     }
 
-    function getMajorsByUserId($userId){
-        $cmd = new Command\GetMajorsByUserId($userId);
+    function getMajorsByUserId($userId)
+    {
+        include_once dirname(dirname(__FILE__)) . "/Command/GetMajorsByUserId.php";
+        $cmd = new GetMajorsByUserId($userId);
         return $cmd->execute();
     }
 
-    function getCSEUser($pName){
-        $cmd = new Command\GetCSEUser($pName);
+    function getCSEUser($pName)
+    {
+        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEUser.php";
+        $cmd = new GetCSEUser($pName);
         return $cmd->execute();
     }
 
-    function getCSEStudent($studentId){
-        $cmd = new Command\GetCSEStudent($studentId);
+    function getCSEStudent($studentId)
+    {
+        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEStudent.php";
+        $cmd = new GetCSEStudent($studentId);
         return $cmd->execute();
     }
 
     public function getCSEStudentByNetId($netId)
     {
-        $cmd = new Command\GetCSEStudentByNetId($netId);
+        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEStudentByNetId.php";
+        $cmd = new GetCSEStudentByNetId($netId);
         return $cmd->execute();
     }
 
-    public function deleteWaitListSchedule($id) {
-        $cmd = new Command\DeleteWaitListSchedule($id);
+    public function deleteWaitListSchedule($id)
+    {
+        include_once dirname(dirname(__FILE__)) . "/Command/DeleteWaitListSchedule.php";
+        $cmd = new DeleteWaitListSchedule($id);
         return $cmd->execute();
     }
 }

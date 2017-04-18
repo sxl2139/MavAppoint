@@ -5,7 +5,6 @@
  * Date: 2017/2/13
  * Time: 2:10
  */
-namespace Models\Bean;
 
 class AllocateTime{
     private $date;

@@ -5,11 +5,9 @@
  * Date: 2017/2/14
  * Time: 9:29
  */
-namespace Models\Command;
-use Models\Bean\Appointment;
+include_once dirname(__FILE__) . "/SQLCmd.php";
 class CreateAppointment extends SQLCmd {
 	private $apt, $email;
-
 
 	function __construct(Appointment $apt, $email) {
 		$this->apt   = $apt;
