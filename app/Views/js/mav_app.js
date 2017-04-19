@@ -19,7 +19,6 @@ $(function(){
                 if (data.error == 0) {
                     window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
                 }else{
-                    // alert("Error!");
                     $("#message").css("visibility", "visible");
                 }
             }
@@ -37,7 +36,7 @@ $(function(){
         var drp_department = $("#drp_department").val();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#adminController").val(),
@@ -51,7 +50,6 @@ $(function(){
                 if (data.error == 0) {
                     alert(data.data.message);
                     $("#addAdvisorResult").text(data.data.message);
-                    //window.location.href = "/MavAppoint_PHP?c=" + $("#indexController").val() + "&role=" + data.data.role;
                 }else{
                     alert(data.data.message);
                     $("#addAdvisorResult").text(data.data.message);
@@ -64,7 +62,7 @@ $(function(){
         e.preventDefault();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#appointmentController").val(),
@@ -83,7 +81,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
                         + "&nc=advising&na=getAdvisingInfo";
                 }else{
                     //TODO redirect to failure page
@@ -128,7 +126,7 @@ $(function(){
         }
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#adminController").val(),
@@ -138,7 +136,7 @@ $(function(){
             success: function(data){
                 data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#adminController").val() + "&a=" + $("#successAction").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val();
                 }else{
                     alert("advising error");
                 }
@@ -152,7 +150,7 @@ $(function(){
             var appointmentId = $(this).attr("value");
 
             $.ajax({
-                url: "/MavAppoint_PHP/",
+                url: $(".mavAppointUrl").val(),
                 type: "post",
                 data: {
                     c : $("#appointmentController").val(),
@@ -162,7 +160,7 @@ $(function(){
                 success: function(data){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
-                        window.location.href = "/MavAppoint_PHP?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
                         + "&nc=appointment&na=showAppointment";
                     }else{
                         //TODO redirect to failure page
@@ -174,11 +172,11 @@ $(function(){
 
     });
 
-    $("#drp_department").change(function(){
-        var department = $("#drp_department option:selected").text();
+    $("#drp_department_register").change(function(){
+        var department = $("#drp_department_register option:selected").text();
         //alert(department);
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#registerController").val(),
@@ -210,7 +208,7 @@ $(function(){
         var phoneNumber = $("#phoneNumber").val();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#registerController").val(),
@@ -238,7 +236,7 @@ $(function(){
         e.preventDefault();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#advisingController").val(),
@@ -253,7 +251,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#advisingController").val() + "&a=" + $("#successAction").val()
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisingController").val() + "&a=" + $("#successAction").val()
                         + "&nc=advising&na=getAdvisingInfo";
                 }else{
                     alert(data.description);
@@ -266,7 +264,7 @@ $(function(){
         e.preventDefault();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#customizeSettingController").val(),
@@ -276,7 +274,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
                 }else{
                     alert("Error while updating cutOff time")
                 }
@@ -289,7 +287,7 @@ $(function(){
         e.preventDefault();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#customizeSettingController").val(),
@@ -299,7 +297,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
                 }else{
                     alert("Error while updating notification")
                 }
@@ -311,7 +309,7 @@ $(function(){
         e.preventDefault();
 
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#customizeSettingController").val(),
@@ -322,7 +320,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
                 }else{
                     alert("Error while updating notification")
                 }
@@ -338,7 +336,7 @@ $(function(){
             var minutes = $(this).parent().parent().children(":nth-child(2)").text();
 
             $.ajax({
-                url: "/MavAppoint_PHP/",
+                url: $(".mavAppointUrl").val(),
                 type: "post",
                 data: {
                     c : $("#customizeSettingController").val(),
@@ -349,7 +347,7 @@ $(function(){
                 success: function(data){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
-                        window.location.href = "/MavAppoint_PHP?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
                     }else{
                         alert("Error while updating notification")
                     }

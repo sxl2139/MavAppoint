@@ -2,6 +2,7 @@
 include("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $customizeSettingController = mav_encrypt("customizeSetting");
 $cutOffTimeAction = mav_encrypt("cutOffTime");
 $successAction = mav_encrypt("success");
@@ -23,9 +24,10 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
         width: 80%;
     }
 </style>
-<input id="customizeSettingController" type="hidden" value="<?=$customizeSettingController?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+    <input id="customizeSettingController" type="hidden" value="<?=$customizeSettingController?>"/>
     <input id="successAction" type="hidden" value="<?=$successAction?>"/>
-<input id="cutOffTimeAction" type="hidden" value="<?=$cutOffTimeAction?>"/>
+    <input id="cutOffTimeAction" type="hidden" value="<?=$cutOffTimeAction?>"/>
     <input id="deleteTypeAndDurationAction" type="hidden" value="<?=$deleteTypeAndDurationAction?>"/>
     <input id="setEmailNotificationsAction" type="hidden" value="<?=$setEmailNotificationsAction?>"/>
     <input id="addTypeAndDurationAction" type="hidden" value="<?=$addTypeAndDurationAction?>"/>

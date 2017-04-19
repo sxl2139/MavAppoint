@@ -3,6 +3,7 @@ include("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include("template/" . $role . "_navigation.php");
 
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $appointments = $content['data']['appointments'];
 $appointmentController = mav_encrypt("appointment");
@@ -59,6 +60,7 @@ $successAction = mav_encrypt("success");
     <input type="hidden" id="appointmentController" value="<?=$appointmentController?>">
     <input type="hidden" id="cancelAppointmentAction" value="<?=$cancelAppointmentAction?>">
     <input type="hidden" id="successAction" value="<?=$successAction?>">
+    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
     <div class="container">
         <div class="btn-group">
             <form action="appointments" method="post" name="cancel">

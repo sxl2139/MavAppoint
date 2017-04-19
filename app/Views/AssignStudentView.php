@@ -9,6 +9,7 @@
 include("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 
 $content = json_decode($content, true);
 $advisors = isset($content['data']['advisors']) ? $content['data']['advisors'] : null;
@@ -19,6 +20,7 @@ $showAdvisorAssignmentAction = mav_encrypt("showAdvisorAssignment");
 $successAction = mav_encrypt("success");
 ?>
 
+<input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
 <div class="panel panel-default">
     <div class="panel-heading"><h1>Assign Students To Advisors</h1></div>
     <div class="panel-body">

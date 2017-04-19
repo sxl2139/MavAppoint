@@ -1,4 +1,5 @@
 <?php
+include_once ROOT . "/app/Models/db/DatabaseManager.php";
 
 class AdvisingController
 {

@@ -1,11 +1,8 @@
 <?php
 include ("template/header.php");
-if(!isset($_SESSION)){
-    session_start();
-}
-
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include ("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $departments = $content['department'];
 
@@ -25,6 +22,7 @@ $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
 
     <input id="adminController" type="hidden" value="<?=$adminController?>"/>
     <input id="createNewAdvisorAction" type="hidden" value="<?=$createNewAdvisorAction?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
 <div class="container">
     <!-- Panel -->
     <div class="panel panel-default resize center-block">

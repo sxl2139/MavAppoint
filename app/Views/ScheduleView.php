@@ -2,6 +2,7 @@
 include("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 
 $advisingController = mav_encrypt("advising");
 $appointmentController = mav_encrypt("appointment");
@@ -21,7 +22,7 @@ $advisorEmail = $content['data']['advisorEmail'];
 $userEmail = $content['data']['userEmail'];
 ?>
 
-
+    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
 <div class="input-group-btn">
 
     <?php

@@ -163,7 +163,7 @@ $studentPhone = $content['data']['studentPhone'];
     </div>
 <?php
 if (count($advisors) == 0) {
-    echo "<label><font color=\"#0\" size=\"5\"> No advisors available for advising</font></label>";
+    echo "<div><label> No advisors available for advising </label></div>";
 } else {
     ?>
     <div class="container-fluid">
@@ -194,36 +194,37 @@ if (count($advisors) == 0) {
                                     addAppt.submit();
                                 } else if (event.backgroundColor == 'orange') {
                                     updateAppt.submit();
-                                } else {
-                                    document.getElementById("appointmentId").value = event.id;
-                                    document.getElementById("appType").value = event.title;
-                                    $.ajax({
-                                        url: "/MavAppoint_PHP/",
-                                        type: "post",
-                                        data: {
-                                            c : $("#advisingController").val(),
-                                            a : $("#getWaitListInfoAction").val(),
-                                            appointmentId : event.id
-                                        },
-                                        success: function(data){
-                                            var data = JSON.parse(data);
-                                            if (data.error == 0) {
-                                                if(data.data.isAdded) {
-                                                    $("#waitListHead").text("You have already been added to the wait list!")
-                                                    $("#addToWaitListSubmit").hide();
-                                                } else {
-                                                    $("#appointmentType").text(data.data.appointmentType);
-                                                    $("#waitStudentsNumber").text(data.data.waitListCount);
-                                                }
-                                                $("#advisor").val(data.data.advisor);
-                                            }else{
-                                                alert("Errors while getting waitList information");
-                                            }
-                                        }
-                                    });
-
-                                    $('#addToWLModal').modal();
                                 }
+//                                else {
+//                                    document.getElementById("appointmentId").value = event.id;
+//                                    document.getElementById("appType").value = event.title;
+//                                    $.ajax({
+//                                        url: "/MavAppoint_PHP/",
+//                                        type: "post",
+//                                        data: {
+//                                            c : $("#advisingController").val(),
+//                                            a : $("#getWaitListInfoAction").val(),
+//                                            appointmentId : event.id
+//                                        },
+//                                        success: function(data){
+//                                            var data = JSON.parse(data);
+//                                            if (data.error == 0) {
+//                                                if(data.data.isAdded) {
+//                                                    $("#waitListHead").text("You have already been added to the wait list!")
+//                                                    $("#addToWaitListSubmit").hide();
+//                                                } else {
+//                                                    $("#appointmentType").text(data.data.appointmentType);
+//                                                    $("#waitStudentsNumber").text(data.data.waitListCount);
+//                                                }
+//                                                $("#advisor").val(data.data.advisor);
+//                                            }else{
+//                                                alert("Errors while getting waitList information");
+//                                            }
+//                                        }
+//                                    });
+//
+//                                    $('#addToWLModal').modal();
+//                                }
                             },
                             events: [
                                 <?php
@@ -257,19 +258,19 @@ if (count($advisors) == 0) {
                                     $i++;
                                 }
 
-                                $i = 0;
-                                foreach ($waitLists as $waitList) {
-                                    echo "
-                                {
-                                    title:'" . $waitList['appointmentType'] . "',
-                                    start:'" . $waitList['advisingDate'] . "T" . $waitList['advisingStartTime'] . "',
-                                    end:'" . $waitList['advisingDate'] . "T" . $waitList['advisingEndTime'] . "',
-                                    id:" . $waitList['appointmentId'] . ",
-                                    backgroundColor: 'red'
-                                }";
-                                    if ($i != count($waitLists) - 1) echo ",";
-                                    $i++;
-                                }
+//                                $i = 0;
+//                                foreach ($waitLists as $waitList) {
+//                                    echo "
+//                                {
+//                                    title:'" . $waitList['appointmentType'] . "',
+//                                    start:'" . $waitList['advisingDate'] . "T" . $waitList['advisingStartTime'] . "',
+//                                    end:'" . $waitList['advisingDate'] . "T" . $waitList['advisingEndTime'] . "',
+//                                    id:" . $waitList['appointmentId'] . ",
+//                                    backgroundColor: 'red'
+//                                }";
+//                                    if ($i != count($waitLists) - 1) echo ",";
+//                                    $i++;
+//                                }
                                 ?>
 
                             ]

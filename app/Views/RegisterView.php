@@ -1,7 +1,7 @@
 <?php
 include("template/header.php");
 include("template/visitor_navigation.php");
-
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $registerController = mav_encrypt("register");
 $getMajorsAction = mav_encrypt("getMajors");
 $registerStudentAction = mav_encrypt("registerStudent");
@@ -28,6 +28,7 @@ $url = $content['data']['url'];
 <input type="hidden" id="getMajorsAction" value="<?=$getMajorsAction?>" />
 <input type="hidden" id="registerStudentAction" value="<?=$registerStudentAction?>" />
 <input type="hidden" id="loginUrl" value="<?=$url?>" />
+<input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
 
 <div class="container block">
     <!-- Panel -->
@@ -43,7 +44,7 @@ $url = $content['data']['url'];
 
                         <label for="drp_department"><font color="#0" size="4">Departments</font></label>
                         <br>
-                        <select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
+                        <select id="drp_department_register" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 
                             <?php
                             foreach ($departments as $department) {
