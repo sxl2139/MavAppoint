@@ -1,5 +1,5 @@
 <?php
-require (ROOT . "/misc/helpers.php");
+include_once ROOT . "/misc/helpers.php";
 
 class Application
 {
@@ -26,7 +26,7 @@ class Application
         $a = isset($_REQUEST['a']) ? mav_decrypt($_REQUEST['a']) : "default"; //Use defaultAction() as default
 //print_r($c . " || " . $a);die();
         if(isset(self::$container["route"][$c]) && isset(self::$container["route"][$c][$a])){
-            require (ROOT . "/app/Controllers/" . ucfirst($c) . "Controller.php");
+            include_once ROOT . "/app/Controllers/" . ucfirst($c) . "Controller.php";
             $controller = ucfirst($c) . "Controller";
             $controller = new $controller();
             $action = $a . "Action";

@@ -12,30 +12,33 @@ class LoginController
         $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
 
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $manager = new DatabaseManager();
 
+        include_once ROOT . "/app/Models/bean/GetSet.php";
         $set = new GetSet();
         $set->setEmail($email);
         $set->setPassword($password);
         $res = $manager->checkUser($set);
 
         if (!$res) {
-            return [
+            return array(
                 "error" => 1
-            ];
+            );
         }
 
 
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
+        $_SESSION['url'] = getUrlWithoutParameters();
 
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "role" => $res['role']
-            ]
-        ];
+            )
+        );
 
     }
 
@@ -47,9 +50,9 @@ class LoginController
 
     public function testAction()
     {
-        return [
+        return array(
             "error" => 0
-        ];
+        );
     }
 
 }

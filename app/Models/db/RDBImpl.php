@@ -7,7 +7,7 @@ class RDBImpl implements \Models\Db\DbInterface\DBImplInterface
     function setWaitListSchedule($waitList)
     {
         include_once dirname(dirname(__FILE__)) . "/command/SetWaitListSchedule.php";
-        $cmd = SetWaitListSchedule($waitList);
+        $cmd = new SetWaitListSchedule($waitList);
         return $cmd->execute();
     }
 

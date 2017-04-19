@@ -1,6 +1,7 @@
 <?php
 include("template/header.php");
 include("template/visitor_navigation.php");
+$url = $_SESSION['url'];
 $loginController = mav_encrypt("login");
 $checkAction = mav_encrypt("check");
 $indexController = mav_encrypt("index");
@@ -30,6 +31,7 @@ $testAction = mav_encrypt("test");
     <input id="loginController" type="hidden" value="<?=$loginController?>"/>
     <input id="checkAction" type="hidden" value="<?=$checkAction?>"/>
     <input id="indexController" type="hidden" value="<?=$indexController?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?=$url?>"/>
 <!--    <input id="testAction" type="hidden" value="--><?//=$testAction?><!--"/>-->
 
     <div class="container" style="margin-top: 40px">

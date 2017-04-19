@@ -42,6 +42,7 @@ class GetAppointments extends SQLCmd{
         $arr = array();
 
         while($rs = mysqli_fetch_array($this->result)){
+            include_once ROOT . "/app/Models/bean/Appointment.php";
             $set = new Appointment();
 
             $set->setAppointmentId($rs['id']);

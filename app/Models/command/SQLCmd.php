@@ -1,45 +1,42 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jarvis
- * Date: 2017/2/13
- * Time: 3:54
- */
-abstract class SQLCmd {
 
-	/**
-	 * @var \mysqli
-	 */
-	public $conn;
-	public $result;
+if (!class_exists("SQLCmd")){
+	abstract class SQLCmd {
 
-	function getResult(){return $this->result;}
+		/**
+		 * @var \mysqli
+		 */
+		public $conn;
+		public $result;
 
-	function execute() {
-		try {
-			$this->connectDB();
-			$this->queryDB();
-			$this->result = $this->processResult();
-			$this->disconnect();
-		} catch (\Exception $e) {
-			$this->disconnect();
+		function getResult(){return $this->result;}
+
+		function execute() {
+			try {
+				$this->connectDB();
+				$this->queryDB();
+				$this->result = $this->processResult();
+				$this->disconnect();
+			} catch (\Exception $e) {
+				$this->disconnect();
+			}
+
+			return $this->result;
 		}
 
-		return $this->result;
-	}
+		function connectDB() {
+			$this->conn = new \mysqli(
+				"localhost","root","123","new_mavappointdb2s");
+			//env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
+		}
 
-	function connectDB() {
-		$this->conn = new \mysqli(
-		    "localhost","root","1234","mavappointdb2s");
-            //env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
-	}
+		abstract function queryDB();
 
-	abstract function queryDB();
+		abstract function processResult();
 
-	abstract function processResult();
-
-	function disconnect() {
-	    if($this->conn)
-		    $this->conn->close();
+		function disconnect() {
+			if($this->conn)
+				$this->conn->close();
+		}
 	}
 }

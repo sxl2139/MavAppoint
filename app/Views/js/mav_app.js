@@ -6,7 +6,7 @@ $(function(){
         var passhash = md5($("#password").val());
         console.log(passhash);
         $.ajax({
-            url: "/MavAppoint_PHP/",
+            url: $(".mavAppointUrl").val(),
             type: "post",
             data: {
                 c : $("#loginController").val(),
@@ -17,7 +17,7 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = "/MavAppoint_PHP?c=" + $("#indexController").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
                 }else{
                     // alert("Error!");
                     $("#message").css("visibility", "visible");

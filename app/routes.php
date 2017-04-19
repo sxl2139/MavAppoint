@@ -1,21 +1,21 @@
 <?php
 //if the value is "view", return view, else return json format
-return [
-    "register" => [
+return array(
+    "register" => array(
         "default" => "RegisterView",
         "getMajors" => "getMajors",
         "registerStudent" => "registerStudent"
-    ],
-    "login" => [
+    ),
+    "login" => array(
         "default" => "LoginView",
         "test" => "testView",
         "check" => "check",
         "logout" => "IndexView",
-    ],
-    "index" => [
+    ),
+    "index" => array(
         "default" => "IndexView"
-    ],
-    "admin" => [
+    ),
+    "admin" => array(
         "addAdvisor" => "CreateAdvisorView",
         "createNewAdvisor" => "createNewAdvisor",
         "showDepartmentSchedule" => "DepartmentScheduleView",
@@ -23,32 +23,32 @@ return [
         "showAdvisorAssignment" => "AssignStudentView",
         "assignStudentToAdvisor" => "assignStudentToAdvisor",
         "success" => "SuccessView"
-    ],
-    "advisor" => [
+    ),
+    "advisor" => array(
         "showSchedule" => "AdvisorScheduleView",
-        "addTimeSlot" =>  "AdvisorScheduleView",
+        "addTimeSlot" => "AdvisorScheduleView",
         "deleteTimeSlot" => "AdvisorScheduleView"
 
-    ],
-    "advising" => [
+    ),
+    "advising" => array(
         "getAdvisingInfo" => "AdvisingView",
         "schedule" => "ScheduleView",
         "getWaitListInfo" => "getWaitListInfo",
         "addToWaitList" => "addToWaitList",
         "success" => "SuccessView"
-    ],
-    "appointment" => [
+    ),
+    "appointment" => array(
         "makeAppointment" => "makeAppointment",
         "success" => "SuccessView",
         "showAppointment" => "AppointmentView",
         "cancelAppointment" => "cancelAppointment"
-    ],
-    "customizeSetting" => [
+    ),
+    "customizeSetting" => array(
         "showAppointmentType" => "CustomizeSettingView",
         "cutOffTime" => "cutOffTime",
         "setEmailNotifications" => "setEmailNotifications",
         "success" => "SuccessView",
         "addTypeAndDuration" => "addTypeAndDuration",
         "deleteTypeAndDuration" => "deleteTypeAndDuration",
-    ],
-];
+    ),
+);

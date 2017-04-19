@@ -1,21 +1,21 @@
 <?php
-return [
-    "testKey1" => [
+return array(
+    "testKey1" => array(
         "testKey2" => "testValue2"
-    ],
+    ),
 
     "emailUsername" => "cse5328sp2016@gmail.com",
     "emailPassword" => "seproject",
-    "majors" => [
+    "majors" => array(
         "SE" => "Software Engineering",
         "CS" => "Computer Science",
         "CPE" => "Computer Science and Engineering"
-    ],
-    "degrees" => [
+    ),
+    "degrees" => array(
         "UGRD" => "Bachelor",
         "MSTH" => "Master",
         "MSNT" => "Master",
         "PhD" => "Doctorate",
         "MSNonDgr" => "Doctorate"
-    ]
-];
+    )
+);

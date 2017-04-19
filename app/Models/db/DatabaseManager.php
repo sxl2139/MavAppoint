@@ -104,6 +104,10 @@ class DatabaseManager{
         return $this->impl->getAdvisorsOfDepartment($dep);
     }
 
+    /**
+     * @param $email
+     * @return StudentUser
+     */
     function getStudent($email){
         return $this->impl->getStudent($email);
     }
