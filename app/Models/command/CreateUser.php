@@ -31,6 +31,7 @@ class CreateUser extends SQLCmd
         $res = $this->conn->query($query);
 
         if ($res) {
+            include_once ROOT . "/app/Models/command/GetUserIdByEmail.php";
             $cmd = new GetUserIdByEmail($email);
             $id = ($cmd->execute());
 

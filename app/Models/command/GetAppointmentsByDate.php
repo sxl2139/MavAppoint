@@ -23,6 +23,7 @@ class GetAppointmentsByDate extends SQLCmd
     }
 
     function processResult(){
+        include_once ROOT . "/app/Models/bean/Appointment.php";
         $arr = array();
         while($rs = mysqli_fetch_array($this->result)){
             $set = new Appointment();

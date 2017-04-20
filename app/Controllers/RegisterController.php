@@ -1,67 +1,64 @@
 <?php
 
-namespace App\Controllers;
-
-use Models\Db\DatabaseManager;
-use Models\Login\StudentUser;
-
 class RegisterController
 {
     public function defaultAction() {
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
         $departments = $dbManager->getDepartment();
         $majors = $dbManager->getMajorsOfDepartment($departments[0]);
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "degrees" => $this->getDegrees(),
                 "departments" => $departments,
                 "majors" => $majors,
                 "initials" => $this->getInitials(),
                 "url" => getUrlWithoutParameters() . "?c=" . mav_encrypt("login")
-            ]
-        ];
+            )
+        );
     }
 
     public function getMajorsAction() {
 //        $department = isset($_REQUEST['department']) ? $_REQUEST['department'] : "CSE";
         $department = $_REQUEST['department'];
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
         $majors = $dbManager->getMajorsOfDepartment($department);
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "majors" => $majors
-            ]
-        ];
+            )
+        );
     }
 
     public function registerStudentAction() {
         $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
         $studentId = isset($_REQUEST['studentId']) ? $_REQUEST['studentId'] : "";
-        $phoneNumber =isset($_REQUEST['phoneNumber']) ? $_REQUEST['phoneNumber'] : "";
+        $phoneNumber = isset($_REQUEST['phoneNumber']) ? $_REQUEST['phoneNumber'] : "";
 
         if (!validateStudentId($studentId)) {
-            return [
+            return array(
                 "error" => 1,
                 "description" => "Invalid Student ID"
-            ];
+            );
         }
 
         if (!validatePhoneNumber($phoneNumber)) {
-            return [
+            return array(
                 "error" => 1,
                 "description" => "Invalid Phone Number"
-            ];
+            );
         }
 
         if (!validateEmail($email)) {
-            return [
+            return array(
                 "error" => 1,
                 "description" => "Invalid Email Address"
-            ];
+            );
         }
-
+        include_once ROOT . "/app/Models/login/StudentUser.php";
         $studentUser = new StudentUser();
         $studentUser->setEmail($email);
         $studentUser->setPhoneNumber($phoneNumber);
@@ -76,34 +73,35 @@ class RegisterController
         $password = generateRandomPassword();
         $studentUser->setPassword($password);
 
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
 
         $uid = $dbManager->createUser($studentUser);
         if ($uid) {
             $studentUser->setUserId($uid);
         } else {
-            return [
+            return array(
                 "error" => 1,
                 "description" => "Errors while creating user"
-            ];
+            );
         }
 
         if (!$dbManager->createStudent($studentUser)) {
-            return [
+            return array(
                 "error" => 1,
                 "description" => "Errors while creating student"
-            ];
+            );
         }
 
-        mav_mail("MavAppoint Account Created",
+        $message = mav_mail("MavAppoint Account Created",
             "<p>Your account for MavAppoint has been created! Your account information is:</p>"
             . "<p>Role: Student </p>"
             . "<p>Password: " . $password . "</p>"
             . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>", [$studentUser->getEmail()]);
 
-        return [
+        return array(
             "error" => 0,
-        ];
+        );
     }
 
 

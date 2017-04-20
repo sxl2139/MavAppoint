@@ -44,7 +44,7 @@ $url = $content['data']['url'];
 
                         <label for="drp_department"><font color="#0" size="4">Departments</font></label>
                         <br>
-                        <select id="drp_department_register" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
+                        <select id="drp_department_register" name="drp_department_register" class="btn btn-default btn-lg dropdown-toggle">
 
                             <?php
                             foreach ($departments as $department) {

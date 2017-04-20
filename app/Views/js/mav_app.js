@@ -216,7 +216,7 @@ $(function(){
                 email : email,
                 studentId : studentId,
                 phoneNumber : phoneNumber,
-                department : $('#drp_department').find(":selected").text(),
+                department : $('#drp_department_register').find(":selected").text(),
                 major : $('#drp_major').find(":selected").text(),
                 degree : $('#drp_degreeType').find(":selected").text(),
                 initial : $('#drp_last_name_initial').find(":selected").text()
