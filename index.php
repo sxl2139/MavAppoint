@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define("ROOT", __DIR__);
+define("ROOT", dirname(__FILE__));
 
 require (ROOT . "/app/Application.php");
 

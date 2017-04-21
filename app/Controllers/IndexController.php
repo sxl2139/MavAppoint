@@ -20,7 +20,7 @@ class IndexController
                 $studentUser->setStudentId($cseStudent->getStudentId());
                 $studentUser->setRole("student");
                 $studentUser->setLastNameInitial(substr(ucfirst($cseStudent->getLname()), 0, 1));
-                $studentUser->setDepartments(["CSE"]);
+                $studentUser->setDepartments(array("CSE"));
                 $studentUser->setMajors([config("majors." . $cseStudent->getProgram())]);
                 $studentUser->setDegreeTypeFromString(config("degrees." . $cseStudent->getDegree()));
                 $studentUser->setNotification("yes");
@@ -47,8 +47,8 @@ class IndexController
 
         }
 
-        return [
+        return array(
             "error" => 0
-        ];
+        );
     }
 }
