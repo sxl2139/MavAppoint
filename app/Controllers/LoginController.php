@@ -4,6 +4,7 @@ class LoginController
 {
     public function defaultAction()
     {
+        $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
     }
 
     public function checkAction()
@@ -31,7 +32,6 @@ class LoginController
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
-        $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
 
         return array(
             "error" => 0,
