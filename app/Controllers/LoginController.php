@@ -4,7 +4,7 @@ class LoginController
 {
     public function defaultAction()
     {
-        $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
+
     }
 
     public function checkAction()

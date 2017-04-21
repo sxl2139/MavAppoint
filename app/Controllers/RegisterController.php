@@ -65,8 +65,8 @@ class RegisterController
         $studentUser->setStudentId($studentId);
         $studentUser->setRole("student");
         $studentUser->setLastNameInitial($_REQUEST['initial']);
-        $studentUser->setDepartments([$_REQUEST['department']]);
-        $studentUser->setMajors([$_REQUEST['major']]);
+        $studentUser->setDepartments(array($_REQUEST['department']));
+        $studentUser->setMajors(array($_REQUEST['major']));
         $studentUser->setDegreeTypeFromString($_REQUEST['degree']);
         $studentUser->setNotification("yes");
 
@@ -93,11 +93,11 @@ class RegisterController
             );
         }
 
-        $message = mav_mail("MavAppoint Account Created",
+        mav_mail("MavAppoint Account Created",
             "<p>Your account for MavAppoint has been created! Your account information is:</p>"
             . "<p>Role: Student </p>"
             . "<p>Password: " . $password . "</p>"
-            . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>", [$studentUser->getEmail()]);
+            . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>", array($studentUser->getEmail()));
 
         return array(
             "error" => 0,

@@ -28,10 +28,10 @@ $testAction = mav_encrypt("test");
         }
     </style>
 
-    <input id="loginController" type="hidden" value="<?=$loginController?>"/>
-    <input id="checkAction" type="hidden" value="<?=$checkAction?>"/>
-    <input id="indexController" type="hidden" value="<?=$indexController?>"/>
-    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+    <input id="loginController" type="hidden" value="<?php echo $loginController?>"/>
+    <input id="checkAction" type="hidden" value="<?php echo $checkAction?>"/>
+    <input id="indexController" type="hidden" value="<?php echo $indexController?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <!--    <input id="testAction" type="hidden" value="--><?//=$testAction?><!--"/>-->
 
     <div class="container" style="margin-top: 40px">
@@ -81,7 +81,7 @@ $testAction = mav_encrypt("test");
         </div>
     </div>
 
-    <a href="?c=<?=$loginController?>&a=<?=$testAction?>" >test DB</a>
+    <a href="?c=<?php echo $loginController?>&a=<?php echo $testAction?>" >test DB</a>
 
 
 <?php include("template/footer.php"); ?>

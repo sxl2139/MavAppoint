@@ -17,7 +17,7 @@ if (!class_exists("SQLCmd")){
 				$this->queryDB();
 				$this->result = $this->processResult();
 				$this->disconnect();
-			} catch (\Exception $e) {
+			} catch (Exception $e) {
 				$this->disconnect();
 			}
 
@@ -25,7 +25,7 @@ if (!class_exists("SQLCmd")){
 		}
 
 		function connectDB() {
-			$this->conn = new \mysqli(
+			$this->conn = new mysqli(
 				"localhost","root","123","new_mavappointdb2s");
 			//env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
 		}

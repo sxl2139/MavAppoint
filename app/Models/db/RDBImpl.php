@@ -1,7 +1,7 @@
 <?php
 include_once dirname(__FILE__) . "/dbInterface/DBImplInterface.php";
 
-class RDBImpl implements \Models\Db\DbInterface\DBImplInterface
+class RDBImpl implements DBImplInterface
 {
 
     function setWaitListSchedule($waitList)
@@ -250,84 +250,84 @@ class RDBImpl implements \Models\Db\DbInterface\DBImplInterface
 
     function getAdmin($email)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdmin.php";
         $cmd = new GetAdmin($email);
         return $cmd->execute();
     }
 
     function getFaculty($email)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetAdmin.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetAdmin.php";
         $cmd = new GetAdmin($email);
         return $cmd->execute();
     }
 
     function addTimeSlot($at, $id)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/AddTimeSlot.php";
+        include_once dirname(dirname(__FILE__)) . "/command/AddTimeSlot.php";
         $cmd = new AddTimeSlot($at, $id);
         return $cmd->execute();
     }
 
     function deleteTimeSlot($at)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/DeleteTimeSlot.php";
+        include_once dirname(dirname(__FILE__)) . "/command/DeleteTimeSlot.php";
         $cmd = new DeleteTimeSlot($at);
         return $cmd->execute();
     }
 
     function getDepartment($id)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetDepartment.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetDepartment.php";
         $cmd = new GetDepartment($id);
         return $cmd->execute();
     }
 
     function getMajorsOfDepartment($name)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetMajorsOfDepartment.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetMajorsOfDepartment.php";
         $cmd = new GetMajorsOfDepartment($name);
         return $cmd->execute();
     }
 
     function getMajor($id)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetMajor.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetMajor.php";
         $cmd = new GetMajor($id);
         return $cmd->execute();
     }
 
     function getMajorsByUserId($userId)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetMajorsByUserId.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetMajorsByUserId.php";
         $cmd = new GetMajorsByUserId($userId);
         return $cmd->execute();
     }
 
     function getCSEUser($pName)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEUser.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetCSEUser.php";
         $cmd = new GetCSEUser($pName);
         return $cmd->execute();
     }
 
     function getCSEStudent($studentId)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEStudent.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetCSEStudent.php";
         $cmd = new GetCSEStudent($studentId);
         return $cmd->execute();
     }
 
     public function getCSEStudentByNetId($netId)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/GetCSEStudentByNetId.php";
+        include_once dirname(dirname(__FILE__)) . "/command/GetCSEStudentByNetId.php";
         $cmd = new GetCSEStudentByNetId($netId);
         return $cmd->execute();
     }
 
     public function deleteWaitListSchedule($id)
     {
-        include_once dirname(dirname(__FILE__)) . "/Command/DeleteWaitListSchedule.php";
+        include_once dirname(dirname(__FILE__)) . "/command/DeleteWaitListSchedule.php";
         $cmd = new DeleteWaitListSchedule($id);
         return $cmd->execute();
     }

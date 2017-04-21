@@ -23,8 +23,8 @@ $studentEmail = $content['data']['studentEmail'];
 $studentId = $content['data']['studentId'];
 $studentPhone = $content['data']['studentPhone'];
 ?>
-    <input id="loginController" type="hidden" value="<?=$loginController?>"/>
-    <input id="loginController" type="hidden" value="<?=$loginController?>"/>
+    <input id="loginController" type="hidden" value="<?php echo $loginController?>"/>
+    <input id="loginController" type="hidden" value="<?php echo $loginController?>"/>
     <div class="container-fluid">
         <!-- Panel -->
         <div class="panel panel-default">
@@ -143,10 +143,10 @@ $studentPhone = $content['data']['studentPhone'];
                             $i = 0;
                             foreach ($advisors as $advisor) {
                                 ?>
-                                <button type="button" id="button1<?= $i ?>"
-                                        onclick="button<?= $i ?>()"><?= $advisor['pName'] ?></button>
-                                <script> function button<?=$i?>() {
-                                        document.getElementById("advisor_button").value = "<?=$advisor['pName']?>";
+                                <button type="button" id="button1<?php echo  $i ?>"
+                                        onclick="button<?php echo  $i ?>()"><?php echo  $advisor['pName'] ?></button>
+                                <script> function button<?php echo $i?>() {
+                                        document.getElementById("advisor_button").value = "<?php echo $advisor['pName']?>";
                                         advisor_form.submit();
                                     }
                                 </script>
@@ -286,10 +286,10 @@ if (count($advisors) == 0) {
                                     <h4 class="modal-title">Add to wait list</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="advisingController" value="<?=$advisingController?>">
-                                    <input type="hidden" id="getWaitListInfoAction" value="<?=$getWaitListInfoAction?>">
-                                    <input type="hidden" id="addToWaitListAction" value="<?=$addToWaitListAction?>">
-                                    <input type="hidden" id="successAction" value="<?=$successAction?>">
+                                    <input type="hidden" id="advisingController" value="<?php echo $advisingController?>">
+                                    <input type="hidden" id="getWaitListInfoAction" value="<?php echo $getWaitListInfoAction?>">
+                                    <input type="hidden" id="addToWaitListAction" value="<?php echo $addToWaitListAction?>">
+                                    <input type="hidden" id="successAction" value="<?php echo $successAction?>">
 
 
                                     <input type="hidden" id="appointmentId">
@@ -298,9 +298,9 @@ if (count($advisors) == 0) {
                                         <span id="appointmentType" style="font-weight:bold;color:red"></span><br>
                                         You have <span id="waitStudentsNumber" style="font-weight:bold;color:red"></span> students ahead of you</div><br>
                                     <b>Advisor</b><br><input name=advisor id="advisor" readonly><br>
-                                    <b>Student ID</b><br> <input type="text" name="studentId" id="studentId" value="<?= $studentId ?>"><br>
-                                    <b>Student Email</b><br> <input type="text" name="email" id="email" value="<?= $studentEmail ?>"><br>
-                                    <b>Student Phone Number</b><br> <input type="text" name="phoneNumber" id="phoneNumber" value="<?= $studentPhone ?>"> <br>
+                                    <b>Student ID</b><br> <input type="text" name="studentId" id="studentId" value="<?php echo  $studentId ?>"><br>
+                                    <b>Student Email</b><br> <input type="text" name="email" id="email" value="<?php echo  $studentEmail ?>"><br>
+                                    <b>Student Phone Number</b><br> <input type="text" name="phoneNumber" id="phoneNumber" value="<?php echo  $studentPhone ?>"> <br>
                                     <b>Description:</b><br><textarea rows=4 columns="10" name=description id="description"></textarea>
                                 </div>
                                 <div class="modal-footer">
@@ -313,16 +313,16 @@ if (count($advisors) == 0) {
                 </form>
 
                 <form name=addAppt method="get">
-                    <input type="hidden" name="c" value="<?= $advisingController ?>">
-                    <input type="hidden" name="a" value="<?= $scheduleAction ?>">
+                    <input type="hidden" name="c" value="<?php echo  $advisingController ?>">
+                    <input type="hidden" name="a" value="<?php echo  $scheduleAction ?>">
                     <input type="hidden" name="id1" id="id1">
                     <input type="hidden" name="pname" id="pname">
                     <input type="hidden" name="advisor_email" id="advisor_email">
                 </form>
 
                 <form name=updateAppt method="get">
-                    <input type="hidden" name=c value="<?= $appointmentController ?>">
-                    <input type="hidden" name=a value="<?= $showAppointmentAction ?>">
+                    <input type="hidden" name=c value="<?php echo  $appointmentController ?>">
+                    <input type="hidden" name=a value="<?php echo  $showAppointmentAction ?>">
                 </form>
 
                 <br/> <br/>

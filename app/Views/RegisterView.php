@@ -24,11 +24,11 @@ $url = $content['data']['url'];
 </style>
 
 
-<input type="hidden" id="registerController" value="<?=$registerController?>" />
-<input type="hidden" id="getMajorsAction" value="<?=$getMajorsAction?>" />
-<input type="hidden" id="registerStudentAction" value="<?=$registerStudentAction?>" />
-<input type="hidden" id="loginUrl" value="<?=$url?>" />
-<input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+<input type="hidden" id="registerController" value="<?php echo $registerController?>" />
+<input type="hidden" id="getMajorsAction" value="<?php echo $getMajorsAction?>" />
+<input type="hidden" id="registerStudentAction" value="<?php echo $registerStudentAction?>" />
+<input type="hidden" id="loginUrl" value="<?php echo $url?>" />
+<input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 
 <div class="container block">
     <!-- Panel -->

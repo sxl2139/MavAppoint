@@ -1,13 +1,4 @@
 <?php
-namespace Models\Db\DbInterface;
-use Models\Bean as bean;
-use Models\Login as login;
-/**
- * Created by PhpStorm.
- * User: Jarvis
- * Date: 2017/2/13
- * Time: 1:56
- */
 
 interface DBImplInterface
 {
