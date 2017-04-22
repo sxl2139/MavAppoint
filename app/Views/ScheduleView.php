@@ -22,7 +22,7 @@ $advisorEmail = $content['data']['advisorEmail'];
 $userEmail = $content['data']['userEmail'];
 ?>
 
-    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <div class="input-group-btn">
 
     <?php
@@ -30,7 +30,7 @@ $userEmail = $content['data']['userEmail'];
         ?>
         <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
             Select Advising Type for
-            <?=$pName?>
+            <?php echo $pName?>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
@@ -72,14 +72,14 @@ if (count($schedules) != 0) {
                     ,
                     eventClick: function (event, element) {
                         document.getElementById("appointmentId").value = event.id;
-                        document.getElementById("appointmentType").value = '<?=$appType?>';
-                        document.getElementById("duration").value = '<?=$duration?>';
-                        document.getElementById("pName").value = '<?=$pName?>';
-                        document.getElementById("advisor_email").value = '<?=$advisorEmail?>';
-                        document.getElementById("appointmentController").value = '<?=$appointmentController?>';
-                        document.getElementById("makeAppointmentAction").value = '<?=$makeAppointmentAction?>';
-                        document.getElementById("getAdvisingInfoAction").value = '<?=$getAdvisingInfoAction?>';
-                        document.getElementById("successAction").value = '<?=$successAction?>';
+                        document.getElementById("appointmentType").value = '<?php echo $appType?>';
+                        document.getElementById("duration").value = '<?php echo $duration?>';
+                        document.getElementById("pName").value = '<?php echo $pName?>';
+                        document.getElementById("advisor_email").value = '<?php echo $advisorEmail?>';
+                        document.getElementById("appointmentController").value = '<?php echo $appointmentController?>';
+                        document.getElementById("makeAppointmentAction").value = '<?php echo $makeAppointmentAction?>';
+                        document.getElementById("getAdvisingInfoAction").value = '<?php echo $getAdvisingInfoAction?>';
+                        document.getElementById("successAction").value = '<?php echo $successAction?>';
                         document.getElementById("start").value = event.start;
                         document.getElementById("end").value = event.end;
                         document.getElementById("starttime").value = event.start.format();
@@ -126,7 +126,7 @@ if (count($schedules) != 0) {
                     <input type="hidden" id="makeAppointmentAction">
                     <input type="hidden" id="getAdvisingInfoAction">
                     <input type="hidden" id="successAction">
-                    Email address: <br><input type="text" name="email" id="email" value="<?=$userEmail?>"><br>
+                    Email address: <br><input type="text" name="email" id="email" value="<?php echo $userEmail?>"><br>
                     UTA Student ID: <br><input type="text" name="studentId" id="studentId"> <br>
                     Phone Number: <br> <input type="text" name="phoneNumber" id="phoneNumber"> <br>
                     Description: <br><textarea rows=4 columns="10" name="description" id="description"></textarea>

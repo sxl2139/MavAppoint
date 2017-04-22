@@ -39,7 +39,7 @@ $url = $content['data'];
         };
         setTimeout("redirect()", 2000);
         function redirect(){
-            window.location.href = "<?=$url?>"
+            window.location.href = "<?php echo $url?>"
         }
 
     </script>

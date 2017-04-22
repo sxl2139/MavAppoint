@@ -57,10 +57,10 @@ $successAction = mav_encrypt("success");
         }
     </script>
 
-    <input type="hidden" id="appointmentController" value="<?=$appointmentController?>">
-    <input type="hidden" id="cancelAppointmentAction" value="<?=$cancelAppointmentAction?>">
-    <input type="hidden" id="successAction" value="<?=$successAction?>">
-    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+    <input type="hidden" id="appointmentController" value="<?php echo $appointmentController?>">
+    <input type="hidden" id="cancelAppointmentAction" value="<?php echo $cancelAppointmentAction?>">
+    <input type="hidden" id="successAction" value="<?php echo $successAction?>">
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container">
         <div class="btn-group">
             <form action="appointments" method="post" name="cancel">
@@ -94,20 +94,20 @@ $successAction = mav_encrypt("success");
 
                             ?>
                             <tr>
-                                <td><?=$appointment['pName']?></td>
-                                <td><?=$appointment['advisingDate']?></td>
-                                <td><?=$appointment['advisingStartTime']?></td>
-                                <td><?=$appointment['advisingEndTime']?></td>
-                                <td><?=$appointment['appointmentType']?></td>
-                                <td><?=$appointment['advisorEmail']?></td>
-                                <td><?=$appointment['description']?></td>
-                                <td><?=$appointment['studentId']?></td>
-                                <td><?=$appointment['studentEmail']?></td>
-                                <td><?=$appointment['studentPhoneNumber']?></td>
+                                <td><?php echo $appointment['pName']?></td>
+                                <td><?php echo $appointment['advisingDate']?></td>
+                                <td><?php echo $appointment['advisingStartTime']?></td>
+                                <td><?php echo $appointment['advisingEndTime']?></td>
+                                <td><?php echo $appointment['appointmentType']?></td>
+                                <td><?php echo $appointment['advisorEmail']?></td>
+                                <td><?php echo $appointment['description']?></td>
+                                <td><?php echo $appointment['studentId']?></td>
+                                <td><?php echo $appointment['studentEmail']?></td>
+                                <td><?php echo $appointment['studentPhoneNumber']?></td>
 
 
                                 <td class="text-center">
-                                    <button type="button" class="cancelButton" value="<?=$appointment['appointmentId']?>">Cancel</button>
+                                    <button type="button" class="cancelButton" value="<?php echo $appointment['appointmentId']?>">Cancel</button>
                                 </td>
                                 <td class="text-center">
                                     <button type="button">Edit</button>

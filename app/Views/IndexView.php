@@ -13,9 +13,9 @@ $getAdvisingInfoAction = mav_encrypt("getAdvisingInfo");
         <h1><font style="color: #e67e22;font-size:72px;"> Mav-Appointment </font></h1>
         <p>This advising system is used by University of Texas at Arlington only.</p>
         <?php if($role == ""){ ?>
-        <a href="?c=<?=$advisingController?>&a=<?=$getAdvisingInfoAction?>" class="btn btn-primary btn-lg">Make an appointment Now!</a>
+        <a href="?c=<?php echo $advisingController?>&a=<?php echo $getAdvisingInfoAction?>" class="btn btn-primary btn-lg">Make an appointment Now!</a>
         <?php	}else if($role != "advisor" && $role != "admin"){ ?>
-        <a href="?c=<?=$advisingController?>&a=<?=$getAdvisingInfoAction?>" class="btn btn-primary btn-lg">Make an appointment Now!</a>
+        <a href="?c=<?php echo $advisingController?>&a=<?php echo $getAdvisingInfoAction?>" class="btn btn-primary btn-lg">Make an appointment Now!</a>
         <?php } ?>
 
     </div>

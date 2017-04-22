@@ -17,5 +17,11 @@ return array(
         "MSNT" => "Master",
         "PhD" => "Doctorate",
         "MSNonDgr" => "Doctorate"
+    ),
+    "DB" => array(
+        "HOST" => "localhost",
+        "USERNAME" => "root",
+        "PASSWORD" => "123",
+        "DATABASE" => "new_mavappointdb2s"
     )
 );
