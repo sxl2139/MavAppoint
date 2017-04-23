@@ -25,23 +25,23 @@ class GetAppointmentsByDate extends SQLCmd
     function processResult(){
         include_once ROOT . "/app/Models/bean/Appointment.php";
         $arr = array();
-        while($rs = mysqli_fetch_array($this->result)){
+        while($rs = mysqli_fetch_row($this->result)){
             $set = new Appointment();
-            $set->setAppointmentId($rs['id']);
-            $set->setAdvisorUserId($rs['advisorUserId']);
-            $set->setStudentUserId($rs['studentUserId']);
 
-            $set->setAdvisingDate($rs["date"]);
-            $set->setAdvisingStartTime($rs["start"]);
-            $set->setAdvisingEndTime($rs["end"]);
+            $set->setAppointmentId($rs[0]);
+            $set->setAdvisorUserId($rs[1]);
+            $set->setStudentUserId($rs[2]);
+            $set->setAdvisingDate($rs[3]);
+            $set->setAdvisingStartTime($rs[4]);
+            $set->setAdvisingEndTime($rs[5]);
+            $set->setAppointmentType($rs[6]);
+            $set->setDescription($rs[7]);
+            $set->setStudentId($rs[8]);
+            $set->setStudentEmail($rs[9]);
+            $set->setStudentPhoneNumber($rs[10]);
 
-            $set->setAppointmentType($rs["type"]);
-            $set->setDescription($rs['description']);
-
-            $set->setStudentId($rs['studentId']);
-            $set->setStudentEmail($rs['student_email']);
-            $set->setStudentPhoneNumber($rs['student_cell']);
-
+            $set->setPname($rs[11]);
+            $set->setAdvisorEmail($rs[12]);
             array_push($arr, $set);
         }
 

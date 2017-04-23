@@ -26,11 +26,11 @@ class GetAppointmentTypes extends SQLCmd{
     function processResult(){
         include_once ROOT . "/app/Models/bean/AppointmentType.php";
         $arr = array();
-        while($rs = mysqli_fetch_array($this->result)){
+        while($rs = mysqli_fetch_row($this->result)){
             $set = new AppointmentType();
-            $set->setType($rs["type"]);
-            $set->setDuration($rs["duration"]);
-            $set->setEmail($rs["email"]);
+            $set->setType($rs[0]);
+            $set->setDuration($rs[1]);
+            $set->setEmail($rs[2]);
             array_push($arr, ($set));
         }
 

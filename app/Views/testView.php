@@ -65,6 +65,11 @@ $time->setStartTime("10:55");
 $time->setEndTime("11:15");
 
 
+echo "getStudentWaitList</br>";
+$res = $manager->getStudentWaitList("111","444");
+var_dump($res);echo '</br>';
+echo "==============================</br>";
+
 echo "getStudentEmails</br>";
 $res = $manager->getStudentEmails();
 var_dump($res);echo '</br>';
@@ -102,7 +107,6 @@ var_dump($res);echo '</br>';
 echo "==============================</br>";
 
 echo "getStudent</br>";
-$res = $manager->getStudent("shaoying.li@mavs.uta.edu");
 var_dump($res);echo '</br>';
 echo "==============================</br>";
 
@@ -178,6 +182,11 @@ echo "==============================</br>";
 
 echo "getAppointment</br>";
 $res = $manager->getAppointment("2017-02-14", "shaoying.li@mavs.uta.edu");
+var_dump($res);echo '</br>';
+echo "==============================</br>";
+
+echo "getAppointmentByStuId</br>";
+$res = $manager->getAppointmentByStuId("1001331545","2017-02-14");
 var_dump($res);echo '</br>';
 echo "==============================</br>";
 

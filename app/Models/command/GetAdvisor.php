@@ -20,8 +20,8 @@ class GetAdvisor extends SQLCmd {
 		$query = "SELECT name FROM ma_major_user WHERE userId = '$this->id'";
         $this->result = $this->conn->query($query);
         $this->majors = array();
-        while($rs = mysqli_fetch_array($this->result)){
-            array_push($this->majors, $rs['name']);
+        while($rs = mysqli_fetch_row($this->result)){
+            array_push($this->majors, $rs[0]);
         }
 
 		$query = "SELECT ma_user.*,ma_user_advisor.*,ma_department_user.name dep

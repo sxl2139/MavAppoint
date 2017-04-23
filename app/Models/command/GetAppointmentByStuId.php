@@ -24,14 +24,14 @@ class GetAppointmentByStuId extends SQLCmd
 
     function processResult(){
         $arr = array();
-        while($rs = mysqli_fetch_array($this->result)){
+        while($rs = mysqli_fetch_row($this->result)){
             $set = new Appointment();
-            $set->setAppointmentId($rs["id"]);
-            $set->setAdvisingDate($rs["date"]);
-            $set->setAdvisingStartTime($rs["start"]);
-            $set->setAdvisingEndTime($rs["end"]);
-            $set->setAppointmentType($rs["type"]);
-            $set->setStudentEmail($rs["studentEmail"]);
+            $set->setAppointmentId($rs[0]);
+            $set->setAdvisingDate($rs[1]);
+            $set->setAdvisingStartTime($rs[2]);
+            $set->setAdvisingEndTime($rs[3]);
+            $set->setAppointmentType($rs[4]);
+            $set->setStudentEmail($rs[5]);
             array_push($arr, $set);
         }
 

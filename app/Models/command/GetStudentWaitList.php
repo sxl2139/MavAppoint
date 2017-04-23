@@ -23,16 +23,16 @@ class GetStudentWaitList extends SQLCmd
     }
 
     function processResult(){
-        if ($rs = mysqli_fetch_array($this->result)){
+        if ($rs = mysqli_fetch_row($this->result)){
             $apt = new WaitList();
-            $apt->setId($rs['id']);
-            $apt->setAppointmentId($rs['aptId']);
-            $apt->setStudentId($rs['studentId']);
-            $apt->setStudentUserId($rs['studentUserId']);
-            $apt->setType($rs['aptType']);
-            $apt->setDescription($rs['description']);
-            $apt->setStudentEmail($rs['studentEmail']);
-            $apt->setStudentPhone($rs['studentCell']);
+            $apt->setId($rs[0]);
+            $apt->setAppointmentId($rs[1]);
+            $apt->setStudentUserId($rs[2]);
+            $apt->setStudentId($rs[3]);
+            $apt->setType($rs[4]);
+            $apt->setDescription($rs[5]);
+            $apt->setStudentEmail($rs[6]);
+            $apt->setStudentPhone($rs[7]);
             return $apt;
         }
 

@@ -19,8 +19,8 @@ class GetStudentEmails extends SQLCmd{
 
     function processResult(){
         $arr = array();
-        while($rs = mysqli_fetch_array($this->result)){
-            array_push($arr, ($rs['email']));
+        while($rs = mysqli_fetch_row($this->result)){
+            array_push($arr, ($rs[0]));
         }
 
         return $arr;

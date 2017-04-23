@@ -21,7 +21,7 @@ return array(
     "DB" => array(
         "HOST" => "localhost",
         "USERNAME" => "root",
-        "PASSWORD" => "123",
-        "DATABASE" => "new_mavappointdb2s"
+        "PASSWORD" => "1234",
+        "DATABASE" => "mavappointdb2s"
     )
 );

@@ -18,7 +18,6 @@ class GetAdvisorSchedule extends SQLCmd
 
     function queryDB(){
         try {
-            $conn = new \mysqli( env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
             if($this->includeReserved == true && $this->date!=null){
                 // get one specific adviser's all time slots(include reserved).
                 $command = "SELECT pName,date,start,end,id 
@@ -49,7 +48,7 @@ class GetAdvisorSchedule extends SQLCmd
 
             }
 
-            $this->result = $conn->query($command);
+            $this->result = $this->conn->query($command);
 
         } catch (\Exception $e) {
 
@@ -70,7 +69,7 @@ class GetAdvisorSchedule extends SQLCmd
             array_push($PrimitiveTimeSlotArr, serialize($set));
         }
 
-        $compositeTimeSlotArr = Helper\TimeSlotHelper::createCompositeTimeSlot($PrimitiveTimeSlotArr);
+        $compositeTimeSlotArr = TimeSlotHelper::createCompositeTimeSlot($PrimitiveTimeSlotArr);
 
 
         if($this->date!=null){
