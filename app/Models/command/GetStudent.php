@@ -27,7 +27,7 @@ class GetStudent extends SQLCmd {
 	}
 
 	function processResult() {
-		include_once ROOT . "/app/Models/login/StudentUser.php";
+		include_once dirname(dirname(__FILE__)) . "/login/StudentUser.php";
 	    $set = new StudentUser();
 	    $set->setEmail($this->result["email"]);
         $set->setPassword($this->result["password"]);

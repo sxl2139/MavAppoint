@@ -17,6 +17,7 @@ class GetCSEStudentByNetId extends SQLCmd
 
     function processResult()
     {
+        include_once dirname(dirname(__FILE__)) . "/login/CSEStudent.php";
         $user = null;
         if ($this->result != null) {
             $user = new CSEStudent();

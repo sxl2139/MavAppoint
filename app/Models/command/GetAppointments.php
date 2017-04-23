@@ -1,5 +1,9 @@
 <?php
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/login/LoginUser.php";
+include_once dirname(dirname(__FILE__)) . "/login/StudentUser.php";
+include_once dirname(dirname(__FILE__)) . "/login/AdvisorUser.php";
+
 class GetAppointments extends SQLCmd{
     private $user;
 
@@ -42,7 +46,7 @@ class GetAppointments extends SQLCmd{
         $arr = array();
 
         while($rs = mysqli_fetch_assoc($this->result)){
-            include_once ROOT . "/app/Models/bean/Appointment.php";
+            include_once dirname(__FILE__) . "/app/Models/bean/Appointment.php";
             $set = new Appointment();
 
             $set->setAppointmentId($rs['id']);

@@ -6,6 +6,7 @@
  * Time: 9:29
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/Appointment.php";
 class CreateAppointment extends SQLCmd {
 	private $apt, $email;
 

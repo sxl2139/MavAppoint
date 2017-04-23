@@ -21,6 +21,7 @@ class GetFirstWaitList extends SQLCmd
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/bean/WaitList.php";
         if ($this->result){
             $wl = new WaitList();
             $wl->setId($this->result['id']);

@@ -6,6 +6,7 @@
  * Time: 7:22
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/AppointmentType.php";
 class DeleteAppointmentType extends SQLCmd{
     private $at,$id;
 

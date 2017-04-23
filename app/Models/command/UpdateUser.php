@@ -6,6 +6,7 @@
  * Time: 16:25
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/login/LoginUser.php";
 class UpdateUser extends SQLCmd{
     private $user;
 

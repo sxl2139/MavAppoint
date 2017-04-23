@@ -6,6 +6,7 @@
  * Time: 11:58
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/WaitList.php";
 class SetWaitListSchedule extends SQLCmd
 {
     private $apt;

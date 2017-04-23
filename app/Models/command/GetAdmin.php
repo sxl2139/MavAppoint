@@ -19,6 +19,7 @@ class GetAdmin extends SQLCmd{
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/login/LoginUser.php";
         $set = new LoginUser();
         $set->setUserId($this->result["userId"]);
         $set->setEmail($this->result["email"]);

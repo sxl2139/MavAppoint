@@ -35,6 +35,7 @@ class GetAdvisor extends SQLCmd {
 	}
 
 	function processResult() {
+        include_once dirname(dirname(__FILE__)) . "/login/AdvisorUser.php";
         $set = new AdvisorUser();
         $set->setUserId($this->id);
         $set->setEmail($this->email);

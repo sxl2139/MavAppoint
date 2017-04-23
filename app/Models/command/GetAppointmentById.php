@@ -23,7 +23,7 @@ class GetAppointmentById extends SQLCmd
     {
         $rs = $this->result;
         if ($rs != null) {
-            include_once ROOT . "/app/Models/bean/Appointment.php";
+            include_once dirname(dirname(__FILE__)) . "/bean/Appointment.php";
             $set = new Appointment();
             $set->setAppointmentId($rs['id']);
             $set->setAdvisorUserId($rs['advisorUserId']);

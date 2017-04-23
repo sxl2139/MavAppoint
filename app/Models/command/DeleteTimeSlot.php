@@ -6,6 +6,7 @@
  * Time: 14:33
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/AllocateTime.php";
 class DeleteTimeSlot extends SQLCmd{
     private $time;
 

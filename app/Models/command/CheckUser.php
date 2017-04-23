@@ -6,6 +6,7 @@
  * Time: 6:44
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/GetSet.php";
 
 class CheckUser extends SQLCmd{
     private $set;

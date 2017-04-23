@@ -6,6 +6,7 @@
  * Time: 6:17
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
+include_once dirname(dirname(__FILE__)) . "/bean/AppointmentType.php";
 
 class AddAppointmentType extends SQLCmd
 {

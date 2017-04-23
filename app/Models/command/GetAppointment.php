@@ -26,6 +26,7 @@ class GetAppointment extends SQLCmd{
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/bean/Appointment.php";
         $set = new Appointment();
         $rs = $this->result;
         $set->setAdvisingDate($rs["date"]);

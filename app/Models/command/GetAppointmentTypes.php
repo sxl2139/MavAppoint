@@ -24,7 +24,7 @@ class GetAppointmentTypes extends SQLCmd{
     }
 
     function processResult(){
-        include_once ROOT . "/app/Models/bean/AppointmentType.php";
+        include_once dirname(dirname(__FILE__)) . "/bean/AppointmentType.php";
         $arr = array();
         while($rs = mysqli_fetch_assoc($this->result)){
             $set = new AppointmentType();
