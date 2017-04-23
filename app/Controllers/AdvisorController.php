@@ -1,17 +1,19 @@
 <?php
-namespace App\Controllers;
+//namespace App\Controllers;
 /**
  * Created by PhpStorm.
  * User: gaolin
  * Date: 2/20/17
  * Time: 12:58 AM
  */
-use Models\Db\DatabaseManager;
-use Models\Bean\AllocateTime;
-use Models\Helper\TimeSlotHelper;
-use Models\Bean\Appointment;
-use Models\Login\AdvisorUser;
+//use Models\Db\DatabaseManager;
+//use Models\Bean\AllocateTime;
+//use Models\Helper\TimeSlotHelper;
+//use Models\Bean\Appointment;
+//use Models\Login\AdvisorUser;
 
+include_once dirname(dirname(__FILE__))."/Models/db/DatabaseManager.php";
+include_once dirname(dirname(__FILE__))."/Models/bean/AllocateTime.php";
 class advisorController
 {
     private $email;
@@ -35,16 +37,19 @@ class advisorController
         if($this->role =="advisor" && $this->email!=null){
             $dbm = new DatabaseManager();
             $advisor = $dbm->getAdvisor($this->email);
-            $scheduleObjectArr = $dbm->getAdvisorSchedule($advisor->getPName());
 
+            $scheduleObjectArr = $dbm->getAdvisorSchedule($advisor->getPName());
+            $tempSchedules = array();
             if (sizeof($scheduleObjectArr) != 0) {
                 foreach ($scheduleObjectArr as $schedule){
-                    $tempSchedules[] = [
+                    array_push($tempSchedules,
+                        array(
                         "name" => $schedule->getName(),
                         "date" => $schedule->getDate(),
                         "startTime" => $schedule->getStartTime(),
                         "endTime" => $schedule->getEndTime(),
-                    ];
+                        )
+                    );
 
                 }
             }
@@ -54,12 +59,12 @@ class advisorController
             $tempAppointments = array();
             foreach ($appointments as $appointment){
                 array_push($tempAppointments,
-                    [
+                    array(
                         "advisingDate" => $appointment->getAdvisingDate(),
                         "advisingStartTime" => $appointment->getAdvisingStartTime(),
                         "advisingEndTime" => $appointment->getAdvisingEndTime(),
                         "appointmentType" => $appointment->getAppointmentType()
-                    ]
+                        )
                     );
 
             }
@@ -67,16 +72,16 @@ class advisorController
 
         }
 
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "email" =>$this->email,
                 "advisorName" => $advisor->getPName(),
                 "role" => $this->role,
                 "schedules" =>$tempSchedules,
                 "appointments" => $tempAppointments
-            ]
-        ];
+            )
+        );
 
 
     }
@@ -110,16 +115,16 @@ class advisorController
         }
 
         if($flag == false){
-            return[
+            return array(
                 "error" => 0,
                 "dispatch" => "failure",
-            ];
+            );
         }
         else
-            return[
+            return array(
                 "error" => 0,
                 "dispatch" => "success",
-            ];
+            );
 
 
 
@@ -164,7 +169,7 @@ class advisorController
 
 
 
-
+        include_once dirname(__FILE__)."/DeleteTimeSlotController.php";
         DeleteTimeSlotController::deleteTimeSlot($requestDate,$originalStartTime,$originalEndTime,$advisor->getPName(),$repeat,$reason);
 
 
@@ -187,12 +192,12 @@ class advisorController
             if(($appointment->getAdvisingDate() === $date) && ($appointment->getAdvisingStartTime() >= $originalStartTime)
                 && ($appointment->getAdvisingEndTime() <= $originalEndTime)){
                 array_push($studentEmailAndMsgArr,
-                    [
+                    array(
                         "studentEmail" => $appointment->getStudentEmail(),
                         "msg"=> "Advising time slot of adviser " .$advisor->getPName(). " on " . $date. " at ". $appointment->getAdvisingStartTime()
                             . "-" .$appointment->getAdvisingEndTime()." has been cancelled."
                             ."\n" ."Reason: ". $reason,
-                    ]
+                    )
                 );
                 $dbm->cancelAppointment($appointment->getAppointmentId());
 

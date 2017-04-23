@@ -6,16 +6,21 @@
  * Time: 12:41 AM
  */
 
-namespace App\Controllers;
 
-use Models\Bean\AllocateTime;
-use Models\Db as db;
-Use Models\Helper as Helper;
+
+//use Models\Bean\AllocateTime;
+//use Models\Db as db;
+//Use Models\Helper as Helper;
+include_once ROOT. "/app/Models/db/DatabaseManager.php";
+include_once ROOT. "/app/Models/bean/AllocateTime.php";
+include_once ROOT. "/app/Models/helper/TimeSlotHelper.php";
 
 /**
  * Class DeleteTimeSlotController : This class just has one static method to support other controllers' deleting TimeSlot
  * @package App\Controllers
  */
+
+
 class DeleteTimeSlotController
 {
     public static function deleteTimeSlot($date, $startTime, $endTime, $emailOrName, $repeat, $reason){
@@ -26,7 +31,7 @@ class DeleteTimeSlotController
         $time->setEmail($emailOrName);
         $time->setReasons($reason);
 
-        $dbm = new db\DatabaseManager();
+        $dbm = new DatabaseManager();
         $dbm->deleteTimeSlot($time);
 
 
@@ -34,7 +39,7 @@ class DeleteTimeSlotController
 
         if($repeat !=0 && $repeat!=null){
             for($i = 0 ; $i<$repeat; $i++){
-                $time->setDate(Helper\TimeSlotHelper::addDate($time->getDate(),1) );
+                $time->setDate(TimeSlotHelper::addDate($time->getDate(),1) );
                 $dbm ->deleteTimeSlot($time);
             }
 

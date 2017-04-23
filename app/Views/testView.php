@@ -116,7 +116,7 @@ var_dump($res);echo '</br>';
 echo "==============================</br>";
 
 echo "getAdvisor</br>";
-$res = $manager->getAdvisor("ad1@uta.edu");
+$res = $manager->getAdvisor("ad2@uta.edu");
 var_dump($res);echo '</br>';
 echo "==============================</br>";
 

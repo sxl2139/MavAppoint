@@ -14,6 +14,7 @@ class GetAdvisor extends SQLCmd {
 	}
 
 	function queryDB() {
+	    include_once dirname(__FILE__)."/GetUserIdByEmail.php";
 		$cmd = new GetUserIdByEmail($this->email);
 		$this->id  = $cmd->execute();
 

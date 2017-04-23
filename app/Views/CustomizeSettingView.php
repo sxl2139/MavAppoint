@@ -24,13 +24,13 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
         width: 80%;
     }
 </style>
-    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
-    <input id="customizeSettingController" type="hidden" value="<?=$customizeSettingController?>"/>
-    <input id="successAction" type="hidden" value="<?=$successAction?>"/>
-    <input id="cutOffTimeAction" type="hidden" value="<?=$cutOffTimeAction?>"/>
-    <input id="deleteTypeAndDurationAction" type="hidden" value="<?=$deleteTypeAndDurationAction?>"/>
-    <input id="setEmailNotificationsAction" type="hidden" value="<?=$setEmailNotificationsAction?>"/>
-    <input id="addTypeAndDurationAction" type="hidden" value="<?=$addTypeAndDurationAction?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
+    <input id="customizeSettingController" type="hidden" value="<?php echo $customizeSettingController?>"/>
+    <input id="successAction" type="hidden" value="<?php echo $successAction?>"/>
+    <input id="cutOffTimeAction" type="hidden" value="<?php echo $cutOffTimeAction?>"/>
+    <input id="deleteTypeAndDurationAction" type="hidden" value="<?php echo $deleteTypeAndDurationAction?>"/>
+    <input id="setEmailNotificationsAction" type="hidden" value="<?php echo $setEmailNotificationsAction?>"/>
+    <input id="addTypeAndDurationAction" type="hidden" value="<?php echo $addTypeAndDurationAction?>"/>
     <div class="container">
 
     <!-- Panel -->
@@ -62,8 +62,8 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
                         <td><button class="btn deleteTypeAndDurationSubmit" type="button" > <span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
 
-                            <script> function deleteapptype<?=$i?>(){
-                                    var apptype = "<?=$typeAndDuration[$i]['type']?>";
+                            <script> function deleteapptype<?php echo $i?>(){
+                                    var apptype = "<?php echo $typeAndDuration[$i]['type']?>";
                                     var minutes = "<?php echo $typeAndDuration[$i]['duration']?>";
                                     if (validate(apptype) == true){
 
@@ -152,11 +152,11 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
                 <label style="text-align: center" for="message"><font color="#0" size="4">Username or Password Invalid</font></label> <br>
 
                 <div class="form-group">
-                    <input type="radio" name="notify" id="radioyes" value="yes" <?=$notificationYes?>><label for="radioyes">Yes</label>
+                    <input type="radio" name="notify" id="radioyes" value="yes" <?php echo $notificationYes?>><label for="radioyes">Yes</label>
                 </div>
                 <div class="form-group">
 
-                    <input type="radio" name="notify" id="radiono" value="no" <?=$notificationNo?>><label for="radiono">No</label>
+                    <input type="radio" name="notify" id="radiono" value="no" <?php echo $notificationNo?>><label for="radiono">No</label>
 
                 </div>
                 <div class="panel-footer text-center">

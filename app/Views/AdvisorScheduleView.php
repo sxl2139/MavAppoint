@@ -9,6 +9,7 @@ $content = json_decode($content, true);
 $schedules = isset($content['data']['schedules']) ? $content['data']['schedules'] : null;
 $appointments = isset($content['data']['appointments']) ? $content['data']['appointments'] : null;
 $dispatch = isset($content['dispatch']) ? $content['dispatch'] : null;
+
 //$msg = isset($content['msg']) ? $content['msg'] : null;
 if($dispatch == "success")
 {?>
@@ -79,10 +80,10 @@ if($dispatch == "failure")
                     foreach ($schedules as $schedule)
                     {?>
                     {
-                        title: '<?=$schedule['name']?>',
+                        title: '<?php echo $schedule['name']?>',
                         start: '<?php echo $schedule['date'] . "T" . $schedule['startTime']?>',
                         end: '<?php echo $schedule['date'] . "T" . $schedule['endTime']?>',
-                        id:<?=$i?>,
+                        id:<?php echo $i?>,
                         backgroundColor: 'blue'
                     }
                     <?php
@@ -98,10 +99,10 @@ if($dispatch == "failure")
                     foreach ($appointments as $appointment) {
                     ?>
                     {
-                        title:'<?=$appointment['appointmentType']?>',
+                        title:'<?php echo $appointment['appointmentType']?>',
                         start:'<?php echo $appointment['advisingDate'] . "T" . $appointment['advisingStartTime']?>',
                         end:'<?php echo $appointment['advisingDate'] . "T" . $appointment['advisingEndTime']?>',
-                        id:<?=-$i?>,
+                        id:<?php echo -$i?>,
                         backgroundColor: 'orange'
                     }
                     <?php
@@ -124,7 +125,7 @@ if($dispatch == "failure")
     </script>
 
 
-    <form name=addTimeSlot id="add_time_slot" action="?c=<?=$advisorController?>&a=<?=$addTimeSlotAction?>" method="post">
+    <form name=addTimeSlot id="add_time_slot" action="?c=<?php echo $advisorController?>&a=<?php echo $addTimeSlotAction?>" method="post">
         <div class="modal fade" id="addTimeSlotModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -154,7 +155,7 @@ if($dispatch == "failure")
             </div>
         </div>
     </form>
-    <form name=deleteTimeSlot id="delete_time_slot" action="?c=<?=$advisorController?>&a=<?=$deleteTimeSlotAction?>" method="post">
+    <form name=deleteTimeSlot id="delete_time_slot" action="?c=<?php echo $advisorController?>&a=<?php echo $deleteTimeSlotAction?>" method="post">
         <div class="modal fade" id="deleteTimeSlotModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -7,7 +7,7 @@
  * Time: 14:59
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
-include_once dirname(dirname(__FILE__)) . "/helper/TimeSlotHelper.php";
+include_once dirname(dirname(__FILE__) ). "/helper/TimeSlotHelper.php";
 
 class AddTimeSlot extends SQLCmd {
     private $time,$id,$helper,$timeSlot;

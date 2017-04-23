@@ -46,7 +46,7 @@ class GetAppointments extends SQLCmd{
         $arr = array();
 
         while($rs = mysqli_fetch_assoc($this->result)){
-            include_once dirname(__FILE__) . "/app/Models/bean/Appointment.php";
+            include_once dirname(dirname(__FILE__)) . "/bean/Appointment.php";
             $set = new Appointment();
 
             $set->setAppointmentId($rs['id']);

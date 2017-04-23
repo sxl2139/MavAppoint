@@ -20,8 +20,8 @@ return array(
     ),
     "DB" => array(
         "HOST" => "localhost",
-        "USERNAME" => "root",
-        "PASSWORD" => "1234",
+        "USERNAME" => "CSE5328Spring16",
+        "PASSWORD" => "er1ja@18xs@3",
         "DATABASE" => "mavappointdb2s"
     )
 );

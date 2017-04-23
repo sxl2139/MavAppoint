@@ -20,6 +20,7 @@ return array(
     ),
     "admin" => array(
         "addAdvisor" => "CreateAdvisorView",
+//        "addAdvisor" => "addAdvisor",
         "createNewAdvisor" => "createNewAdvisor",
         "showDepartmentSchedule" => "DepartmentScheduleView",
         "deleteTimeSlot" => "DepartmentScheduleView",

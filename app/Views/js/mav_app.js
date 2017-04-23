@@ -46,13 +46,13 @@ $(function(){
                 drp_department : drp_department
             },
             success: function(data){
-                var data = JSON.parse(data);
-                if (data.error == 0) {
-                    alert(data.data.message);
-                    $("#addAdvisorResult").text(data.data.message);
+                var data1 = JSON.parse(data);
+                if (data1.error == 0) {
+                    alert(data1.data.message);
+                    $("#addAdvisorResult").text(data1.data.message);
                 }else{
-                    alert(data.data.message);
-                    $("#addAdvisorResult").text(data.data.message);
+                    alert(data1.data.message);
+                    $("#addAdvisorResult").text(data1.data.message);
                 }
             }
         });

@@ -6,14 +6,17 @@
  * Time: 17:56
  */
 
-namespace App\Controllers;
+//namespace App\Controllers;
 
 
-use Models\Bean\AppointmentType;
-use Models\Db\DatabaseManager;
-use Models\Login\AdvisorUser;
+//use Models\Bean\AppointmentType;
+//use Models\Db\DatabaseManager;
+//use Models\Login\AdvisorUser;
 
-class CustomizeSettingController extends BasicController
+include_once dirname(dirname(__FILE__))."/Models/db/DatabaseManager.php";
+include_once dirname(dirname(__FILE__))."/Models/bean/AppointmentType.php";
+include_once dirname(dirname(__FILE__))."/Models/login/AdvisorUser.php";
+class CustomizeSettingController
 {
     public function defaultAction()
     {
@@ -42,23 +45,23 @@ class CustomizeSettingController extends BasicController
             if (sizeof($appointmentTypeObjectArr) != 0) {
                 foreach ($appointmentTypeObjectArr as $appointmentType){
                     array_push($typeAndDuration,
-                        [
+                        array(
                             "type" => $appointmentType->getType(),
                             "duration" => $appointmentType->getDuration()
-                        ]
+                        )
                     );
                 }
             }
             $getAdvisorNotificationState = $advisor->getNotification();
         }
 
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "typeAndDuration" =>$typeAndDuration,
                 "advisorNotificationState" =>$getAdvisorNotificationState
-            ]
-        ];
+            )
+        );
     }
 
     function cutOffTimeAction(){
@@ -68,10 +71,10 @@ class CustomizeSettingController extends BasicController
         $uid = $dbm->getUserIdByEmail($_SESSION['email']);
         $dbm->setCutOffTime($uid, $cutOffTime);
 
-        return[
+        return array(
             "error" => 0,
             "dispatch" => "success"
-        ];
+        );
     }
 
     function setEmailNotificationsAction(){
@@ -83,15 +86,15 @@ class CustomizeSettingController extends BasicController
 //        var_dump($user);
 //        var_dump($radioValue);die();
         if (!$dbm->updateUserNotification($user, $radioValue)) {
-            return [
+            return array(
                 "error" => 1
-            ];
+            );
         }
 
-        return [
+        return array(
             "error" => 0,
             "dispatch" => "success",
-        ];
+        );
     }
 
     function addTypeAndDurationAction(){
@@ -108,10 +111,10 @@ class CustomizeSettingController extends BasicController
         $uid = $dbm->getUserIdByEmail($_SESSION['email']);
         $dbm->addAppointmentType($uid,$at);
 
-        return [
+        return array(
             "error" => 0,
             "dispatch" => "success",
-        ];
+        );
     }
 
     function deleteTypeAndDurationAction(){
@@ -124,16 +127,16 @@ class CustomizeSettingController extends BasicController
         $uid = $dbm->getUserIdByEmail($_SESSION['email']);
         $dbm->deleteAppointmentType($uid,$at);//
 
-        return [
+        return array(
             "error" => 0,
             "dispatch" => "success",
-        ];
+        );
     }
 
     public function successAction(){
-        return [
+        return array(
             "error" => 0,
             "data" => getUrlWithoutParameters() . "?c=" . mav_encrypt("customizeSetting") . "&a=" . mav_encrypt("showAppointmentType")
-        ];
+        );
     }
 }

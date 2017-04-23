@@ -20,9 +20,9 @@ $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
 </style>
 
 
-    <input id="adminController" type="hidden" value="<?=$adminController?>"/>
-    <input id="createNewAdvisorAction" type="hidden" value="<?=$createNewAdvisorAction?>"/>
-    <input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+    <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
+    <input id="createNewAdvisorAction" type="hidden" value="<?php echo $createNewAdvisorAction?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <div class="container">
     <!-- Panel -->
     <div class="panel panel-default resize center-block">
@@ -38,8 +38,8 @@ $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
                     <select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
                         <?php
                         foreach ($departments as $department){?>
-                            <option value=<?=$department['name']?> >
-                                <?=$department['name']?>
+                            <option value=<?php echo $department['name']?> >
+                                <?php echo $department['name']?>
                             </option>
                         <?php } ?>
                     </select>

@@ -1,21 +1,24 @@
 <?php
-namespace App\Controllers;
 /**
  * Created by PhpStorm.
  * User: gaolin
  * Date: 2/20/17
  * Time: 12:58 AM
  */
-//include_once dirname(dirname(__FILE__))."/Models/login/LoginUser.php";
-//include_once dirname(dirname(__FILE__))."/Models/login/AdvisorUser.php";
-use Models\Db as db;
-use Models\Login as login;
-use Models\Db\DatabaseManager;
-use Models\Login\AdvisorUser;
-use Models\Helper\TimeSlotHelper;
+include_once dirname(dirname(__FILE__))."/Models/login/LoginUser.php";
+include_once dirname(dirname(__FILE__))."/Models/login/AdvisorUser.php";
+include_once dirname(dirname(__FILE__))."/Models/db/DatabaseManager.php";
+//use Models\Db as db;
+//use Models\Login as login;
+//use Models\Db\DatabaseManager;
+//use Models\Login\AdvisorUser;
+//use Models\Helper\TimeSlotHelper;
 
+//include_once ROOT. "/app/Models/db/DatabaseManager.php";
+//include_once ROOT . "app/Models/login/LoginUser.php";
+//include_once ROOT . "app/Models/login/AdvisorUser.php";
 
-class adminController extends BasicController
+class adminController
 {
     private $email;
     private $uid;
@@ -34,43 +37,45 @@ class adminController extends BasicController
     }
 
     public function addAdvisorAction(){
-        return [
-            "department" => [
-                0 => [
+        return array(
+            "department" => array(
+                0 => array(
                     "name" => "CSE"
-                ],
-                1 => [
+                ),
+                1 => array(
                     "name" => "MATH"
-                ],
-                2 => [
+                ),
+                2 => array(
                     "name" => "MAE"
-                ],
-                3 => [
+                ),
+                3 => array(
                     "name" => "ARCH"
-                ],
-            ]
-        ];
+                ),
+            )
+        );
     }
 
     function createNewAdvisorAction(){
-        $manager = new db\DatabaseManager();
+
+        $manager = new DatabaseManager();
 
         $department = $_REQUEST['drp_department'];
         $email = $_REQUEST['email'];
         $name = $_REQUEST['pname'];
+        $password = generateRandomPassword();
 
-        $loginUser = new login\LoginUser();
+        $loginUser = new LoginUser();
         $loginUser->setEmail($email);
-        $loginUser->setPassword("password");
+        $loginUser->setPassword($password);
         $loginUser->setRole("advisor");
-        $loginUser->setDepartments(($department));
-        $loginUser->setMajors("Software Engineering");
+        $loginUser->setDepartments(array($department));
+        $loginUser->setMajors(array("Software Engineering"));
 
 
         $id = $manager->createUser($loginUser);
 
 
-        $Advisor = new login\AdvisorUser();
+        $Advisor = new AdvisorUser();
         $Advisor->setUserId($id);
         $Advisor->setPName($name);
         $Advisor->setNotification("Yes");
@@ -81,24 +86,32 @@ class adminController extends BasicController
         $res=$manager->createAdvisor($Advisor);
 
 
+
         if($res)
         {
-            return [
+            mav_mail("MavAppoint Account Created",
+                "<p>Your account for MavAppoint has been created! Your account information is:</p>"
+                . "<p>Role: Advisor </p>"
+                . "<p>Password: " . $password . "</p>"
+                . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>",
+                array($loginUser->getEmail())
+            );
+            return array(
                 "error" => 0,
-                "data" => [
+                "data" => array(
                     "message" => "Advisor created successfully. An email has been sent to the advisor's account with his/her temporary password",
 
+                )
 
-                ]
-            ];
-//            return "Advisor created successfully. An email has been sent to the advisor's account with his/her temporary password";
+            );
+
         } else {
-            return [
+            return array(
                 "error" => 1,
-                "data" => [
+                "data" => array(
                     "message" => "Fail"
-                ]
-            ];
+                )
+            );
 //            return "Failed";
         }
 
@@ -119,22 +132,23 @@ class adminController extends BasicController
         }
 
         if ($this->role == "admin" && $this->email != null) {
-            $dbm = new db\DatabaseManager();
+            $dbm = new DatabaseManager();
             $adminUser = $dbm->getAdmin($this->email);
             $appointments = $dbm->getAppointments($adminUser);
             if(sizeof($appointments) != 0 ){
+                $tempSchedules = array();
                 foreach ($appointments as $appointment){
 
 
 
                     $advisor = $dbm->getAdvisor($appointment->getAdvisorEmail());
-                    $tempSchedules[] = [
+                    $tempSchedules = array(
                             "advisingDate" => $appointment->getAdvisingDate(),
                             "advisingStartTime" => $appointment->getAdvisingStartTime(),
                             "advisingEndTime" => $appointment->getAdvisingEndTime(),
 //                            "appointmentType" => $appointment->getAppointmentType()
                             "appointmentType" => $appointment->getAppointmentType()." - ".$advisor->getPName()
-                        ];
+                    );
 
 
                 }
@@ -143,14 +157,17 @@ class adminController extends BasicController
 
             $scheduleObjectArr = $dbm->getAdvisorSchedule("all");
             if (sizeof($scheduleObjectArr) != 0) {
+                $tempSchedules = array();
                 foreach ($scheduleObjectArr as $schedule){
-                    $tempSchedules[] = [
+                    array_push($tempSchedules ,
+                        array(
                         "name" => $schedule->getName(),
                         "date" => $schedule->getDate(),
                         "startTime" => $schedule->getStartTime(),
                         "endTime" => $schedule->getEndTime(),
 
-                    ];
+                        )
+                    );
 
                 }
 
@@ -160,15 +177,15 @@ class adminController extends BasicController
 
 
         }
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "email" =>$this->email,
                 "role" => $this->role,
                 "schedules" =>$tempSchedules,
                 "appointments" => $tempSchedules
-            ]
-        ];
+            )
+        );
     }
 
 
@@ -191,6 +208,7 @@ class adminController extends BasicController
                 break;
             }
         }
+
         $date = $requestDate;
         $originalTimeSlots = $dbm->getAdvisorSchedule($advisor->getPName(),true,$date);
         foreach ($originalTimeSlots as $timeSlot){
@@ -208,11 +226,12 @@ class adminController extends BasicController
                 $this->cancelAppointments($dbm,$advisor,$date,$originalStartTime,$originalEndTime,$reason);
             }
         }
+        include_once ROOT . "/app/Controllers/DeleteTimeSlotController.php";
         DeleteTimeSlotController::deleteTimeSlot($requestDate,$originalStartTime,$originalEndTime,$advisor->getPName(),$repeat,$reason);
-        return [
+        return array(
             "error" => 0,
             "dispatch" => "success",
-        ];
+        );
     }
 
     function cancelAppointments(DatabaseManager $dbm, AdvisorUser $advisor, $date , $originalStartTime, $originalEndTime, $reason){
@@ -222,12 +241,12 @@ class adminController extends BasicController
             if(($appointment->getAdvisingDate() === $date) && ($appointment->getAdvisingStartTime() >= $originalStartTime)
                 && ($appointment->getAdvisingEndTime() <= $originalEndTime)){
                 array_push($studentEmailAndMsgArr,
-                    [
+                    array(
                         "studentEmail" => $appointment->getStudentEmail(),
                         "msg"=> "Advising time slot of adviser " .$advisor->getPName(). " on " . $date. " at ". $appointment->getAdvisingStartTime()
                             . "-" .$appointment->getAdvisingEndTime()." has been cancelled."
                             ."\n" ."Reason: ". $reason,
-                    ]
+                    )
                 );
                 $dbm->cancelAppointment($appointment->getAppointmentId());
 
@@ -247,7 +266,7 @@ class adminController extends BasicController
 
 
     function showAdvisorAssignmentAction(){
-        $dbm = new db\DatabaseManager();
+        $dbm = new DatabaseManager();
 
         $this->dep = $dbm->getDepartment($this->uid)[0];
 
@@ -259,33 +278,33 @@ class adminController extends BasicController
             $advisorMajors = $dbm->getMajorsByUserId($rs->getUserId());
 
             array_push($res,
-                [
+                array(
                     "userId"=>$rs->getUserId(),
                     "pName"=>$rs->getPName(),
                     "nameLow"=>$rs->getNameLow(),
                     "nameHigh"=>$rs->getNameHigh(),
                     "degreeType"=>$rs->getDegType(),
                     "majors"=>$advisorMajors
-                ]
+                )
                 );
         }
 
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "advisors" => $res,
                 "majors" => $majors
-            ],
-        ];
+            ),
+        );
     }
 
     function assignStudentToAdvisorAction(){
-        $dbm = new db\DatabaseManager();
+        $dbm = new DatabaseManager();
         $advisorsNew = isset($_POST['advisors']) ? $_POST['advisors'] : null;
         $advisorsNew = json_decode($advisorsNew, true);
 
         foreach ($advisorsNew as $res){
-            $user = new login\AdvisorUser();
+            $user = new AdvisorUser();
             $user->setUserId($res['userId']);
             $user->setPName($res['pName']);
             $user->setNameLow($res['nameLow']);
@@ -296,15 +315,15 @@ class adminController extends BasicController
             $dbm->updateAdvisor($user);
         }
 
-        return [
+        return array(
             "error" => 0
-        ];
+        );
     }
 
     public function successAction(){
-        return [
+        return array(
             "error" => 0,
-            "data" => "http://localhost/MavAppoint_PHP/?c=" . mav_encrypt("admin") . "&a=" . mav_encrypt("showAdvisorAssignment")
-        ];
+            "data" => getUrlWithoutParameters(). "?c=" . mav_encrypt("admin") . "&a=" . mav_encrypt("showAdvisorAssignment")
+        );
     }
 }

@@ -79,10 +79,10 @@ if($dispatch == "failure")
                     foreach ($schedules as $schedule)
                     {?>
                     {
-                        title: '<?=$schedule['name']?>',
+                        title: '<?php echo $schedule['name']?>',
                         start: '<?php echo $schedule['date'] . "T" . $schedule['startTime']?>',
                         end: '<?php echo $schedule['date'] . "T" . $schedule['endTime']?>',
-                        id:<?=$i?>,
+                        id:<?php echo $i?>,
                         backgroundColor: 'blue'
                     }
                     <?php
@@ -98,10 +98,10 @@ if($dispatch == "failure")
                     foreach ($appointments as $appointment) {
                     ?>
                     {
-                        title:'<?=$appointment['appointmentType']?>',
+                        title:'<?php echo $appointment['appointmentType']?>',
                         start:'<?php echo $appointment['advisingDate'] . "T" . $appointment['advisingStartTime']?>',
                         end:'<?php echo $appointment['advisingDate'] . "T" . $appointment['advisingEndTime']?>',
-                        id:<?=-$i?>,
+                        id:<?php echo -$i?>,
                         backgroundColor: 'orange'
                     }
                     <?php
@@ -117,7 +117,7 @@ if($dispatch == "failure")
         });
     </script>
 
-    <form name=deleteTimeSlot id="delete_time_slot" action="?c=<?=$adminController?>&a=<?=$deleteTimeSlotAction?>" method="post">
+    <form name=deleteTimeSlot id="delete_time_slot" action="?c=<?php echo $adminController?>&a=<?php echo $deleteTimeSlotAction?>" method="post">
         <div class="modal fade" id="deleteTimeSlotModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
