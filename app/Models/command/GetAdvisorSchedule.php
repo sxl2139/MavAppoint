@@ -56,6 +56,9 @@ class GetAdvisorSchedule extends SQLCmd
     }
 
     function processResult(){
+        include_once dirname(dirname(__FILE__)) . "/PrimitiveTimeSlot.php";
+        include_once dirname(dirname(__FILE__)) . "/helper/TimeSlotHelper.php";
+
         $PrimitiveTimeSlotArr = array();
         $adviserSchedule = array();
 

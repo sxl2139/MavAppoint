@@ -25,19 +25,19 @@ class GetAdvisorsOfDepartment extends SQLCmd{
     function processResult(){
         include_once dirname(dirname(__FILE__)) . "/login/AdvisorUser.php";
         $arr = array();
-        while($rs = mysqli_fetch_row($this->result)){
+        while($rs = mysqli_fetch_assoc($this->result)){
             $user = new AdvisorUser();
-            $user->setUserId($rs[0]);
-            $user->setPName($rs[1]);
-            $user->setNotification($rs[2]);
-            $user->setNameLow($rs[3]);
-            $user->setNameHigh($rs[4]);
-            $user->setDegType($rs[5]);
-            $user->setCutOffPreference($rs[6]);
-            $user->setEmail($rs[8]);
-            $user->setPassword($rs[9]);
-            $user->setRole($rs[11]);
-            $user->setValidated($rs[12]);
+            $user->setUserId($rs['userId']);
+            $user->setPName($rs['pName']);
+            $user->setNotification($rs['notification']);
+            $user->setNameLow($rs['nameLow']);
+            $user->setNameHigh($rs['nameHigh']);
+            $user->setDegType($rs['degreeTypes']);
+            $user->setCutOffPreference($rs['cutOffTime']);
+            $user->setEmail($rs['email']);
+            $user->setPassword($rs['password']);
+            $user->setRole($rs['role']);
+            $user->setValidated($rs['validated']);
             array_push($arr, $user);
         }
 

@@ -161,12 +161,12 @@ var_dump($res);echo '</br>';
 echo "==============================</br>";
 
 
-//echo "getAdvisorSchedule</br>";
-//$name = "Lin Gao";
-//$res = $manager->getAdvisorSchedule($name);
-//var_dump($res);
-//echo '</br>';
-//echo "==============================</br>";
+echo "getAdvisorSchedule</br>";
+$name = "all";
+$res = $manager->getAdvisorSchedule($name);
+var_dump($res);
+echo '</br>';
+echo "==============================</br>";
 
 echo "getAdvisorSchedules</br>";
 $arr = array('test4');

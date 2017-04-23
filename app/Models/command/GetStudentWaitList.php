@@ -23,16 +23,17 @@ class GetStudentWaitList extends SQLCmd
     }
 
     function processResult(){
-        if ($rs = mysqli_fetch_row($this->result)){
+        include_once dirname(dirname(__FILE__)) . "/bean/WaitList.php";
+        if ($rs = mysqli_fetch_assoc($this->result)){
             $apt = new WaitList();
-            $apt->setId($rs[0]);
-            $apt->setAppointmentId($rs[1]);
-            $apt->setStudentUserId($rs[2]);
-            $apt->setStudentId($rs[3]);
-            $apt->setType($rs[4]);
-            $apt->setDescription($rs[5]);
-            $apt->setStudentEmail($rs[6]);
-            $apt->setStudentPhone($rs[7]);
+            $apt->setId($rs['id']);
+            $apt->setAppointmentId($rs['aptId']);
+            $apt->setStudentUserId($rs['studentUserId']);
+            $apt->setStudentId($rs['studentId']);
+            $apt->setType($rs['aptType']);
+            $apt->setDescription($rs['description']);
+            $apt->setStudentEmail($rs['studentEmail']);
+            $apt->setStudentPhone($rs['studentCell']);
             return $apt;
         }
 

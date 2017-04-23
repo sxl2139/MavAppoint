@@ -22,8 +22,8 @@ class GetMajorsByUserId extends SQLCmd
 
     function processResult(){
         $arr = array();
-        while($rs = mysqli_fetch_row($this->result)){
-            array_push($arr, ($rs[0]));
+        while($rs = mysqli_fetch_assoc($this->result)){
+            array_push($arr, ($rs['name']));
         }
 
         return $arr;
