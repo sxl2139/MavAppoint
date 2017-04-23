@@ -58,6 +58,11 @@ $(function(){
         });
     });
 
+    $(".advisorButton").on("click", function (e) {
+        var advisorName = $(this).attr("value");
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisingController").val() + "&a=" + $("#getAdvisingInfoAction").val() + "&pName=" + advisorName;
+    });
+
     $("#makeAppointment").on("click", function (e) {
         e.preventDefault();
 
@@ -354,5 +359,29 @@ $(function(){
                 }
             });
         }
+    });
+
+    $("#changePasswordSubmit").click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: $(".mavAppointUrl").val(),
+            type: "post",
+            data: {
+                c : $("#loginController").val(),
+                a : $("#changePasswordAction").val(),
+                currentPassword : $("#currentPassword").val(),
+                newPassword : $("#newPassword").val(),
+                repeatPassword : $("#repeatPassword").val()
+            },
+            success: function(data){
+                var data = JSON.parse(data);
+                if (data.error == 0) {
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#successAction").val() + "&nc=index&na=default";
+                }else{
+                    $("#changePasswordErrorMessage").text(data.description).css({'color' : '#e67e22', 'font-size' : '16px'});
+                }
+            }
+        });
     });
 });

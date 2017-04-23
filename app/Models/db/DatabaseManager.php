@@ -36,6 +36,10 @@ class DatabaseManager{
         return $this->impl->getCSEStudent($studentId);
     }
 
+    /**
+     * @param $netId
+     * @return CSEStudent
+     */
     public function getCSEStudentByNetId($netId) {
         return $this->impl->getCSEStudentByNetId($netId);
     }
@@ -92,6 +96,10 @@ class DatabaseManager{
         return $this->impl->getUserIdByEmail($email);
     }
 
+    /**
+     * @param $email
+     * @return AdvisorUser
+     */
     function getAdvisor($email){
         return $this->impl->getAdvisor($email);
     }
@@ -100,6 +108,10 @@ class DatabaseManager{
         return $this->impl->getAdvisors();
     }
 
+    /**
+     * @param $dep
+     * @return AdvisorUser[]
+     */
     function getAdvisorsOfDepartment($dep){
         return $this->impl->getAdvisorsOfDepartment($dep);
     }
@@ -156,6 +168,10 @@ class DatabaseManager{
         return $this->impl->getAppointmentByStuId($id,$date);
     }
 
+    /**
+     * @param $id
+     * @return Appointment
+     */
     function getAppointmentById($id) {
         return $this->impl->getAppointmentById($id);
     }

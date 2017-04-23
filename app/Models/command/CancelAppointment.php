@@ -24,8 +24,8 @@ class CancelAppointment extends SQLCmd{
 
         if($res['count(*)'] == 1){
             $this->result = true;
-            $query = "DELETE FROM ma_apointments 
-                      WHERE id='$this->id'";
+            $query = "DELETE FROM ma_appointments
+                      WHERE Id='$this->id'";
             $this->conn->query($query);
             $query = "UPDATE ma_advising_schedule 
                       SET studentId=null 

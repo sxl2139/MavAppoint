@@ -2,11 +2,14 @@
 include("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
+
 $advisingController = mav_encrypt("advising");
 $appointmentController = mav_encrypt("appointment");
 $getWaitListInfoAction = mav_encrypt("getWaitListInfo");
 $successAction = mav_encrypt("success");
 $addToWaitListAction = mav_encrypt("addToWaitList");
+$getAdvisingInfoAction = mav_encrypt("getAdvisingInfo");
 $scheduleAction = mav_encrypt("schedule");
 $showAppointmentAction = mav_encrypt("showAppointment");
 
@@ -18,13 +21,14 @@ $letters = $content['data']['letters'];
 $advisors = $content['data']['advisors'];
 $schedules = $content['data']['schedules'];
 $appointments = $content['data']['appointments'];
-$waitLists = $content['data']['waitLists'];
+//$waitLists = $content['data']['waitLists'];
 $studentEmail = $content['data']['studentEmail'];
 $studentId = $content['data']['studentId'];
 $studentPhone = $content['data']['studentPhone'];
 ?>
     <input id="loginController" type="hidden" value="<?php echo $loginController?>"/>
-    <input id="loginController" type="hidden" value="<?php echo $loginController?>"/>
+    <input id="getAdvisingInfoAction" type="hidden" value="<?php echo $getAdvisingInfoAction?>"/>
+    <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container-fluid">
         <!-- Panel -->
         <div class="panel panel-default">
@@ -32,7 +36,7 @@ $studentPhone = $content['data']['studentPhone'];
             <div class="panel-heading text-center"><h1>Student Information</h1></div>
             <div class="panel-body">
 
-                <form action="advising" method="post" name="advisor_form">
+                <form method="post" name="advisor_form">
                     <div class="row">
                         <div class="col-md-2">
                             <label for="drp_department"><font color="#0" size="4">Department</font></label>
@@ -88,11 +92,6 @@ $studentPhone = $content['data']['studentPhone'];
                                 }
                                 ?>
 
-                                <script>function selectmajor() {
-                                        document.getElementById("major").value;
-                                        advisor_form.submit();
-                                    }
-                                </script>
                             </select>
                             <br>
 
@@ -110,11 +109,6 @@ $studentPhone = $content['data']['studentPhone'];
 
                             ?>
 
-                            <script>function selectLetter() {
-                                    document.getElementById("letter").value;
-                                    advisor_form.submit();
-                                }
-                            </script>
                         </select>
                         <br>
 
@@ -131,26 +125,14 @@ $studentPhone = $content['data']['studentPhone'];
                             </script>
 
                             <!-- begin processing advisors  -->
-                            <button type="button" id="all1" onclick="alladvisors()">All</button>
-                            <script> function alladvisors() {
-                                    document.getElementById("advisor_button").value = "all";
-                                    advisor_form.submit();
-                                }
-                            </script>
-
+                            <button type="button" class="advisorButton" value="all">All</button>
 
                             <?php
                             $i = 0;
                             foreach ($advisors as $advisor) {
-                                ?>
-                                <button type="button" id="button1<?php echo  $i ?>"
-                                        onclick="button<?php echo  $i ?>()"><?php echo  $advisor['pName'] ?></button>
-                                <script> function button<?php echo $i?>() {
-                                        document.getElementById("advisor_button").value = "<?php echo $advisor['pName']?>";
-                                        advisor_form.submit();
-                                    }
-                                </script>
-                                <?php
+                                echo '
+                                    <button type="button" class="advisorButton" value="' . $advisor['pName'] . '">' . $advisor['pName'] . '</button>
+                                ';
                             }
                             ?>
                         </div>
@@ -240,7 +222,8 @@ if (count($advisors) == 0) {
                                 }
                                 ";
 
-                                    if ($i != count($schedules) - 1 || (count($appointments) != 0 || count($waitLists) != 0)) echo ",";
+//                                    if ($i != count($schedules) - 1 || (count($appointments) != 0 || count($waitLists) != 0)) echo ",";
+                                    if ($i != count($schedules) - 1 || count($appointments) != 0) echo ",";
                                     $i++;
                                 }
 
@@ -254,7 +237,8 @@ if (count($advisors) == 0) {
                                     id:" . -$i . ",
                                     backgroundColor: 'orange'
                                 }";
-                                    if ($i != count($appointments) || count($waitLists) != 0) echo ",";
+//                                    if ($i != count($appointments) || count($waitLists) != 0) echo ",";
+                                    if ($i != count($appointments)) echo ",";
                                     $i++;
                                 }
 

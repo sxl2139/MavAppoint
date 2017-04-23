@@ -45,7 +45,7 @@ class GetAppointments extends SQLCmd{
             include_once ROOT . "/app/Models/bean/Appointment.php";
             $set = new Appointment();
 
-            $set->setAppointmentId($rs['id']);
+            $set->setAppointmentId($rs['Id']);
             $set->setAdvisorUserId($rs['advisorUserId']);
             $set->setStudentUserId($rs['studentUserId']);
             $set->setAdvisingDate($rs["date"]);

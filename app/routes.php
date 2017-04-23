@@ -11,6 +11,9 @@ return array(
         "test" => "testView",
         "check" => "check",
         "logout" => "IndexView",
+        "changePasswordDefault" => "ChangePasswordView",
+        "changePassword" => "changePassword",
+        "success" => "SuccessView"
     ),
     "index" => array(
         "default" => "IndexView"

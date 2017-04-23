@@ -1,15 +1,11 @@
 <?php
-
-namespace App\Controllers;
-
-
-use Models\Bean\Appointment;
-use Models\Db\DatabaseManager;
-use Models\Login\StudentUser;
+include_once ROOT . "/app/Models/db/DatabaseManager.php";
 
 class AppointmentController
 {
     public function makeAppointmentAction(){
+        include_once ROOT . "/app/Models/bean/Appointment.php";
+
         $appointment = new Appointment();
         $appointment->setStudentPhoneNumber($_REQUEST['phoneNumber']);
         $appointment->setAppointmentId($_REQUEST['appointmentId']);
@@ -32,39 +28,39 @@ class AppointmentController
         $dbManager = new DatabaseManager();
         $result = $dbManager->createAppointment($appointment, $_REQUEST['email']);
         if (!isset($result['response']) || !$result['response']) {
-            return [
+            return array(
                 "error" => 1
-            ];
+            );
         }
 
         if ($result['student_notify'] == 'yes') {
             mav_mail("MavAppoint: Advising appointment with " . $appointment->getPname(),
                 "\nAn appointment has been set for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
                 $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime() . "\nThanks!",
-                [$_REQUEST['email']]);
+                array($_REQUEST['email']));
         }
 
         if ($result['advisor_notify'] == 'yes') {
             mav_mail("MavAppoint: Advising appointment with " . $appointment->getStudentId(),
                 "\nAn appointment has been set for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
                 $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime(),
-                [$result['advisor_email']]);
+                array($result['advisor_email']));
         }
 
-        return [
+        return array(
             "error" => 0,
-        ];
+        );
     }
 
     public function showAppointmentAction() {
         $dbManager = new DatabaseManager();
         $user = $dbManager->getStudent($_SESSION['email']);
-        return [
+        return array(
             "error" => 0,
-            "data" => [
+            "data" => array(
                 "appointments" => $this->getAppointments($user, $dbManager)
-            ]
-        ];
+            )
+        );
     }
 
     public function cancelAppointmentAction() {
@@ -72,64 +68,64 @@ class AppointmentController
         $appointmentId = $_REQUEST['appointmentId'];
         $dbManager = new DatabaseManager();
         $appointment = $dbManager->getAppointmentById($appointmentId);
-        $waitList = $dbManager->getFirstWaitList($appointmentId);
-        if ($waitList != null) {
+//        $waitList = $dbManager->getFirstWaitList($appointmentId);
+//        if ($waitList != null) {
+//
+//            $appointment->setStudentUserId($waitList->getStudentUserId());
+//            $appointment->setStudentId($waitList->getStudentId());
+//            $appointment->setStudentEmail($waitList->getStudentEmail());
+//            $appointment->setStudentPhoneNumber($waitList->getStudentPhone());
+//            $appointment->setAppointmentType($waitList->getType());
+//            $appointment->setDescription($waitList->getDescription());
+//
+//            if ($dbManager->updateAppointment($appointment) && $dbManager->deleteWaitListSchedule($waitList->getId())) {
+//
+//                mav_mail("MavAppoint: Advising appointment with " . $appointment->getPname(),
+//                    "\nAn appointment has been set for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
+//                    $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime() . "\nThanks!",
+//                    [$appointment->getStudentEmail()]);
+//
+//                mav_mail("MavAppoint: Advising appointment with " . $appointment->getStudentId(),
+//                    "\nAn appointment has been updated for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
+//                    $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime() .
+//                    "\nSome student cancelled the appointment and the first one in the wait list is scheduled\nThanks!",
+//                    [$appointment->getAdvisorEmail()]);
+//
+//            } else {
+//                $result = 1;
+//            }
+//
+//        } else {
 
-            $appointment->setStudentUserId($waitList->getStudentUserId());
-            $appointment->setStudentId($waitList->getStudentId());
-            $appointment->setStudentEmail($waitList->getStudentEmail());
-            $appointment->setStudentPhoneNumber($waitList->getStudentPhone());
-            $appointment->setAppointmentType($waitList->getType());
-            $appointment->setDescription($waitList->getDescription());
+        if ($dbManager->cancelAppointment($appointmentId)) {
 
-            if ($dbManager->updateAppointment($appointment) && $dbManager->deleteWaitListSchedule($waitList->getId())) {
+            mav_mail("Advising Appointment with " . $appointment->getPname() . " cancelled",
+                "Your appointment on " . $appointment->getAdvisingDate() . " from " . $appointment->getAdvisingStartTime() .
+                " to " . $appointment->getAdvisingEndTime() . " has been cancelled",
+                array($appointment->getStudentEmail()));
 
-                mav_mail("MavAppoint: Advising appointment with " . $appointment->getPname(),
-                    "\nAn appointment has been set for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
-                    $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime() . "\nThanks!",
-                    [$appointment->getStudentEmail()]);
-
-                mav_mail("MavAppoint: Advising appointment with " . $appointment->getStudentId(),
-                    "\nAn appointment has been updated for " . $appointment->getAppointmentType() . " on " . $appointment->getAdvisingDate() . " at " .
-                    $appointment->getAdvisingStartTime() . " - " . $appointment->getAdvisingEndTime() .
-                    "\nSome student cancelled the appointment and the first one in the wait list is scheduled\nThanks!",
-                    [$appointment->getAdvisorEmail()]);
-
-            } else {
-                $result = 1;
-            }
+            mav_mail("Advising Appointment with Student Id: " . $appointment->getStudentId() . " cancelled",
+                "Your appointment on " . $appointment->getAdvisingDate() . " from " . $appointment->getAdvisingStartTime() .
+                " to " . $appointment->getAdvisingEndTime() . " has been cancelled",
+                array($appointment->getAdvisorEmail()));
 
         } else {
-
-            if ($dbManager->cancelAppointment($appointmentId)) {
-
-                mav_mail("Advising Appointment with " . $appointment->getPname() . " cancelled",
-                    "Your appointment on " . $appointment->getAdvisingDate() . " from " . $appointment->getAdvisingStartTime() .
-                    " to " . $appointment->getAdvisingEndTime() . " has been cancelled",
-                    [$appointment->getStudentEmail()]);
-
-                mav_mail("Advising Appointment with Student Id: " . $appointment->getStudentId() . " cancelled",
-                    "Your appointment on " . $appointment->getAdvisingDate() . " from " . $appointment->getAdvisingStartTime() .
-                    " to " . $appointment->getAdvisingEndTime() . " has been cancelled",
-                    [$appointment->getAdvisorEmail()]);
-
-            } else {
-                $result = 1;
-            }
+            $result = 1;
         }
+//        }
 
-        return [
+        return array(
             "error" => $result
-        ];
+        );
     }
 
     public function successAction(){
         $controller = mav_encrypt($_REQUEST['nc']);
         $action = mav_encrypt($_REQUEST['na']);
-        return [
+        return array(
             "error" => 0,
             "data" => getUrlWithoutParameters() . "?c=$controller&a=$action"
-        ];
+        );
     }
 
 
@@ -143,7 +139,7 @@ class AppointmentController
     private function getAppointments(StudentUser $user, DatabaseManager $dbManager) {
         $appointments = $dbManager->getAppointments($user);
         $tempAppointments = array_map(function(Appointment $appointment){
-            return [
+            return array(
                 "pName" => $appointment->getPname(),
                 "advisingDate" => $appointment->getAdvisingDate(),
                 "advisingStartTime" => $appointment->getAdvisingStartTime(),
@@ -155,7 +151,7 @@ class AppointmentController
                 "studentId" => "Advisor only",  //hidden
                 "studentEmail" => $appointment->getStudentEmail(),
                 "studentPhoneNumber" => $appointment->getStudentPhoneNumber()
-            ];
+            );
         }, $appointments);
 
         return $tempAppointments;
