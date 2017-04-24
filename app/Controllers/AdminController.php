@@ -137,6 +137,10 @@ class adminController
         if ($this->role == "admin" && $this->email != null) {
             $dbm = new DatabaseManager();
             $adminUser = $dbm->getAdmin($this->email);
+            $department = $dbm->getDepartment($this->uid);
+            $advisors = $dbm->getAdvisorsOfDepartment($department[0]);
+            $tempSchedules = $this->getSchedules($advisors, $dbm, 0);
+
             $appointments = $dbm->getAppointments($adminUser);
             if(sizeof($appointments) != 0 ){
 
@@ -158,25 +162,22 @@ class adminController
 
             }
 
-            $scheduleObjectArr = $dbm->getAdvisorSchedule("all");
-            if (sizeof($scheduleObjectArr) != 0) {
-
-                foreach ($scheduleObjectArr as $schedule){
-                    array_push($tempSchedules ,
-                        array(
-                        "name" => $schedule->getName(),
-                        "date" => $schedule->getDate(),
-                        "startTime" => $schedule->getStartTime(),
-                        "endTime" => $schedule->getEndTime(),
-
-                        )
-                    );
-
-                }
-
-
-
-            }
+//            $scheduleObjectArr = $dbm->getAdvisorSchedule("all");
+//            if (sizeof($scheduleObjectArr) != 0) {
+//
+//                foreach ($scheduleObjectArr as $schedule){
+//                    array_push($tempSchedules ,
+//                        array(
+//                        "name" => $schedule->getName(),
+//                        "date" => $schedule->getDate(),
+//                        "startTime" => $schedule->getStartTime(),
+//                        "endTime" => $schedule->getEndTime(),
+//
+//                        )
+//                    );
+//
+//                }
+//            }
 
 
         }
@@ -300,6 +301,38 @@ class adminController
                 "majors" => $majors
             ),
         );
+    }
+
+    private function getSchedules($advisors, DatabaseManager $dbManager, $times)
+    {
+        $tempSchedules = array();
+
+        $tmpAdvisors = array();
+
+        foreach ($advisors as $advisor) {
+            array_push($tmpAdvisors, $advisor->getPname());
+        }
+        $advisors = $tmpAdvisors;
+
+        $schedules = $dbManager->getAdvisorSchedules($advisors);
+        foreach ($schedules as $schedule) {
+            /** @var CompositeTimeSlot $schedule */
+
+            $schedule = unserialize($schedule);
+            $scheduleDate = strtotime($schedule->getDate());
+            $todayDate = strtotime(date("Y-m-d", time()));
+            if ($scheduleDate > $todayDate) {
+                array_push($tempSchedules, array(
+                    "name" => $schedule->getName(),
+                    "date" => $schedule->getDate(),
+                    "startTime" => $schedule->getStartTime(),
+                    "endTime" => $schedule->getEndTime(),
+//                    "event" => $schedule->getEvent($times)
+                ));
+            }
+        }
+
+        return $tempSchedules;
     }
 
     function assignStudentToAdvisorAction(){

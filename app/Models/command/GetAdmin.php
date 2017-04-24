@@ -25,6 +25,7 @@ class GetAdmin extends SQLCmd{
         $set->setEmail($this->result["email"]);
         $set->setRole($this->result["role"]);
         $set->setValidated($this->result["validated"]);
+        $set->setPassword($this->result["password"]);
 
         return ($set);
     }

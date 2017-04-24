@@ -194,8 +194,8 @@ class advisorController
                 array_push($studentEmailAndMsgArr,
                     array(
                         "studentEmail" => $appointment->getStudentEmail(),
-                        "msg"=> "Advising time slot of adviser " .$advisor->getPName(). " on " . $date. " at ". $appointment->getAdvisingStartTime()
-                            . "-" .$appointment->getAdvisingEndTime()." has been cancelled."
+                        "msg"=> "Your appointment on" . $date. " at ". $appointment->getAdvisingStartTime()
+                            . "-" .$appointment->getAdvisingEndTime()." has been cancelled by advisor " .$advisor->getPName().". "
                             ."\n" ."Reason: ". $reason,
                     )
                 );
