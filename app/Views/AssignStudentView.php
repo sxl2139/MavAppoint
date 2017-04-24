@@ -20,7 +20,7 @@ $showAdvisorAssignmentAction = mav_encrypt("showAdvisorAssignment");
 $successAction = mav_encrypt("success");
 ?>
 
-<input class="mavAppointUrl" type="hidden" value="<?=$mavAppointUrl?>"/>
+<input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <div class="panel panel-default">
     <div class="panel-heading"><h1>Assign Students To Advisors</h1></div>
     <div class="panel-body">
@@ -87,12 +87,12 @@ $successAction = mav_encrypt("success");
             }else
                 echo "<option value ='Bachelors' >Bachelors</option>";
 
-            if($degType == '3'||$degType == '6'||$degType == '7'){
+            if($degType == '2'||$degType == '3'||$degType == '6'||$degType == '7'){
                 echo "<option value ='Masters' selected='selected'>Masters</option>";
             }else
                 echo "<option value ='Masters' >Masters</option>";
 
-            if($degType == '5'||$degType == '6'||$degType == '7'){
+            if($degType == '4'||$degType == '5'||$degType == '6'||$degType == '7'){
                 echo "<option value ='Doctorate' selected='selected'>Doctorate</option>";
             }else
                 echo "<option value ='Doctorate' >Doctorate</option>";
@@ -129,9 +129,9 @@ $successAction = mav_encrypt("success");
         <input id="assignStudentSubmit" type="submit" class="btn-lg" value="Submit">
     </div>
 
-    <input id="adminController" type="hidden" value="<?= $adminController ?>"/>
-    <input id="assignStudentToAdvisorAction" type="hidden" value="<?= $assignStudentToAdvisorAction ?>"/>
-    <input id="showAdvisorAssignmentAction" type="hidden" value="<?= $showAdvisorAssignmentAction ?>"/>
-    <input id="successAction" type="hidden" value="<?= $successAction ?>"/>
-    <input id="length" type="hidden" value="<?= $position ?>"/>
+    <input id="adminController" type="hidden" value="<?php echo  $adminController ?>"/>
+    <input id="assignStudentToAdvisorAction" type="hidden" value="<?php echo  $assignStudentToAdvisorAction ?>"/>
+    <input id="showAdvisorAssignmentAction" type="hidden" value="<?php echo  $showAdvisorAssignmentAction ?>"/>
+    <input id="successAction" type="hidden" value="<?php echo  $successAction ?>"/>
+    <input id="length" type="hidden" value="<?php echo  $position ?>"/>
 </div>

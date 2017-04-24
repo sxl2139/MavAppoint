@@ -30,7 +30,8 @@ class GetAppointments extends SQLCmd{
         }else{
             $query = "select name from ma_department_user where userId = '$id'";
 
-            $dep = $this->conn->query($query)->fetch_assoc()['name'];
+            $department = $this->conn->query($query)->fetch_assoc();
+            $dep = $department['name'];
 
             $query = "SELECT ma_appointments.*,ma_user.email as email,ma_user_advisor.pName as pName
                       FROM ma_appointments,ma_department_user,ma_user,ma_user_advisor

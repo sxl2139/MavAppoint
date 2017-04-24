@@ -40,6 +40,7 @@ class GetAdvisor extends SQLCmd {
         $set = new AdvisorUser();
         $set->setUserId($this->id);
         $set->setEmail($this->email);
+        $set->setRole($this->result["role"]);
         $set->setNotification($this->result["notification"]);
         $set->setPassword($this->result["password"]);
         $set->setValidated($this->result["validated"]);

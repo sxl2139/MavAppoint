@@ -30,8 +30,8 @@ class CreateAppointment extends SQLCmd {
 		$pName     = $this->apt->getPname();
 		$query     = "SELECT userId 
                       FROM ma_user_advisor 
-                      WHERE ma_user_Advisor.pName='$pName'";
-		$res       = $this->conn->query($query)->fetch_assoc();
+                      WHERE ma_user_advisor.pName='$pName'";
+			$res       = $this->conn->query($query)->fetch_assoc();
 		$advisorId = $res['userId'];
 
 		$query          = "SELECT notification 
@@ -55,10 +55,11 @@ class CreateAppointment extends SQLCmd {
 		$phone       = $this->apt->getStudentPhoneNumber();
 
 		$query = "SELECT COUNT(*) 
-                  FROM ma_advising_Schedule
+                  FROM ma_advising_schedule
                   WHERE userId='$advisorId' AND date='$date' 
                   AND start>='$start' AND end<='$end' AND studentId is not null";
-		if ($this->conn->query($query)->fetch_assoc()['COUNT(*)'] == 0) {
+		$count = $this->conn->query($query)->fetch_assoc();
+		if ($count['COUNT(*)'] == 0) {
             $flag = true;
 
 			$query = "INSERT INTO ma_appointments

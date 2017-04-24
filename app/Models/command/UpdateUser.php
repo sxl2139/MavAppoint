@@ -19,7 +19,7 @@ class UpdateUser extends SQLCmd{
         $email = $this->user->getEmail();
         $password = md5($this->user->getPassword());
         $role = $this->user->getRole();
-        $validate = $this->user->getRole();
+        $validate = $this->user->getValidated();
 
         $query = "UPDATE ma_user 
                   SET email = '$email', password = '$password', role = '$role', validated = '$validate'

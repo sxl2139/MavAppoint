@@ -96,17 +96,17 @@ class advisorController
         $repeat = $_POST['repeat'];
         try{
             $rep = intval($repeat);
-        }catch (\Exception $e){
+        }catch (Exception $e){
             $rep = 0;
         }
 
         date_default_timezone_set('America/Chicago');
         $todayDate = date("Y-m-d");
         if($time->getDate()<=$todayDate){
-            return[
+            return array(
                 "error" => 0,
                 "dispatch" => "failure",
-            ];
+            );
         }
         $flag = $dbm->addTimeSlot($time, $this->uid);
         for($i=0;$i<$rep;$i++){
@@ -177,12 +177,12 @@ class advisorController
 
 
 
-        return [
+        return array(
             "error" => 0,
             "dispatch" => "success",
 
 
-        ];
+        );
     }
 
     function cancelAppointments(DatabaseManager $dbm, AdvisorUser $advisor, $date , $originalStartTime, $originalEndTime, $reason){
@@ -208,7 +208,7 @@ class advisorController
         if(sizeof($studentEmailAndMsgArr)!=0){
             $emailSubject = 'MavAppoint: Advisor\'s advising time has been cancelled!';
             foreach ($studentEmailAndMsgArr as $keyValue){
-                mav_mail($emailSubject,$keyValue['msg'],[$keyValue['studentEmail']]);
+                mav_mail($emailSubject,$keyValue['msg'],array($keyValue['studentEmail']));
             }
         }
 

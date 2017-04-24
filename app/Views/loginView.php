@@ -81,7 +81,7 @@ $testAction = mav_encrypt("test");
         </div>
     </div>
 
-    <a href="?c=<?php echo $loginController?>&a=<?php echo $testAction?>" >test DB</a>
+<!--    <a href="?c=--><?php //echo $loginController?><!--&a=--><?php //echo $testAction?><!--" >test DB</a>-->
 
 
 <?php include("template/footer.php"); ?>

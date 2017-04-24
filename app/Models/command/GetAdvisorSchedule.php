@@ -50,7 +50,7 @@ class GetAdvisorSchedule extends SQLCmd
 
             $this->result = $this->conn->query($command);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
 
         }
     }

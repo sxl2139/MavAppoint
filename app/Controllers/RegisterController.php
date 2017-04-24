@@ -3,6 +3,7 @@
 class RegisterController
 {
     public function defaultAction() {
+        $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
         include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
         $departments = $dbManager->getDepartment();

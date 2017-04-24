@@ -221,13 +221,17 @@ class AdvisingController
     {
         $tempSchedules = array();
 
-        $advisors = array_map(function ($advisor) {
-            return $advisor['pName'];
-        }, $advisors);
+        $tmpAdvisors = array();
+
+        foreach ($advisors as $advisor) {
+            array_push($tmpAdvisors, $advisor['pName']);
+        }
+        $advisors = $tmpAdvisors;
 
         $schedules = $dbManager->getAdvisorSchedules($advisors);
         foreach ($schedules as $schedule) {
             /** @var CompositeTimeSlot $schedule */
+
             $schedule = unserialize($schedule);
             $scheduleDate = strtotime($schedule->getDate());
             $todayDate = strtotime(date("Y-m-d", time()));
@@ -248,15 +252,16 @@ class AdvisingController
     private function getAppointments(StudentUser $user, DatabaseManager $dbManager)
     {
         $appointments = $dbManager->getAppointments($user);
-        $tempAppointments = array_map(function (Appointment $appointment) {
-            return array(
+
+        $tempAppointments = array();
+        foreach ($appointments as $appointment) {
+            array_push($tempAppointments, array(
                 "advisingDate" => $appointment->getAdvisingDate(),
                 "advisingStartTime" => $appointment->getAdvisingStartTime(),
                 "advisingEndTime" => $appointment->getAdvisingEndTime(),
                 "appointmentType" => $appointment->getAppointmentType(),
-            );
-        }, $appointments);
-
+            ));
+        }
 
         return $tempAppointments;
     }
@@ -264,13 +269,18 @@ class AdvisingController
     private function getAppointmentTypes($pname, DatabaseManager $dbManager)
     {
         $types = $dbManager->getAppointmentTypes($pname);
-        return array_map(function (AppointmentType $type) {
-            return array(
+
+        $tmpAppointmentTypes = array();
+
+        foreach ($types as $type) {
+            array_push($tmpAppointmentTypes, array(
                 'type' => $type->getType(),
                 'email' => $type->getEmail(),
                 'duration' => $type->getDuration()
-            );
-        }, $types);
+            ));
+        }
+
+        return $tmpAppointmentTypes;
     }
 
 //    private function getWaitListAction(StudentUser $user, DatabaseManager $dbManager)

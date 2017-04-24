@@ -131,24 +131,27 @@ class adminController
             header("Location:" . getUrlWithoutParameters() . "?c=" .mav_encrypt("login"));
         }
 
+        $tempSchedules = array();
+        $tempAppointments = array();
+
         if ($this->role == "admin" && $this->email != null) {
             $dbm = new DatabaseManager();
             $adminUser = $dbm->getAdmin($this->email);
             $appointments = $dbm->getAppointments($adminUser);
             if(sizeof($appointments) != 0 ){
-                $tempSchedules = array();
+
                 foreach ($appointments as $appointment){
 
 
 
                     $advisor = $dbm->getAdvisor($appointment->getAdvisorEmail());
-                    $tempSchedules = array(
+                    array_push($tempAppointments, array(
                             "advisingDate" => $appointment->getAdvisingDate(),
                             "advisingStartTime" => $appointment->getAdvisingStartTime(),
                             "advisingEndTime" => $appointment->getAdvisingEndTime(),
 //                            "appointmentType" => $appointment->getAppointmentType()
                             "appointmentType" => $appointment->getAppointmentType()." - ".$advisor->getPName()
-                    );
+                    ));
 
 
                 }
@@ -157,7 +160,7 @@ class adminController
 
             $scheduleObjectArr = $dbm->getAdvisorSchedule("all");
             if (sizeof($scheduleObjectArr) != 0) {
-                $tempSchedules = array();
+
                 foreach ($scheduleObjectArr as $schedule){
                     array_push($tempSchedules ,
                         array(
@@ -183,7 +186,7 @@ class adminController
                 "email" =>$this->email,
                 "role" => $this->role,
                 "schedules" =>$tempSchedules,
-                "appointments" => $tempSchedules
+                "appointments" => $tempAppointments
             )
         );
     }
@@ -257,7 +260,7 @@ class adminController
         if(sizeof($studentEmailAndMsgArr)!=0){
             $emailSubject = 'MavAppoint: Advisor\'s advising time has been cancelled!';
             foreach ($studentEmailAndMsgArr as $keyValue){
-                mav_mail($emailSubject,$keyValue['msg'],[$keyValue['studentEmail']]);
+                mav_mail($emailSubject,$keyValue['msg'],array($keyValue['studentEmail']));
             }
         }
 
@@ -268,7 +271,8 @@ class adminController
     function showAdvisorAssignmentAction(){
         $dbm = new DatabaseManager();
 
-        $this->dep = $dbm->getDepartment($this->uid)[0];
+        $department = $dbm->getDepartment($this->uid);
+        $this->dep = $department[0];
 
         $advisors = $dbm->getAdvisorsOfDepartment($this->dep);
         $majors = $dbm->getMajorsOfDepartment($this->dep);

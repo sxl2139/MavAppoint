@@ -138,8 +138,10 @@ class AppointmentController
 
     private function getAppointments(StudentUser $user, DatabaseManager $dbManager) {
         $appointments = $dbManager->getAppointments($user);
-        $tempAppointments = array_map(function(Appointment $appointment){
-            return array(
+
+        $tempAppointments = array();
+        foreach ($appointments as $appointment) {
+            array_push($tempAppointments, array(
                 "pName" => $appointment->getPname(),
                 "advisingDate" => $appointment->getAdvisingDate(),
                 "advisingStartTime" => $appointment->getAdvisingStartTime(),
@@ -151,8 +153,8 @@ class AppointmentController
                 "studentId" => "Advisor only",  //hidden
                 "studentEmail" => $appointment->getStudentEmail(),
                 "studentPhoneNumber" => $appointment->getStudentPhoneNumber()
-            );
-        }, $appointments);
+            ));
+        }
 
         return $tempAppointments;
     }

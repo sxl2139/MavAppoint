@@ -209,6 +209,7 @@ class TimeSlotHelper {
 
     public static function createCompositeTimeSlot2($TimeSlotComponentArray){
         $arr = array();
+
         $newComponent = new CompositeTimeSlot();
 
         for($i = 0; $i < count($TimeSlotComponentArray); $i ++){
@@ -229,7 +230,9 @@ class TimeSlotHelper {
 
         }
 
-        array_push($arr, serialize($newComponent));
+        if(count($newComponent->getChildren()) != 0) {
+            array_push($arr, serialize($newComponent));
+        }
 
         return $arr;
     }

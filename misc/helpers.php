@@ -236,5 +236,5 @@ function validateStudentId($studentId) {
 
 function getUrlWithoutParameters() {
     $uri_parts = explode("?", $_SERVER['REQUEST_URI'], 2);
-    return "http://" . $_SERVER['HTTP_HOST'] . $uri_parts[0];
+    return "https://" . $_SERVER['HTTP_HOST'] . $uri_parts[0];
 }

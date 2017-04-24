@@ -17,7 +17,7 @@ $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 
         <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showScheduleAction?>"><font style="color: #e67e22" size="3">
                     Update Schedule</font> </a></li>
-        <li><a href="appointments"><font style="color: #e67e22" size="3">
+        <li><a href="#"><font style="color: #e67e22" size="3">
                     Appointments</font> </a></li>
         <li><a href="?c=<?php echo $customizeSettingController?>&a=<?php echo $showAppointmentTypeAction?>"><font style="color: #e67e22" size="3">Customize Settings</font></a></li>
     </ul>
