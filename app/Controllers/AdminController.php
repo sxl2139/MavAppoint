@@ -247,8 +247,8 @@ class adminController
                 array_push($studentEmailAndMsgArr,
                     array(
                         "studentEmail" => $appointment->getStudentEmail(),
-                        "msg"=> "Advising time slot of adviser " .$advisor->getPName(). " on " . $date. " at ". $appointment->getAdvisingStartTime()
-                            . "-" .$appointment->getAdvisingEndTime()." has been cancelled."
+                        "msg"=> "Your appointment with advisor " .$advisor->getPName()." on " . $date. " at ". $appointment->getAdvisingStartTime()
+                            . "-" .$appointment->getAdvisingEndTime()." has been canceled by system admin."
                             ."\n" ."Reason: ". $reason,
                     )
                 );
