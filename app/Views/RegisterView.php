@@ -12,6 +12,8 @@ $majors = $content['data']['majors'];
 $degrees = $content['data']['degrees'];
 $initials = $content['data']['initials'];
 $url = $content['data']['url'];
+$successAction = mav_encrypt("success");
+
 ?>
 
 <style>
@@ -28,6 +30,7 @@ $url = $content['data']['url'];
 <input type="hidden" id="getMajorsAction" value="<?php echo $getMajorsAction?>" />
 <input type="hidden" id="registerStudentAction" value="<?php echo $registerStudentAction?>" />
 <input type="hidden" id="loginUrl" value="<?php echo $url?>" />
+<input type="hidden" id="successAction" value="<?php echo $successAction?>" />
 <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 
 <div class="container block">

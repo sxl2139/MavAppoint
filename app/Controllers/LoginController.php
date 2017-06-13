@@ -36,7 +36,8 @@ class LoginController
         return array(
             "error" => 0,
             "data" => array(
-                "role" => $res['role']
+                "role" => $res['role'],
+                "validated" => $res['validated']
             )
         );
 
@@ -83,6 +84,7 @@ class LoginController
         }
 
         $user->setPassword($newPassword);
+        $user->setValidated(1);
         if (!$dbManager->updateUser($user)) {
             return array(
                 "error" => 1,

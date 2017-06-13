@@ -131,7 +131,7 @@ if (count($schedules) != 0) {
                         <b>Email address: </b><br><input type="text" name="email" id="email" value="<?php echo $studentEmail ?>"><br>
                         <b>UTA Student ID: </b><br><input type="text" name="studentId" id="studentId" value="<?php echo $studentId ?>"> <br>
                         <b>Phone Number: </b><br> <input type="text" name="phoneNumber" id="phoneNumber" value="<?php echo $studentPhone ?>"> <br>
-                        <b>Description: </b><br><textarea rows=4 columns="10" name="description" id="description"></textarea>
+                        <b>Reason: </b><br><textarea rows=4 columns="10" name="description" id="description"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

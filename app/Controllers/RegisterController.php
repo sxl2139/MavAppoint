@@ -105,6 +105,15 @@ class RegisterController
         );
     }
 
+    public function successAction(){
+        $controller = mav_encrypt($_REQUEST['nc']);
+        $action = mav_encrypt($_REQUEST['na']);
+        return array(
+            "error" => 0,
+            "data" => getUrlWithoutParameters() . "?c=$controller&a=$action"
+        );
+    }
+
 
 
 

@@ -17,7 +17,11 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
+                    if (data.data.validated == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
+                    } else {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
+                    }
                 }else{
                     $("#message").css("visibility", "visible");
                 }
@@ -229,7 +233,8 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = $("#loginUrl").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#registerController").val() + "&a=" + $("#successAction").val()
+                        + "&nc=login&na=default";
                 }else{
                     $("#registerErrorMessage").text(data.description).css({'color' : '#e67e22', 'font-size' : '16px'});
                 }

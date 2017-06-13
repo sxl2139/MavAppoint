@@ -8,7 +8,7 @@ $url = $content['data'];
 
 <html>
 <head>
-    <title>Success!</title>
+    <title>Processing...</title>
     <link rel="stylesheet" href="app/Views/components/bootstrap3/css/bootstrap.css">
     <script type="text/javascript" src="app/Views/components/bootstrap3/js/bootstrap.min.js"></script>
 
@@ -22,22 +22,26 @@ $url = $content['data'];
                 num--;
                 span.innerHTML = num;
             }
-            else{
-                window.history.back();
-            }
         };
 
         var num = 0;
         setInterval("clock2()", 100);
         function clock2() {
             var prog = document.getElementById('progress');
+            var title = document.getElementById('title');
+            var loadImg = document.getElementById('loadImg');
 
             if(num <= 100) {
                 num = num + 10/2;
                 prog.setAttribute("style","width:"+num+"%");
             }
+
+            if (num > 80) {
+                title.innerHTML = "Success!";
+                loadImg.src = "app/Views/img/correct.png";
+            }
         };
-        setTimeout("redirect()", 2000);
+        setTimeout("redirect()", 2500);
         function redirect(){
             window.location.href = "<?php echo $url?>"
         }
@@ -47,8 +51,8 @@ $url = $content['data'];
 <div class="container" style="margin-top:120px">
     <div class="jumbotron">
 			<span>
-				<img src="app/Views/img/correct.png" style="float:left; height:90px; width:90px;">
-				<h1>Success!</h1>
+				<img id="loadImg" src="app/Views/img/loader.gif" style="float:left; height:90px; width:90px; ">
+				<h1 id="title" style="margin-left: 100px;">Processing...</h1>
 			</span>
 
         <span id="second" >2</span> seconds will redirect to previous page...

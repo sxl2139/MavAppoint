@@ -4,7 +4,8 @@ return array(
     "register" => array(
         "default" => "RegisterView",
         "getMajors" => "getMajors",
-        "registerStudent" => "registerStudent"
+        "registerStudent" => "registerStudent",
+        "success" => "SuccessView"
     ),
     "login" => array(
         "default" => "LoginView",

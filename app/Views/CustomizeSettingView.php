@@ -149,7 +149,6 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
         <div class="panel-body resize-body center-block">
             <form method="POST">
                 <div class="panel-heading text-center"><h3>Email Notifications</h3></div>
-                <label style="text-align: center" for="message"><font color="#0" size="4">Username or Password Invalid</font></label> <br>
 
                 <div class="form-group">
                     <input type="radio" name="notify" id="radioyes" value="yes" <?php echo $notificationYes?>><label for="radioyes">Yes</label>
