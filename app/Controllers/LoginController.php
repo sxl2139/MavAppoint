@@ -33,11 +33,18 @@ class LoginController
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
 
+        if($res['lastModDate'] !=null) {
+            $today = strtotime(date("Y-m-d", time()));
+            $lastDate = strtotime($res['lastModDate']);
+            $daysBeforePasswordExpired = 90 - ($today-$lastDate)/(3600*24);
+        }
         return array(
             "error" => 0,
             "data" => array(
                 "role" => $res['role'],
-                "validated" => $res['validated']
+                "validated" => $res['validated'],
+//                "lastModDate" => $res['lastModDate'],
+                "daysBeforeExpired" => isset($daysBeforePasswordExpired) ? $daysBeforePasswordExpired : null
             )
         );
 
@@ -85,6 +92,7 @@ class LoginController
 
         $user->setPassword($newPassword);
         $user->setValidated(1);
+        $user->setLastModDate( date("Y-m-d", time()     ) );
         if (!$dbManager->updateUser($user)) {
             return array(
                 "error" => 1,

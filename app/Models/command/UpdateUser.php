@@ -20,9 +20,10 @@ class UpdateUser extends SQLCmd{
         $password = md5($this->user->getPassword());
         $role = $this->user->getRole();
         $validate = $this->user->getValidated();
+        $lastModDate = $this->user->getLastModDate();
 
         $query = "UPDATE ma_user 
-                  SET email = '$email', password = '$password', role = '$role', validated = '$validate'
+                  SET email = '$email', password = '$password', role = '$role', validated = '$validate', lastModDate = '$lastModDate'
                   WHERE userId='$id'";
         $this->result = $this->conn->query($query);
     }

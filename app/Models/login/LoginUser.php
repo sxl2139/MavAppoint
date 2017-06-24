@@ -10,6 +10,7 @@ class LoginUser
     private $userId;
     private $password;
     private $validated;
+    private $lastModDate;
     private $role;
     private $majors;
     private $departments;
@@ -63,6 +64,19 @@ class LoginUser
     public function setValidated($validated)
     {
         $this->validated = $validated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastModDate()
+    {
+        return $this->lastModDate;
+    }
+
+    public function setLastModDate($date)
+    {
+        $this->lastModDate = $date;
     }
 
     /**

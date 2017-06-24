@@ -31,6 +31,7 @@ return array(
     ),
     "advisor" => array(
         "showSchedule" => "AdvisorScheduleView",
+        "showAppointment" => "AppointmentView",
         "addTimeSlot" => "AdvisorScheduleView",
         "deleteTimeSlot" => "AdvisorScheduleView"
 

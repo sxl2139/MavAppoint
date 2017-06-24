@@ -86,6 +86,44 @@ class advisorController
 
     }
 
+    function showAppointmentAction(){
+        if (!isset($_SESSION['role'])) {
+            header("Location:" . getUrlWithoutParameters() . "?c=" .mav_encrypt("login"));
+        }
+
+        if($this->role =="advisor" && $this->email!=null) {
+            $dbm = new DatabaseManager();
+            $advisor = $dbm->getAdvisor($this->email);
+
+            $appointments = $dbm->getAppointments($advisor);
+
+            $tempAppointments = array();
+            foreach ($appointments as $appointment) {
+                array_push($tempAppointments, array(
+                    "pName" => $appointment->getPname(),
+                    "advisingDate" => $appointment->getAdvisingDate(),
+                    "advisingStartTime" => $appointment->getAdvisingStartTime(),
+                    "advisingEndTime" => $appointment->getAdvisingEndTime(),
+                    "appointmentType" => $appointment->getAppointmentType(),
+                    "appointmentId" => $appointment->getAppointmentId(),
+                    "advisorEmail" => $appointment->getAdvisorEmail(),
+                    "description" => $appointment->getDescription(),
+                    "studentId" => $appointment->getStudentId(),
+                    "studentEmail" => $appointment->getStudentEmail(),
+                    "studentPhoneNumber" => $appointment->getStudentPhoneNumber()
+                ));
+            }
+
+            return array(
+                "error" => 0,
+                "data" => array(
+                    "appointments" => $tempAppointments
+                )
+            );
+        }
+
+    }
+
     function addTimeSlotAction(){
 
         $dbm = new DatabaseManager();
