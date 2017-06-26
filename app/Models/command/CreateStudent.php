@@ -19,12 +19,13 @@ class CreateStudent extends SQLCmd{
         $studentId = $this->user->getStudentId();
         $degreeType = $this->user->getDegType();
         $phoneNum = $this->user->getPhoneNumber();
-        $lastName = $this->user->getLastNameInitial();
         $notification = $this->user->getNotification();
+        $firstName = $this->user->getFirstName();
+        $lastName = $this->user->getLastName();
 
         $query = "INSERT INTO ma_user_student 
-                  (userId,studentId,degreeType,phoneNum,lastNameInitial,notification)
-				  VALUES('$userId','$studentId','$degreeType','$phoneNum','$lastName','$notification')";
+                  (userId,studentId,degreeType,phoneNum,notification,firstName,lastName)
+				  VALUES('$userId','$studentId','$degreeType','$phoneNum','$notification','$firstName','$lastName')";
         $this->result = $this->conn->query($query);
     }
 

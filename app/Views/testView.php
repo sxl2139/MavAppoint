@@ -17,11 +17,14 @@ $set->setPassword("123456789");
 
 include_once dirname(dirname(__FILE__))."/Models/login/LoginUser.php";
 $user = new LoginUser();
-$user->setEmail("aaaa@uta.edu");
+$user->setUserId("99");
+$user->setEmail("zuta@gmail.com");
 $user->setPassword("12345678");
 $user->setRole("student");
-$user->setMajors(array("m1"));
-$user->setDepartments(array("dep1"));
+$user->setValidated("1");
+
+$user->setMajors(array("Software Engineering"));
+$user->setDepartments(array("CSE"));
 
 include_once dirname(dirname(__FILE__))."/Models/login/StudentUser.php";
 $studentUser = new StudentUser();
@@ -229,6 +232,12 @@ var_dump($res);echo '</br>';
 echo "==============================</br>";
 
 echo "updateUser</br>";
+$user = new LoginUser();
+$user->setUserId("99");
+$user->setEmail("lislili@gmail.com");
+$user->setPassword("12345678");
+$user->setRole("student");
+$user->setValidated("0");
 $res = $manager->updateUser($user);
 var_dump($res);echo '</br>';
 echo "==============================</br>";

@@ -10,10 +10,8 @@ $content = json_decode($content, true);
 $departments = $content['data']['departments'];
 $majors = $content['data']['majors'];
 $degrees = $content['data']['degrees'];
-$initials = $content['data']['initials'];
 $url = $content['data']['url'];
 $successAction = mav_encrypt("success");
-
 ?>
 
 <style>
@@ -45,71 +43,80 @@ $successAction = mav_encrypt("success");
                 <div class="">
                     <div class="form-group">
 
-                        <label for="drp_department"><font color="#0" size="4">Departments</font></label>
-                        <br>
-                        <select id="drp_department_register" name="drp_department_register" class="btn btn-default btn-lg dropdown-toggle">
+                        <div>
+                            <div style="float:left">
+                                <label for="drp_department"><font color="#0" size="4">Departments</font></label>
+                                <br>
+                                <select id="drp_department_register" name="drp_department_register" class="btn btn-default btn-lg dropdown-toggle">
 
-                            <?php
-                            foreach ($departments as $department) {
-                                echo "<option>$department</option>";
-                            }
-                            ?>
+                                    <?php
+                                    foreach ($departments as $department) {
+                                        echo "<option>$department</option>";
+                                    }
+                                    ?>
 
+                                </select>
+                            </div>
+                            <div style="margin-left:10px; float:left">
+                                <label for="drp_major"><font color="#0" size="4">Major</font></label>
+                                <br>
+                                <select id="drp_major" name="drp_major" class="btn btn-default btn-lg dropdown-toggle">
 
-                        </select>
-                        <br>
+                                    <?php
+                                    foreach ($majors as $major) {
+                                        echo "<option>$major</option>";
+                                    }
+                                    ?>
 
-                        <label for="drp_degreeType"><font color="#0" size="4">Degree Type</font></label>
-                        <br>
-                        <select id="drp_degreeType" name="drp_degreeType" class="btn btn-default btn-lg dropdown-toggle">
+                                </select>
+                            </div>
+                        </div>
 
-                            <?php
-                            foreach ($degrees as $degree) {
-                                echo "<option>$degree</option>";
-                            }
-                            ?>
+                        <div style="clear:both; padding-top:10px">
+                            <label for="drp_degreeType"><font color="#0" size="4">Degree Type</font></label>
+                            <br>
+                            <select id="drp_degreeType" name="drp_degreeType" class="btn btn-default btn-lg dropdown-toggle">
 
-                        </select>
-                        <br>
+                                <?php
+                                foreach ($degrees as $degree) {
+                                    echo "<option>$degree</option>";
+                                }
+                                ?>
 
-                        <label for="drp_major"><font color="#0" size="4">Major</font></label>
-                        <br>
-                        <select id="drp_major" name="drp_major" class="btn btn-default btn-lg dropdown-toggle">
+                            </select>
+                        </div>
 
-                            <?php
-                            foreach ($majors as $major) {
-                                echo "<option>$major</option>";
-                            }
-                            ?>
+                        <div style="clear:both; padding-top:10px">
+                            <div style="float:left">
+                                <label for="last_name"><font color="#0" size="4">Last Name</font></label>
+                                <br>
+                                <input type="text" id="lastName" class="form-control" name=last_name>
+                            </div>
+                            <div style="margin-left:10px; float:left">
+                                <label for="first_name"><font color="#0" size="4">First Name</font></label>
+                                <br>
+                                <input type="text" id="firstName" class="form-control" name=first_name>
+                            </div>
+                        </div>
 
-                        </select>
-                        <br>
+                        <div style="clear:both; padding-top:10px">
+                            <label for="student_Id"><font color="#0" size="4">Student ID</font></label>
+                            <br>
+                            <input type="text" id="studentId" class="form-control" name=student_Id placeholder="1000xxxxxx or 6000xxxxxx">
+                        </div>
 
-                        <label for="drp_last_name_initial"><font color="#0" size="4">Last Name Initial</font></label>
-                        <br>
-                        <select id="drp_last_name_initial" name="drp_last_name_initial" class="btn btn-default btn-lg dropdown-toggle">
+                        <div style="clear:both; padding-top:10px">
+                            <label for="phone_num"><font color="#0" size="4">Phone Number</font></label>
+                            <br>
+                            <input type="text" id="phoneNumber" class="form-control" name=phone_num placeholder="xxx-xxx-xxxx">
+                        </div>
 
-                            <?php
-                            foreach ($initials as $initial) {
-                                echo "<option>$initial</option>";
-                            }
-                            ?>
-
-                        </select>
-                        <br>
-
-                        <label for="student_Id"><font color="#0" size="4">Student ID</font></label>
-                        <br>
-                        <input type="text" id="studentId" class="form-control" name=student_Id placeholder="1000xxxxxx or 6000xxxxxx">
-
-                        <label for="phone_num"><font color="#0" size="4">Phone Number</font></label>
-                        <br>
-                        <input type="text" id="phoneNumber" class="form-control" name=phone_num placeholder="xxx-xxx-xxxx">
-
-                        <label for="emailAddress"><font color="#0" size="4">Email Address</font></label>
-                        <br>
-                        <input type="text" id="email" class="form-control" name=emailAddress placeholder="firstname.lastname@mavs.uta.edu">
-                        <br>
+                        <div style="clear:both; padding-top:10px">
+                            <label for="emailAddress"><font color="#0" size="4">Email Address</font></label>
+                            <br>
+                            <input type="text" id="email" class="form-control" name=emailAddress placeholder="firstname.lastname@mavs.uta.edu">
+                            <br>
+                        </div>
                     </div>
                 </div>
 

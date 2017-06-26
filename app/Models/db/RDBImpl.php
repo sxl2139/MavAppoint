@@ -109,6 +109,13 @@ class RDBImpl implements DBImplInterface
         return $cmd->execute();
     }
 
+    function updateAppointmentType($userId, $type)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateAppointmentType.php";
+        $cmd = new UpdateAppointmentType($userId, $type);
+        return $cmd->execute();
+    }
+
     function getAppointmentTypes($pName)
     {
         include_once dirname(dirname(__FILE__)) . "/command/GetAppointmentTypes.php";

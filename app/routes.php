@@ -56,5 +56,6 @@ return array(
         "success" => "SuccessView",
         "addTypeAndDuration" => "addTypeAndDuration",
         "deleteTypeAndDuration" => "deleteTypeAndDuration",
+        "changeTypeAndDuration" => "changeTypeAndDuration"
     ),
 );

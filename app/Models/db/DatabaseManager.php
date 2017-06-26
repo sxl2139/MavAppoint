@@ -52,6 +52,10 @@ class DatabaseManager{
        return $this->impl->addAppointmentType($userId,$at);
     }
 
+    function updateAppointmentType($userId,$at){
+        return $this->impl->updateAppointmentType($userId,$at);
+    }
+
     function createAppointment($apt, $email){
         return $this->impl->createAppointment($apt, $email);
     }

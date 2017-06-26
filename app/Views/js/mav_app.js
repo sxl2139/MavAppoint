@@ -221,6 +221,8 @@ $(function(){
         var email = $("#email").val();
         var studentId = $("#studentId").val();
         var phoneNumber = $("#phoneNumber").val();
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
 
         $.ajax({
             url: $(".mavAppointUrl").val(),
@@ -234,7 +236,8 @@ $(function(){
                 department : $('#drp_department_register').find(":selected").text(),
                 major : $('#drp_major').find(":selected").text(),
                 degree : $('#drp_degreeType').find(":selected").text(),
-                initial : $('#drp_last_name_initial').find(":selected").text()
+                firstName : firstName,
+                lastName : lastName
             },
             success: function(data){
                 var data = JSON.parse(data);
@@ -370,6 +373,30 @@ $(function(){
                 }
             });
         }
+    });
+
+    $(".defaultDurationSubmit").click(function(e){
+        e.preventDefault();
+            var apptypes = "Other";
+            var minutes = $("#defaultDuration").val();
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#customizeSettingController").val(),
+                    a : $("#changeTypeAndDurationAction").val(),
+                    apptypes : apptypes,
+                    minutes : minutes
+                },
+                success: function(data){
+                    var data = JSON.parse(data);
+                    if (data.error == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                    }else{
+                        alert("Error while updating notification")
+                    }
+                }
+            });
     });
 
     $("#changePasswordSubmit").click(
