@@ -38,6 +38,7 @@ return array(
     ),
     "advisor" => array(
         "showSchedule" => "AdvisorScheduleView",
+        "showAppointment" => "AppointmentView",
         "addTimeSlot" => "AdvisorScheduleView",
         "deleteTimeSlot" => "AdvisorScheduleView"
 
@@ -62,5 +63,6 @@ return array(
         "success" => "SuccessView",
         "addTypeAndDuration" => "addTypeAndDuration",
         "deleteTypeAndDuration" => "deleteTypeAndDuration",
+        "changeTypeAndDuration" => "changeTypeAndDuration"
     ),
 );

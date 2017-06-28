@@ -180,7 +180,7 @@ class AdvisingController
 
     private function getLetters(StudentUser $user)
     {
-        return $user->getLastNameInitial();
+        return substr($user->getLastName(),0,1);
     }
 
     private function getDepartments(StudentUser $user, DatabaseManager $dbManager)
@@ -206,7 +206,7 @@ class AdvisingController
     {
         $tempAdvs = array();
         $advisors = $dbManager->getAdvisorsOfDepartment($department);
-        $lastInitial = $user->getLastNameInitial();
+        $lastInitial = substr($user->getLastName(),0,1);
         foreach ($advisors as $advisor) {
             $reg = "#[" . strtolower($advisor->getNameLow()) . "-" . strtolower($advisor->getNameHigh())
                 . strtoupper($advisor->getNameLow()) . "-" . strtoupper($advisor->getNameHigh()) . "]#";

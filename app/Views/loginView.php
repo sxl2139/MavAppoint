@@ -38,6 +38,7 @@ $testAction = mav_encrypt("test");
 
     <div class="container" style="margin-top: 40px">
         <div id="message" style="visibility: hidden"><label for="message"><font color="#e67e22" size="4"><center>Username or Password Invalid</center></label></div>
+        <div id="message2" style="visibility: hidden"><label for="message"><font color="#e67e22" size="4"><center>Your password expired. Please reset your password.</center></label></div>
         <div class="row">
             <div class="col-sm-6 col-md-4 col-md-offset-4">
                 <div class="panel panel-default">

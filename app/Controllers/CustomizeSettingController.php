@@ -117,6 +117,27 @@ class CustomizeSettingController
         );
     }
 
+    function changeTypeAndDurationAction(){
+        $at = new AppointmentType();
+        $type = isset($_REQUEST['apptypes']) ? $_REQUEST['apptypes'] : "";
+        $duration = isset($_REQUEST['minutes']) ? $_REQUEST['minutes'] : "";
+        if (!$duration){
+            $duration = "5";
+        }
+
+        $at->setType($type);
+        $at->setDuration($duration);
+        $dbm = new DatabaseManager();
+        $uid = $dbm->getUserIdByEmail($_SESSION['email']);
+        $dbm->updateAppointmentType($uid,$at);
+
+        return array(
+            "error" => 0,
+            "dispatch" => "success",
+            "uid"=>$uid
+        );
+    }
+
     function deleteTypeAndDurationAction(){
         $at = new AppointmentType();
         $type = isset($_REQUEST['apptypes']) ? $_REQUEST['apptypes'] : "";

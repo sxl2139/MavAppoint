@@ -80,7 +80,6 @@ class adminController
 
         $id = $manager->createUser($loginUser);
 
-
         $Advisor = new AdvisorUser();
         $Advisor->setUserId($id);
         $Advisor->setPName($name);
@@ -89,9 +88,12 @@ class adminController
         $Advisor->setNameHigh("Z");
         $Advisor->setDegType("7");
 
-        $res=$manager->createAdvisor($Advisor);
+        $manager->createAdvisor($Advisor);
 
-
+        $apt=new AppointmentType();
+        $apt->setType("Other");
+        $apt->setDuration("10");
+        $res=$manager->addAppointmentType($id,$apt);
 
         if($res)
         {

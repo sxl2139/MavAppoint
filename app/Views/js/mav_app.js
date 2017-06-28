@@ -19,7 +19,13 @@ $(function(){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
                     if (data.data.validated == 0) {
+                        alert("Please change your password on first login.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
+                    }else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
+                        alert("The password for your account will expire in " + data.data.daysBeforeExpired + "days.");
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
+                    }else if(data.data.daysBeforeExpired <=0){
+                        $("#message2").css("visibility", "visible");
                     } else {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
                     }
@@ -287,6 +293,8 @@ $(function(){
         var email = $("#email").val();
         var studentId = $("#studentId").val();
         var phoneNumber = $("#phoneNumber").val();
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
 
         $.ajax({
             url: $(".mavAppointUrl").val(),
@@ -300,7 +308,8 @@ $(function(){
                 department : $('#drp_department_register').find(":selected").text(),
                 major : $('#drp_major').find(":selected").text(),
                 degree : $('#drp_degreeType').find(":selected").text(),
-                initial : $('#drp_last_name_initial').find(":selected").text()
+                firstName : firstName,
+                lastName : lastName
             },
             success: function(data){
                 var data = JSON.parse(data);
@@ -438,27 +447,57 @@ $(function(){
         }
     });
 
-    $("#changePasswordSubmit").click(function(e) {
+    $(".defaultDurationSubmit").click(function(e){
         e.preventDefault();
-
-        $.ajax({
-            url: $(".mavAppointUrl").val(),
-            type: "post",
-            data: {
-                c : $("#loginController").val(),
-                a : $("#changePasswordAction").val(),
-                currentPassword : $("#currentPassword").val(),
-                newPassword : $("#newPassword").val(),
-                repeatPassword : $("#repeatPassword").val()
-            },
-            success: function(data){
-                var data = JSON.parse(data);
-                if (data.error == 0) {
-                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#successAction").val() + "&nc=index&na=default";
-                }else{
-                    $("#changePasswordErrorMessage").text(data.description).css({'color' : '#e67e22', 'font-size' : '16px'});
+            var apptypes = "Other";
+            var minutes = $("#defaultDuration").val();
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#customizeSettingController").val(),
+                    a : $("#changeTypeAndDurationAction").val(),
+                    apptypes : apptypes,
+                    minutes : minutes
+                },
+                success: function(data){
+                    var data = JSON.parse(data);
+                    if (data.error == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                    }else{
+                        alert("Error while updating notification")
+                    }
                 }
-            }
-        });
+            });
     });
+
+    $("#changePasswordSubmit").click(
+        function(e)
+        {
+            e.preventDefault();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#loginController").val(),
+                            a : $("#changePasswordAction").val(),
+                            currentPassword : $("#currentPassword").val(),
+                            newPassword : $("#newPassword").val(),
+                            repeatPassword : $("#repeatPassword").val()
+                        },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if (data.error == 0) {
+                            window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#successAction").val() + "&nc=index&na=default";
+                        }
+                        else{
+                            $("#changePasswordErrorMessage").text(data.description).css({'color' : '#e67e22', 'font-size' : '16px'});
+                        }
+                    }
+                }
+            );
+        }
+    );
 });

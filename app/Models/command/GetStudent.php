@@ -38,7 +38,8 @@ class GetStudent extends SQLCmd {
 	    $set->setStudentId($this->result["studentId"]);
         $set->setDegType($this->result["degreeType"]);
         $set->setPhoneNumber($this->result["phoneNum"]);
-        $set->setLastNameInitial($this->result["lastNameInitial"]);
+        $set->setFirstName($this->result["firstName"]);
+        $set->setLastName($this->result["lastName"]);
         $set->setNotification($this->result["notification"]);
         $set->setPassword($this->result["password"]);
         $set->setValidated($this->result["validated"]);

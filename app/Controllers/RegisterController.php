@@ -14,7 +14,6 @@ class RegisterController
                 "degrees" => $this->getDegrees(),
                 "departments" => $departments,
                 "majors" => $majors,
-                "initials" => $this->getInitials(),
                 "url" => getUrlWithoutParameters() . "?c=" . mav_encrypt("login")
             )
         );
@@ -38,6 +37,8 @@ class RegisterController
         $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : "";
         $studentId = isset($_REQUEST['studentId']) ? $_REQUEST['studentId'] : "";
         $phoneNumber = isset($_REQUEST['phoneNumber']) ? $_REQUEST['phoneNumber'] : "";
+        $lastName = isset($_REQUEST['lastName']) ? $_REQUEST['lastName'] : "";
+        $firstName = isset($_REQUEST['firstName']) ? $_REQUEST['firstName'] : "";
 
         if (!validateStudentId($studentId)) {
             return array(
@@ -65,7 +66,8 @@ class RegisterController
         $studentUser->setPhoneNumber($phoneNumber);
         $studentUser->setStudentId($studentId);
         $studentUser->setRole("student");
-        $studentUser->setLastNameInitial($_REQUEST['initial']);
+        $studentUser->setLastName($_REQUEST['lastName']);
+        $studentUser->setFirstName($_REQUEST['firstName']);
         $studentUser->setDepartments(array($_REQUEST['department']));
         $studentUser->setMajors(array($_REQUEST['major']));
         $studentUser->setDegreeTypeFromString($_REQUEST['degree']);
@@ -114,21 +116,8 @@ class RegisterController
         );
     }
 
-
-
-
-
-
-
-
-
-
-
     private function getDegrees() {
         return array("Bachelor", "Master", "Doctorate");
     }
 
-    private function getInitials() {
-        return array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-    }
 }

@@ -12,14 +12,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <!-[if lt IE 7]>
-    <script src=âhttp://ie7-js.googlecode.com/svn/version/2.0(beta)/IE7.jsâ type=âtext/javascriptâ></script>
-    <![endif]â>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta)/IE7.js" type="text/javascript"></script>
+    <![endif]">
     <!-[if lt IE 8]>
-    <script src=âhttp://ie7-js.googlecode.com/svn/version/2.0(beta)/IE8.jsâ type=âtext/javascriptâ></script>
-    <![endif]â>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta)/IE8.js" type="text/javascript"></script>
+    <![endif]">
     <!-[if lt IE 9]>
-    <script src=âhttp://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.jsâ></script>
-    <![endif]â>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]">
     <link rel="stylesheet"
           href="app/Views/components/bootstrap3/css/bootstrap.css">
     <link rel="stylesheet" href="app/Views/components/bootstrap3/css/bootstrap-datetimepicker.min.css">

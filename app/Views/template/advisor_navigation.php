@@ -8,6 +8,7 @@ $deleteTimeSlotAction = mav_encrypt("deleteTimeSlot");
 $customizeSettingController = mav_encrypt("customizeSetting");
 $showAppointmentTypeAction = mav_encrypt("showAppointmentType");
 $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
+$showAppointmentAction = mav_encrypt("showAppointment");
 ?>
 
 <div>
@@ -17,7 +18,7 @@ $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 
         <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showScheduleAction?>"><font style="color: #e67e22" size="3">
                     Update Schedule</font> </a></li>
-        <li><a href="#"><font style="color: #e67e22" size="3">
+        <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showAppointmentAction?>"><font style="color: #e67e22" size="3">
                     Appointments</font> </a></li>
         <li><a href="?c=<?php echo $customizeSettingController?>&a=<?php echo $showAppointmentTypeAction?>"><font style="color: #e67e22" size="3">Customize Settings</font></a></li>
     </ul>
