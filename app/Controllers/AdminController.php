@@ -8,6 +8,7 @@
 include_once dirname(dirname(__FILE__))."/Models/login/LoginUser.php";
 include_once dirname(dirname(__FILE__))."/Models/login/AdvisorUser.php";
 include_once dirname(dirname(__FILE__))."/Models/db/DatabaseManager.php";
+include_once dirname(dirname(__FILE__))."/Models/bean/AppointmentType.php";
 //use Models\Db as db;
 //use Models\Login as login;
 //use Models\Db\DatabaseManager;
