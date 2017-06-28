@@ -21,9 +21,7 @@ return array(
     ),
     "admin" => array(
         "deleteAdvisor" => "DeleteAdvisorView",
-//        "deleteSelectAdvisor" => "SuccessView",
         "deleteSelectAdvisor" => "deleteSelectAdvisor",
-        "success2" => "SuccessView",
         "addDepartment" => "AddDepartmentView",
         "createNewDepartment" => "createNewDepartment",
 

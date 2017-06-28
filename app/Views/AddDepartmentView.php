@@ -8,7 +8,7 @@ $departments = $content;
 
 $adminController = mav_encrypt("admin");
 $createNewDepartmentAction = mav_encrypt("createNewDepartment");
-$success2Action=mav_encrypt("success2");
+$successAction=mav_encrypt("success");
 ?>
 
     <style>
@@ -23,7 +23,7 @@ $success2Action=mav_encrypt("success2");
 
     <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
     <input id="createNewDepartmentAction" type="hidden" value="<?php echo $createNewDepartmentAction?>"/>
-    <input type="hidden" id="success2Action" value="<?php echo $success2Action?>">
+    <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container">
         <!-- Panel -->

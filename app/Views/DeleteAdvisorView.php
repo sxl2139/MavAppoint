@@ -13,7 +13,7 @@ $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $adminController = mav_encrypt("admin");
 $deleteSelectAdvisorAction = mav_encrypt("deleteSelectAdvisor");
-$success2Action=mav_encrypt("success2");
+$successAction=mav_encrypt("success");
 
 ?>
 <style>
@@ -28,7 +28,7 @@ $success2Action=mav_encrypt("success2");
 </style>
 <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
 <input id="deleteSelectAdvisorAction" type="hidden" value="<?php echo $deleteSelectAdvisorAction?>"/>
-<input type="hidden" id="success2Action" value="<?php echo $success2Action?>">
+<input type="hidden" id="successAction" value="<?php echo $successAction?>">
 <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <div class="container">
     <!-- Panel -->

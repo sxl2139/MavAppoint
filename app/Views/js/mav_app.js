@@ -57,9 +57,11 @@ $(function(){
                 drp_department : drp_department
             },
             success: function(data){
+                alert(data);
                 var data1 = JSON.parse(data);
                 if (data1.error == 0) {
                     alert(data1.data.message);
+                    window.console.log(data1);
                     $("#addAdvisorResult").text(data1.data.message);
                 }else{
                     alert(data1.data.message);
@@ -152,7 +154,8 @@ $(function(){
             success: function(data){
                 data = JSON.parse(data);
                 if (data.error == 0) {
-                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val();
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
+                        + "&nc=admin&na=showAdvisorAssignment";
                 }else{
                     alert("advising error");
                 }
@@ -182,7 +185,7 @@ $(function(){
                 success: function(data){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
-                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#success2Action").val()
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
                             + "&nc=admin&na=deleteAdvisor&nt=yes";
                     }else{
                         //TODO redirect to failure page
@@ -214,7 +217,7 @@ $(function(){
                 success: function(data){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
-                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#success2Action").val()
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
                             + "&nc=admin&na=addDepartment&nt=yes";
                     }else{
                         //TODO redirect to failure page

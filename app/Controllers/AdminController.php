@@ -9,6 +9,7 @@ include_once dirname(dirname(__FILE__))."/Models/login/LoginUser.php";
 include_once dirname(dirname(__FILE__))."/Models/login/AdvisorUser.php";
 include_once dirname(dirname(__FILE__))."/Models/db/DatabaseManager.php";
 include_once dirname(dirname(__FILE__))."/Models/bean/AppointmentType.php";
+
 //use Models\Db as db;
 //use Models\Login as login;
 //use Models\Db\DatabaseManager;
@@ -41,8 +42,6 @@ class adminController
 
         $dbm = new DatabaseManager();
         $departments = $dbm->getDepartments();
-//        var_dump($departments);
-//        die();
         return $departments;
 //        return array(
 //            "department" => array(
@@ -171,15 +170,6 @@ class adminController
 
     }
 
-    public function success2Action(){
-        $controller = mav_encrypt($_REQUEST['nc']);
-        $action = mav_encrypt($_REQUEST['na']);
-        $tag = mav_encrypt($_REQUEST['nt']);
-        return array(
-            "error" => 0,
-            "data" => getUrlWithoutParameters() . "?c=$controller&a=$action&tag=$tag"
-        );
-    }
 
     function addDepartmentAction(){
         $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
@@ -463,9 +453,12 @@ class adminController
     }
 
     public function successAction(){
+        $controller = mav_encrypt($_REQUEST['nc']);
+        $action = mav_encrypt($_REQUEST['na']);
+        $tag = isset($_REQUEST['nt'])? mav_encrypt($_REQUEST['nt']):"";
         return array(
             "error" => 0,
-            "data" => getUrlWithoutParameters(). "?c=" . mav_encrypt("admin") . "&a=" . mav_encrypt("showAdvisorAssignment")
+            "data" => getUrlWithoutParameters(). "?c=$controller&a=$action&tag=$tag"
         );
     }
 }
