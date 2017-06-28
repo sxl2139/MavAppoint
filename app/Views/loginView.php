@@ -57,14 +57,14 @@ $testAction = mav_encrypt("test");
                                         <div class="form-group">
                                             <div class="input-group">
 											<span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>
-                                                <input type="text" class="form-control" id="email" name=email placeholder="yourname@mavs.uta.edu">
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="yourname@mavs.uta.edu">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="input-group">
 											<span class="input-group-addon"> <i class="glyphicon glyphicon-lock"></i></span>
-                                                <input type="password" class="form-control" id="password" name=password>
+                                                <input type="password" class="form-control" id="password" name="password">
                                             </div>
                                         </div>
 

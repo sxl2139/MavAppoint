@@ -11,7 +11,7 @@ class GetAdvisors extends SQLCmd{
     }
 
     function queryDB(){
-        $query = "SELECT pName 
+        $query = "SELECT pName,ma_user_advisor.userId
                   FROM ma_user,ma_user_advisor 
                   WHERE role='advisor' 
                   AND ma_user.userId = ma_user_advisor.userId";
@@ -19,11 +19,16 @@ class GetAdvisors extends SQLCmd{
     }
 
     function processResult(){
-        $arr = array();
-        while($rs = mysqli_fetch_assoc($this->result)){
-            array_push($arr, $rs['pName']);
-        }
+        $arrid = array();
+        $arrname=array();
+        $arr=array();
 
+        while($rs = mysqli_fetch_assoc($this->result)){
+            array_push($arrid, $rs['userId']);
+            array_push($arrname, $rs['pName']);
+        }
+        $arr["userId"] = $arrid;
+        $arr["pName"] = $arrname;
         return $arr;
     }
 }

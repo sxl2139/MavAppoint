@@ -92,6 +92,10 @@ class DatabaseManager{
         return $this->impl->deleteAdvisor($id);
     }
 
+    function addNewDepartment($name){
+        return $this->impl->addNewDepartment($name);
+    }
+
     function getUserIdByEmail($email){
         return $this->impl->getUserIdByEmail($email);
     }
@@ -106,6 +110,10 @@ class DatabaseManager{
 
     function getAdvisors(){
         return $this->impl->getAdvisors();
+    }
+
+    function getDepartments(){
+        return $this->impl->getDepartments();
     }
 
     /**

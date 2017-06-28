@@ -24,12 +24,13 @@ interface DBImplInterface
     function createAdvisor($user);
     function getAdvisor($email);
     function getAdvisors();
+
     function getAdvisorsOfDepartment($department);
     function getAdvisorSchedule($name);
     function getAdvisorSchedules(array $advisorUsers);
     function getAdvisorWaitlistSchedules(array $advisorUsers);
     function deleteAdvisor($id);
-
+    function addNewDepartment($name);
     function updateNotification($user,$notification);
 
     function createStudent($user);
@@ -42,6 +43,7 @@ interface DBImplInterface
     function deleteTimeSlot($at);
 
     function getDepartment($id);
+    function getDepartments();
     function getMajorsOfDepartment($name);
     function getMajor($id);
 

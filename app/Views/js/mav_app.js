@@ -1,6 +1,7 @@
 $(function(){
 
     $("#signIn").on("click", function (e) {
+
         e.preventDefault();
 
         var passhash = md5($("#password").val());
@@ -152,6 +153,77 @@ $(function(){
             }
         });
     });
+
+    $("#deleteAdvisorSubmit").on("click", function (e) {
+        e.preventDefault();
+        if ($("input[name='advisor[]']:checked").length === 0) {
+            alert('Select atleast one advisor');
+        }else {
+            var id_array = new Array();
+            $('input[name="advisor[]"]:checked').each(function(){
+                id_array.push($(this).val());
+            });
+            var idstr=id_array.join(',');
+
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#adminController").val(),
+                    a : $("#deleteSelectAdvisorAction").val(),
+                    advisors : idstr
+                },
+                success: function(data){
+                    var data = JSON.parse(data);
+                    if (data.error == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#success2Action").val()
+                            + "&nc=admin&na=deleteAdvisor&nt=yes";
+                    }else{
+                        //TODO redirect to failure page
+                        alert("Delete advisor error");
+                    }
+
+                }
+            });
+        }
+
+    });
+
+
+    $("#addDepartmentSubmit").on("click", function (e) {
+        e.preventDefault();
+        var text = $("#enterDepartment").val();
+        var textValue = text.replace(/(^\s*)|(\s*$)/g, "");
+        if(textValue==null || textValue==""){
+            alert("Need to enter a department");
+        }else {
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#adminController").val(),
+                    a : $("#createNewDepartmentAction").val(),
+                    department : text
+                },
+                success: function(data){
+                    var data = JSON.parse(data);
+                    if (data.error == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#success2Action").val()
+                            + "&nc=admin&na=addDepartment&nt=yes";
+                    }else{
+                        //TODO redirect to failure page
+                        alert("Delete advisor error");
+                    }
+
+                }
+            });
+
+        }
+
+
+    });
+
+
 
     $(".cancelButton").click(function(){
         var confirmMessage = 'Are you sure you want to delete this appointment?';

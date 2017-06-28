@@ -37,22 +37,28 @@ class adminController
     }
 
     public function addAdvisorAction(){
-        return array(
-            "department" => array(
-                0 => array(
-                    "name" => "CSE"
-                ),
-                1 => array(
-                    "name" => "MATH"
-                ),
-                2 => array(
-                    "name" => "MAE"
-                ),
-                3 => array(
-                    "name" => "ARCH"
-                ),
-            )
-        );
+
+        $dbm = new DatabaseManager();
+        $departments = $dbm->getDepartments();
+//        var_dump($departments);
+//        die();
+        return $departments;
+//        return array(
+//            "department" => array(
+//                0 => array(
+//                    "name" => "CSE"
+//                ),
+//                1 => array(
+//                    "name" => "MATH"
+//                ),
+//                2 => array(
+//                    "name" => "MAE"
+//                ),
+//                3 => array(
+//                    "name" => "ARCH"
+//                ),
+//            )
+//        );
     }
 
     function createNewAdvisorAction(){
@@ -124,6 +130,99 @@ class adminController
 
 
     }
+
+    function deleteAdvisorAction(){
+        $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
+        $dbm = new DatabaseManager();
+        $advisors = $dbm->getAdvisors();
+        if(mav_decrypt($tag)=="yes"){
+            $advisors["message"] = "Delete advisor successfully";
+        }else{
+            $advisors["message"] = "";
+        }
+        return $advisors;
+    }
+
+    function deleteSelectAdvisorAction(){
+
+        $advisors = isset($_REQUEST['advisors']) ? $_REQUEST['advisors'] : "error";
+        $advisors = explode(',',$advisors);
+        $dbm = new DatabaseManager();
+        if($advisors != "error") {
+            for ($i = 0; $i < count($advisors); $i++) {
+                $dbm->deleteAdvisor($advisors[$i]);
+            }
+            return array(
+                "error" => 0,
+            );
+        //            $advisors = $dbm->getAdvisors();
+        //            $advisors["message"] = "delete advisor successfully";
+        }else{
+            return null;
+        }
+
+        //            $advisors = $dbm->getAdvisors();
+        //            $advisors["message"] = "Select atleast one advisor";
+
+        //        return $advisors; //dont use success view.
+
+    }
+
+    public function success2Action(){
+        $controller = mav_encrypt($_REQUEST['nc']);
+        $action = mav_encrypt($_REQUEST['na']);
+        $tag = mav_encrypt($_REQUEST['nt']);
+        return array(
+            "error" => 0,
+            "data" => getUrlWithoutParameters() . "?c=$controller&a=$action&tag=$tag"
+        );
+    }
+
+    function addDepartmentAction(){
+        $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
+        if(mav_decrypt($tag)=="yes"){
+            return array("message" => "Add department Successfully");
+        }else{
+            return null;
+        }
+    }
+
+    function createNewDepartmentAction(){
+        $department = isset($_REQUEST['department']) ? $_REQUEST['department']: null;
+        $dbm = new DatabaseManager();
+        if($department!=null) {
+            $res = $dbm->addNewDepartment($department);
+
+        }else{
+            $res=false;
+
+        }
+
+        if($res) {
+            return array(
+                "error" =>0,
+//                "data" =>getUrlWithoutParameters()."?c=$controller&a=$action&m=$tag"
+                );
+//            return array(
+//                "error" => 0,
+//                "data" => array(
+//                    "message" => "Department Create successfully.",
+//
+//                )
+//
+//            );
+
+        } else {
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "message" => "Need enter a department"
+                )
+            );
+        }
+
+    }
+
 
     function showDepartmentScheduleAction()
     {
@@ -207,7 +306,9 @@ class adminController
         $advisors = $dbm->getAdvisorsOfDepartment($department[0]);
         $advisor = null;
         foreach ($advisors as $adv){
-            if($adv->getPName() == $advisorName){
+//            var_dump($adv->getPName());
+//            var_dump($tittle);
+            if($adv->getPName() == $tittle){
                 $advisor = $adv;
                 break;
             }
@@ -215,6 +316,7 @@ class adminController
 
         $date = $requestDate;
         $originalTimeSlots = $dbm->getAdvisorSchedule($advisor->getPName(),true,$date);
+
         foreach ($originalTimeSlots as $timeSlot){
             if($requestStartTime>=$timeSlot->getStartTime() && $requestEndTime<=$timeSlot->getEndTime())
             {

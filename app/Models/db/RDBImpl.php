@@ -227,6 +227,13 @@ class RDBImpl implements DBImplInterface
         return $cmd->execute();
     }
 
+    function addNewDepartment($name)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/addNewDepartment.php";
+        $cmd = new AddNewDepartment($name);
+        return $cmd->execute();
+    }
+
     function updateNotification($user, $notification)
     {
         include_once dirname(dirname(__FILE__)) . "/command/UpdateNotification.php";
@@ -280,6 +287,13 @@ class RDBImpl implements DBImplInterface
     {
         include_once dirname(dirname(__FILE__)) . "/command/GetDepartment.php";
         $cmd = new GetDepartment($id);
+        return $cmd->execute();
+    }
+
+    function getDepartments()
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetDepartments.php";
+        $cmd = new GetDepartments();
         return $cmd->execute();
     }
 
