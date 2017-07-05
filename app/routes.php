@@ -29,7 +29,7 @@ return array(
 //        "addAdvisor" => "addAdvisor",
         "createNewAdvisor" => "createNewAdvisor",
         "showDepartmentSchedule" => "DepartmentScheduleView",
-        "deleteTimeSlot" => "DepartmentScheduleView",
+        "deleteTimeSlot" => "deleteTimeSlot",
         "showAdvisorAssignment" => "AssignStudentView",
         "assignStudentToAdvisor" => "assignStudentToAdvisor",
         "success" => "SuccessView"
@@ -37,8 +37,9 @@ return array(
     "advisor" => array(
         "showSchedule" => "AdvisorScheduleView",
         "showAppointment" => "AppointmentView",
-        "addTimeSlot" => "AdvisorScheduleView",
-        "deleteTimeSlot" => "AdvisorScheduleView"
+        "addTimeSlot" => "addTimeSlot",
+        "deleteTimeSlot" => "deleteTimeSlot",
+        "success" => "SuccessView"
 
     ),
     "advising" => array(

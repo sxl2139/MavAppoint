@@ -503,4 +503,107 @@ $(function(){
             );
         }
     );
+
+    $("#advisorAddTimeSlot").click(
+        function(e)
+        {
+            e.preventDefault();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#advisorController").val(),
+                            a : $("#addTimeSlotAction").val(),
+                            opendate : $("#opendate").val(),
+                            starttime : $("#starttime").val(),
+                            endtime : $("#endtime").val(),
+                            repeat : $("#repeat").val()
+                        },
+                    success: function(data) {
+                        // alert("running");
+                        var data = JSON.parse(data);
+                        if (data.error == 0) {
+                            window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisorController").val() + "&a=" + $("#successAction").val() + "&nc=advisor&na=showSchedule";
+                        }
+                        else{
+                            //TODO redirect to failure page
+                            alert("Add TimeSlot error");
+                        }
+                    }
+                }
+            );
+        }
+    );
+
+    $("#advisorDeleteTimeSlot").click(
+        function(e)
+        {
+            e.preventDefault();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#advisorController").val(),
+                            a : $("#deleteTimeSlotAction").val(),
+                            StartTime2 : $("#StartTime2").val(),
+                            EndTime2 : $("#EndTime2").val(),
+                            Date : $("#Date").val(),
+                            delete_repeat : $("#delete_repeat").val(),
+                            delete_reason : $("#delete_reason").val()
+                        },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if (data.error == 0) {
+                            window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisorController").val() + "&a=" + $("#successAction").val() + "&nc=advisor&na=showSchedule";
+                        }
+                        else{
+                            //TODO redirect to failure page
+                            alert("Delete TimeSlot error");
+                        }
+                    }
+                }
+            );
+        }
+    );
+
+    $("#adminDeleteTimeSlot").click(
+        function(e)
+        {
+            e.preventDefault();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#adminController").val(),
+                            a : $("#deleteTimeSlotAction").val(),
+                            StartTime2 : $("#StartTime2").val(),
+                            EndTime2 : $("#EndTime2").val(),
+                            Date : $("#Date").val(),
+                            delete_repeat : $("#delete_repeat").val(),
+                            delete_reason : $("#delete_reason").val(),
+                            pname : $("#pname").val()
+                        },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        if (data.error == 0) {
+                            window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val() + "&nc=admin&na=showDepartmentSchedule";
+                        }
+                        else{
+                            //TODO redirect to failure page
+                            alert("Delete TimeSlot error");
+                        }
+                    }
+                }
+            );
+        }
+    );
+
+
+
 });

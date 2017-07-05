@@ -142,8 +142,8 @@ class advisorController
         $todayDate = date("Y-m-d");
         if($time->getDate()<=$todayDate){
             return array(
-                "error" => 0,
-                "dispatch" => "failure",
+                "error" => 1,
+
             );
         }
         $flag = $dbm->addTimeSlot($time, $this->uid);
@@ -154,14 +154,14 @@ class advisorController
 
         if($flag == false){
             return array(
-                "error" => 0,
-                "dispatch" => "failure",
+                "error" => 1,
+
             );
         }
         else
             return array(
                 "error" => 0,
-                "dispatch" => "success",
+
             );
 
 
@@ -177,6 +177,13 @@ class advisorController
         $requestDate = isset($_POST['Date']) ? date('Y-m-d',strtotime($_POST['Date'])) : null;
         $repeat = isset($_POST['delete_repeat']) ? intval($_POST['delete_repeat']) : null;
         $reason = isset($_POST['delete_reason']) ? $_POST['delete_reason'] : null;
+
+        if($requestStartTime==null || $requestEndTime==null || $requestDate==null){
+            return array(
+              "error"=>1
+            );
+
+        }
 
         //date('Y-m-d',strtotime());
         $dbm = new DatabaseManager();
@@ -216,10 +223,7 @@ class advisorController
 
 
         return array(
-            "error" => 0,
-            "dispatch" => "success",
-
-
+            "error" => 0
         );
     }
 
@@ -253,13 +257,15 @@ class advisorController
     }
 
 
-//    public function successAction(){
-//        return [
-//            "error" => 0,
-//            //TODO: change url
-//            "data" => "http://localhost/MavAppoint_PHP/?c=" . mav_encrypt("advidor") . "&a=" . mav_encrypt("showSchedule")
-//        ];
-//    }
+    public function successAction() {
+        $controller = mav_encrypt($_REQUEST['nc']);
+        $action = mav_encrypt($_REQUEST['na']);
+
+        return array(
+            "error" => 0,
+            "data" => getUrlWithoutParameters() . "?c=$controller&a=$action"
+        );
+    }
 
 
 

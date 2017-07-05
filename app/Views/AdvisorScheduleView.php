@@ -5,27 +5,19 @@ if (!isset($_SESSION)) {
 }
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include ("template/" . $role . "_navigation.php");
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $schedules = isset($content['data']['schedules']) ? $content['data']['schedules'] : null;
 $appointments = isset($content['data']['appointments']) ? $content['data']['appointments'] : null;
-$dispatch = isset($content['dispatch']) ? $content['dispatch'] : null;
+$successAction = mav_encrypt("success");
+//$dispatch = isset($content['dispatch']) ? $content['dispatch'] : null;
+?>
 
-//$msg = isset($content['msg']) ? $content['msg'] : null;
-if($dispatch == "success")
-{?>
-    <script type='text/javascript'>
-        window.location.href="app/Views/success.php";
-    </script>
-    <?php  unset($content['dispatch']);
-}
-if($dispatch == "failure")
-{?>
-    <script type='text/javascript'>
-        window.location.href="app/Views/failure.php";
-    </script>
-    <?php  unset($content['dispatch']);
-} ?>
-
+<input type="hidden" id="advisorController" value="<?php echo $advisorController?>">
+<input type="hidden" id="addTimeSlotAction" value="<?php echo $addTimeSlotAction?>">
+<input type="hidden" id="deleteTimeSlotAction" value="<?php echo $deleteTimeSlotAction?>">
+<input type="hidden" id="successAction" value="<?php echo $successAction?>">
+<input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 
 <div id='calendar'></div>
 
@@ -148,8 +140,8 @@ if($dispatch == "failure")
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <input type="submit" value="submit"
-                               onclick="javascript:FormSubmit();">
+                        <button type="submit" id="advisorAddTimeSlot" value="submit" class="btn btn-default" data-dismiss="modal"
+                                onclick="javascript:FormSubmit();">Submit</button>
                     </div>
                 </div>
             </div>
@@ -180,8 +172,8 @@ if($dispatch == "failure")
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <input type="submit" value="submit"
-                               onclick="return validate();">
+                        <button type="submit" id="advisorDeleteTimeSlot" value="submit" class="btn btn-default" data-dismiss="modal"
+                               onclick="return validate();">Submit</button>
                     </div>
                 </div>
             </div>

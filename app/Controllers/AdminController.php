@@ -292,6 +292,12 @@ class adminController
         $repeat = isset($_POST['delete_repeat']) ? intval($_POST['delete_repeat']) : null;
         $reason = isset($_POST['delete_reason']) ? $_POST['delete_reason'] : null;
         $tittle = isset($_POST['pname']) ? $_POST['pname'] : null;
+        if($requestStartTime==null || $requestEndTime==null ||$requestDate==null || $tittle==null){
+            return array(
+                "error" => 1
+            );
+        }
+
         $pieces = explode(" ", $tittle);
         $advisorName = $pieces[sizeof($pieces)-1];
         $dbm = new DatabaseManager();
@@ -301,10 +307,16 @@ class adminController
         foreach ($advisors as $adv){
 //            var_dump($adv->getPName());
 //            var_dump($tittle);
-            if($adv->getPName() == $tittle){
+            if($adv->getPName() == $advisorName){
                 $advisor = $adv;
                 break;
             }
+        }
+
+        if($advisor==null){
+            return array(
+                "error" => 1
+            );
         }
 
         $date = $requestDate;
@@ -328,8 +340,7 @@ class adminController
         include_once ROOT . "/app/Controllers/DeleteTimeSlotController.php";
         DeleteTimeSlotController::deleteTimeSlot($requestDate,$originalStartTime,$originalEndTime,$advisor->getPName(),$repeat,$reason);
         return array(
-            "error" => 0,
-            "dispatch" => "success",
+            "error" => 0
         );
     }
 
