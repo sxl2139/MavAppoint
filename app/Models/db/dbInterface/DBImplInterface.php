@@ -57,4 +57,5 @@ interface DBImplInterface
     function getStudentWaitList($userId, $aptId);
     function getFirstWaitList($aptId);
     function setWaitListSchedule($waitList);
+    function addFeedback($feedback);
 }

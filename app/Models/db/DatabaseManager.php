@@ -224,4 +224,8 @@ class DatabaseManager{
     public function deleteWaitListSchedule($id) {
         return $this->impl->deleteWaitListSchedule($id);
     }
+
+    public function addFeedback($feedback) {
+        return $this->impl->addFeedback($feedback);
+    }
 }

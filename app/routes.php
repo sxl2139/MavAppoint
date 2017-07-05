@@ -64,4 +64,7 @@ return array(
         "deleteTypeAndDuration" => "deleteTypeAndDuration",
         "changeTypeAndDuration" => "changeTypeAndDuration"
     ),
+    "feedback" => array(
+        "addFeedback" => "addFeedback"
+    ),
 );

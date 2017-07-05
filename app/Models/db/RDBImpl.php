@@ -352,4 +352,11 @@ class RDBImpl implements DBImplInterface
         $cmd = new DeleteWaitListSchedule($id);
         return $cmd->execute();
     }
+
+    public function addFeedback($feedback)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/AddFeedback.php";
+        $cmd = new AddFeedback($feedback);
+        return $cmd->execute();
+    }
 }
