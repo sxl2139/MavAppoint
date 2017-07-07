@@ -32,7 +32,13 @@ class LoginController
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
+        $time = $manager->getTemporaryPasswordInterval();
 
+        if($res['sendTemPWDate']!=null){
+            $today1 = strtotime(date("Y-m-d", time()));
+            $lastDate1 = strtotime($res['sendTemPWDate']);
+            $daysBeforetempPasswordExpired = $time - ($today1-$lastDate1)/(3600*24);
+        }
         if($res['lastModDate'] !=null) {
             $today = strtotime(date("Y-m-d", time()));
             $lastDate = strtotime($res['lastModDate']);
@@ -44,7 +50,9 @@ class LoginController
                 "role" => $res['role'],
                 "validated" => $res['validated'],
 //                "lastModDate" => $res['lastModDate'],
-                "daysBeforeExpired" => isset($daysBeforePasswordExpired) ? $daysBeforePasswordExpired : null
+                "daysBeforeExpired" => isset($daysBeforePasswordExpired) ? $daysBeforePasswordExpired : null,
+                "daysBeforetempPasswordExpired" => isset($daysBeforetempPasswordExpired) ? $daysBeforetempPasswordExpired : null
+
             )
         );
 

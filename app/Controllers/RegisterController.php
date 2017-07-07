@@ -72,7 +72,7 @@ class RegisterController
         $studentUser->setMajors(array($_REQUEST['major']));
         $studentUser->setDegreeTypeFromString($_REQUEST['degree']);
         $studentUser->setNotification("yes");
-
+        $studentUser->setSendTemPWDate(date("Y-m-d", time()));
         $password = generateRandomPassword();
         $studentUser->setPassword($password);
 

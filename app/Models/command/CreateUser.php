@@ -24,10 +24,11 @@ class CreateUser extends SQLCmd
         $email = $this->user->getEmail();
         $password = md5($this->user->getPassword());
         $role = $this->user->getRole();
+        $sendTemPWDate = $this->user->getSendTemPWDate();
 
         $query = "INSERT INTO ma_user 
-                  (email,password,role) 
-                  VALUES('$email','$password','$role')";
+                  (email,password,role,sendTemPWDate) 
+                  VALUES('$email','$password','$role','$sendTemPWDate')";
         $res = $this->conn->query($query);
 
         if ($res) {

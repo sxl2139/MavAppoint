@@ -76,6 +76,7 @@ class adminController
         $loginUser->setRole("advisor");
         $loginUser->setDepartments(array($department));
         $loginUser->setMajors(array("Software Engineering"));
+        $loginUser->setSendTemPWDate(date("Y-m-d", time()));
 
 
         $id = $manager->createUser($loginUser);
@@ -173,8 +174,11 @@ class adminController
 
     function addDepartmentAction(){
         $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
-        if(mav_decrypt($tag)=="yes"){
+
+        if(mav_decrypt($tag)=="yes") {
             return array("message" => "Add department Successfully");
+        }elseif (mav_encrypt($tag)=="yes2"){
+            return array("message" => "Set Temporary password Expiration Time Successfully");
         }else{
             return null;
         }
@@ -214,6 +218,25 @@ class adminController
             );
         }
 
+    }
+
+    function setTemporaryPasswordIntervalAction()
+    {
+        $time = isset($_REQUEST['temporaryPasswordInterval']) ? $_REQUEST['temporaryPasswordInterval'] : null;
+        $dbm = new DatabaseManager();
+        if ($time != null) {
+            $res = $dbm->setTemporaryPasswordInterval($time);
+
+        } else {
+            $res = false;
+
+        }
+
+        if($res){
+            return array("error"=>0);
+        }else{
+            return array("error"=>1);
+        }
     }
 
 

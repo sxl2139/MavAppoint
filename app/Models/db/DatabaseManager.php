@@ -100,6 +100,14 @@ class DatabaseManager{
         return $this->impl->addNewDepartment($name);
     }
 
+    function setTemporaryPasswordInterval($time){
+        return $this->impl->setTemporaryPasswordInterval($time);
+    }
+
+    function getTemporaryPasswordInterval(){
+        return $this->impl->getTemporaryPasswordInterval();
+    }
+
     function getUserIdByEmail($email){
         return $this->impl->getUserIdByEmail($email);
     }

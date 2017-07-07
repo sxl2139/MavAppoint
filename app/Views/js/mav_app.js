@@ -16,9 +16,12 @@ $(function(){
                 password : passhash
             },
             success: function(data){
+                // alert(data);
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    if (data.data.validated == 0) {
+                    if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
+                        $("#message3").css("visibility", "visible");
+                    }else if (data.data.validated == 0) {
                         alert("Please change your password on first login.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
@@ -232,6 +235,36 @@ $(function(){
 
     });
 
+    $("#setTemporaryPasswordIntervalSubmit").on("click", function (e) {
+        e.preventDefault();
+        var time = $("#entertemporaryPasswordInterval").val();
+        if(time==null || time==""){
+            alert("Need to enter interval of time");
+        }else {
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#adminController").val(),
+                    a : $("#setTemporaryPasswordInterval").val(),
+                    temporaryPasswordInterval : time
+                },
+                success: function(data){
+                    var data = JSON.parse(data);
+                    if (data.error == 0) {
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
+                            + "&nc=admin&na=addDepartment&nt=yes";
+                    }else{
+                        //TODO redirect to failure page
+                        alert("Set Temporary Password Expiration Time error");
+                    }
+
+                }
+            });
+
+        }
+    });
+
 
 
     $(".cancelButton").click(function(){
@@ -251,7 +284,7 @@ $(function(){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
-                        + "&nc=appointment&na=showAppointment";
+                            + "&nc=appointment&na=showAppointment";
                     }else{
                         //TODO redirect to failure page
                         alert("Cancel appointment error");
@@ -280,7 +313,7 @@ $(function(){
                     $.each(data.data.majors, function(key, value) {
                         $('#drp_major')
                             .append($("<option></option>")
-                                //.attr("value",key)
+                            //.attr("value",key)
                                 .text(value));
                     });
                 }else{
@@ -452,26 +485,26 @@ $(function(){
 
     $(".defaultDurationSubmit").click(function(e){
         e.preventDefault();
-            var apptypes = "Other";
-            var minutes = $("#defaultDuration").val();
-            $.ajax({
-                url: $(".mavAppointUrl").val(),
-                type: "post",
-                data: {
-                    c : $("#customizeSettingController").val(),
-                    a : $("#changeTypeAndDurationAction").val(),
-                    apptypes : apptypes,
-                    minutes : minutes
-                },
-                success: function(data){
-                    var data = JSON.parse(data);
-                    if (data.error == 0) {
-                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
-                    }else{
-                        alert("Error while updating notification")
-                    }
+        var apptypes = "Other";
+        var minutes = $("#defaultDuration").val();
+        $.ajax({
+            url: $(".mavAppointUrl").val(),
+            type: "post",
+            data: {
+                c : $("#customizeSettingController").val(),
+                a : $("#changeTypeAndDurationAction").val(),
+                apptypes : apptypes,
+                minutes : minutes
+            },
+            success: function(data){
+                var data = JSON.parse(data);
+                if (data.error == 0) {
+                    window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
+                }else{
+                    alert("Error while updating notification")
                 }
-            });
+            }
+        });
     });
 
     $("#changePasswordSubmit").click(

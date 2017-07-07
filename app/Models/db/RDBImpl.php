@@ -236,9 +236,24 @@ class RDBImpl implements DBImplInterface
 
     function addNewDepartment($name)
     {
-        include_once dirname(dirname(__FILE__)) . "/command/addNewDepartment.php";
+        include_once dirname(dirname(__FILE__)) . "/command/AddNewDepartment.php";
         $cmd = new AddNewDepartment($name);
         return $cmd->execute();
+    }
+
+    function setTemporaryPasswordInterval($time)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/SetTemporaryPasswordInterval.php";
+        $cmd = new SetTemporaryPasswordInterval($time);
+        return $cmd->execute();
+    }
+
+    function getTemporaryPasswordInterval()
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetTemporaryPasswordInterval.php";
+        $cmd = new GetTemporaryPasswordInterval();
+        return $cmd->execute();
+
     }
 
     function updateNotification($user, $notification)

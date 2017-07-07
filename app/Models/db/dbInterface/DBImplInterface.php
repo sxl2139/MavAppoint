@@ -31,6 +31,8 @@ interface DBImplInterface
     function getAdvisorWaitlistSchedules(array $advisorUsers);
     function deleteAdvisor($id);
     function addNewDepartment($name);
+    function setTemporaryPasswordInterval($time);
+    function getTemporaryPasswordInterval();
     function updateNotification($user,$notification);
 
     function createStudent($user);

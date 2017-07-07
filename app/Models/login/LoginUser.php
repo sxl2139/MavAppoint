@@ -11,6 +11,7 @@ class LoginUser
     private $password;
     private $validated;
     private $lastModDate;
+    private $sendTemPWDate;
     private $role;
     private $majors;
     private $departments;
@@ -77,6 +78,22 @@ class LoginUser
     public function setLastModDate($date)
     {
         $this->lastModDate = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSendTemPWDate()
+    {
+        return $this->sendTemPWDate;
+    }
+
+    /**
+     * @param mixed $sendTemPWDate
+     */
+    public function setSendTemPWDate($sendTemPWDate)
+    {
+        $this->sendTemPWDate = $sendTemPWDate;
     }
 
     /**

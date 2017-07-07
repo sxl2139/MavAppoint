@@ -8,6 +8,7 @@ $departments = $content;
 
 $adminController = mav_encrypt("admin");
 $createNewDepartmentAction = mav_encrypt("createNewDepartment");
+$setTemporaryPasswordIntervalAction = mav_encrypt("setTemporaryPasswordInterval");
 $successAction=mav_encrypt("success");
 ?>
 
@@ -22,31 +23,21 @@ $successAction=mav_encrypt("success");
 
 
     <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
-    <input id="createNewDepartmentAction" type="hidden" value="<?php echo $createNewDepartmentAction?>"/>
+    <input id="createNewDepartment" type="hidden" value="<?php echo $createNewDepartmentAction?>"/>
+    <input id="setTemporaryPasswordInterval" type="hidden" value="<?php echo $setTemporaryPasswordIntervalAction?>"/>
     <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container">
+
         <!-- Panel -->
         <div class="panel panel-default resize center-block">
+            <div class="panel-heading text-center"><h1>Customize Settings</h1></div>
             <!-- Default panel contents -->
             <form action="#" method="post" name="department_form" id="department_form" onsubmit="return false;">
-                <div class="panel-heading text-center"><h1>Add New Department</h1></div>
+                <div class="panel-heading text-center"><h3>Add New Department</h3></div>
                 <div class="panel-body resize-body center-block">
 
                     <div class="form-group">
-
-                        <!--                        <label for="drp_department"><font color="#0" size="4">Departments</font></label>-->
-                        <!--                        <br>-->
-                        <!--                        <select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">-->
-                        <!--                            --><?php
-                        //                            for($i=0; $i<count($departments);$i++){?>
-                        <!--                                <option value=--><?php //echo $departments[$i]?><!-- >-->
-                        <!--                                    --><?php //echo $departments[$i]?>
-                        <!--                                </option>-->
-                        <!--                            --><?php //} ?>
-                        <!--                        </select>-->
-                        <!--                        <br>-->
-
                         <label for="department"><font color="#0" size="4">Department</font></label><br>
                         <input type="text" style="width: 350px;" class="form-control" id="enterDepartment" name="department" placeholder="">
 
@@ -62,12 +53,37 @@ $successAction=mav_encrypt("success");
                     <input id="addDepartmentSubmit" type="submit" class="btn-lg" value="Submit">
                 </div>
 
+
+
 <!--                <div class= "panel-footer text-center">-->
 <!--                    <input onclick="javascript:FormSubmit();" id="addDepartmentButton" type="submit" class="btn-lg" value="Submit">-->
 <!--                </div>-->
             </form>
-
             <label id="addDepartmentResult"><?php echo $departments['message']?></label>
+
+
+            <form action="#" method="post" name="setTemporaryPasswordInterval_form" id="setTemporaryPasswordInterval_form" onsubmit="return false;">
+                <div class="panel-heading text-center"><h3>Set Temporary Password Expiration Time</h3></div>
+                <div class="panel-body resize-body center-block">
+
+                    <div class="form-group">
+                        <label for="setTemporaryPasswordInterval"><font color="#0" size="4">Time(days)</font></label><br>
+                        <input type="text" style="width: 350px;" class="form-control" id="entertemporaryPasswordInterval" name="temporaryPasswordInterval" placeholder="">
+
+                        <!--                        <label for="pname"><font color="#0" size="4">Display-->
+                        <!--                                Name</font></label><br> <input type="text" style="width: 350px;"-->
+                        <!--                                                               class="form-control" id="pname" placeholder="">-->
+                        <br>
+                    </div>
+
+                </div>
+
+                <div class= "panel-footer text-center">
+                    <input id="setTemporaryPasswordIntervalSubmit" type="submit" class="btn-lg" value="Submit2">
+                </div>
+            </form>
+
+            <label id="setTemporaryPasswordIntervalResult"><?php echo $departments['message']?></label>
 
         </div>
     </div>
