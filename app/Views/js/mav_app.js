@@ -253,7 +253,7 @@ $(function(){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
-                            + "&nc=admin&na=addDepartment&nt=yes";
+                            + "&nc=admin&na=addDepartment&nt=yes2";
                     }else{
                         //TODO redirect to failure page
                         alert("Set Temporary Password Expiration Time error");

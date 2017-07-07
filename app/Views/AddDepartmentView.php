@@ -59,7 +59,7 @@ $successAction=mav_encrypt("success");
 <!--                    <input onclick="javascript:FormSubmit();" id="addDepartmentButton" type="submit" class="btn-lg" value="Submit">-->
 <!--                </div>-->
             </form>
-            <label id="addDepartmentResult"><?php echo $departments['message']?></label>
+<!--            <label id="addDepartmentResult">--><?php //echo $departments['message']?><!--</label>-->
 
 
             <form action="#" method="post" name="setTemporaryPasswordInterval_form" id="setTemporaryPasswordInterval_form" onsubmit="return false;">
@@ -79,7 +79,7 @@ $successAction=mav_encrypt("success");
                 </div>
 
                 <div class= "panel-footer text-center">
-                    <input id="setTemporaryPasswordIntervalSubmit" type="submit" class="btn-lg" value="Submit2">
+                    <input id="setTemporaryPasswordIntervalSubmit" type="submit" class="btn-lg" value="Submit">
                 </div>
             </form>
 
