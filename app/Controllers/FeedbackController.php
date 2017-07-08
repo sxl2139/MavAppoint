@@ -79,6 +79,7 @@ class FeedbackController
     }
 
     private function replyFeedbackAction() {
+        $fid = $_REQUEST['fid'];
         $uid = $_REQUEST['uid'];
         $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
@@ -95,10 +96,24 @@ class FeedbackController
         }
         $replyee = $dbManager->getUserById($uid);
 
-        mav_mail(
+        $res = mav_mail(
             "RE: " . $title,
             $content . "<br><br>" . "Best,<br>" . $role == 'admin' ? "Admin" : $replier->getPName(),
             array($replyee->getEmail()));
+
+        if ($res) {
+            return array(
+                "error" => 1,
+                "description" => "Errors while replying"
+            );
+        }
+
+        if (!$dbManager->updateFeedBack($fid)) {
+            return array(
+                "error" => 1,
+                "description" => "Errors while updating database"
+            );
+        }
 
         return array(
             "error" => 0

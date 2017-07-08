@@ -388,4 +388,11 @@ class RDBImpl implements DBImplInterface
         $cmd = new GetUserById($uid);
         return $cmd->execute();
     }
+
+    public function updateFeedback($fid)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/UpdateFeedback.php";
+        $cmd = new UpdateFeedback($fid);
+        return $cmd->execute();
+    }
 }

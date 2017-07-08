@@ -250,4 +250,9 @@ class DatabaseManager{
     {
         return $this->impl->getUserById($uid);
     }
+
+    public function updateFeedBack($fid)
+    {
+        return $this->impl->updateFeedback($fid);
+    }
 }
