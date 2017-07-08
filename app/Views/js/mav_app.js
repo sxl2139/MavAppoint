@@ -20,6 +20,8 @@ $(function(){
                 if (data.error == 0) {
                     if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
                         $("#message3").css("visibility", "visible");
+                        $("#message2").css("visibility", "hidden");
+                        $("#message").css("visibility", "hidden");
                     }
                     else if (data.data.validated == 0) {
                         if (data.data.lastModDate == null) alert("Please change your password on first login.");
@@ -32,11 +34,15 @@ $(function(){
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }else if(data.data.daysBeforeExpired <=0){
                         $("#message2").css("visibility", "visible");
+                        $("#message").css("visibility", "hidden");
+                        $("#message3").css("visibility", "hidden");
                     } else {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#indexController").val();
                     }
                 }else{
                     $("#message").css("visibility", "visible");
+                    $("#message2").css("visibility", "hidden");
+                    $("#message3").css("visibility", "hidden");
                 }
             }
         });
