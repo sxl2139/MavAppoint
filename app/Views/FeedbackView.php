@@ -42,7 +42,7 @@ $feedbackArray = $content['data']['feedback'];
                 echo "</strong>";
 
                 echo "<div id='collapse" . $position . "' class='panel-collapse collapse'>";
-                echo "<p  class='text-muted' style='overflow: hidden; text-overflow: ellipsis;'>";
+                echo "<p id='feedback_content".$position."' class='text-muted' style='overflow: hidden; text-overflow: ellipsis;'>";
                 echo $feedback['content'];
                 echo "</p>";
                 echo "</div>";

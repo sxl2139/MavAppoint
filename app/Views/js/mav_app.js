@@ -786,7 +786,10 @@ $(function(){
         var uid = $("#feedbackUid"+position).val();
         var fid = $("#feedbackFid"+position).val();
         var title =  $("#feedback_reply_comment_label").text();
-        var content =  $("#feedback_reply_comment").val();
+        var content =
+            "Following is the reply to your feedback : <br><i>" +
+            $("#feedback_content"+position).text() + "</i><br><br>" +
+            $("#feedback_reply_comment").val();
 
         if(content == ''){
             $("#feedback_reply_loading_img").attr("src", "app/Views/img/wrong.png");
