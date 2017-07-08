@@ -762,7 +762,7 @@ $(function(){
                                 ,1000);
                         }else{
                             $("#feedback_loading_img").attr("src", "app/Views/img/wrong.png");
-                            $("#feedback_loading_text").text('Submit fail, maybe your content is too long.');
+                            $("#feedback_loading_text").text(data.description);
                         }
                     }
                 }
@@ -822,7 +822,7 @@ $(function(){
                             $("#feedback_reply_button" + position).attr("disabled","disabled").text("Handled");
                         }else{
                             $("#feedback_reply_loading_img").attr("src", "app/Views/img/wrong.png");
-                            $("#feedback_reply_loading_text").text('Submit fail, maybe your content is too long.');
+                            $("#feedback_reply_loading_text").text(data.description);
                         }
                     }
                 }
