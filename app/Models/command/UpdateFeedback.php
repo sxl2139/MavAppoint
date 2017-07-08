@@ -14,7 +14,7 @@ class UpdateFeedback extends SQLCmd {
     }
 
     function queryDB() {
-        $query = "UPDATE ma_feedback SET isHandled = 1";
+        $query = "UPDATE ma_feedback SET isHandled = 1 where fid = '$this->fid'";
         $this->conn->query($query);
 
         if (mysqli_affected_rows($this->conn) == 0) {

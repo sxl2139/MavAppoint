@@ -62,6 +62,7 @@ class FeedbackController
         foreach ($feedback as $f) {
             /** @var Feedback $f */
             array_push($tempFeedback, array(
+                "fid" => $f->getFid(),
                 "title" => $f->getTitle(),
                 "content" => $f->getContent(),
                 "isHandled" => $f->getIsHandle(),
@@ -78,7 +79,7 @@ class FeedbackController
         );
     }
 
-    private function replyFeedbackAction() {
+    public function replyFeedbackAction() {
         $fid = $_REQUEST['fid'];
         $uid = $_REQUEST['uid'];
         $title = $_REQUEST['title'];
@@ -90,15 +91,15 @@ class FeedbackController
         $role = $_SESSION['role'];
         $replier = null;
         if ($role == 'advisor') {
-            $replier = $dbManager->getAdvisor($_SESSION['email']);
+            $replier = $dbManager->getAdvisor($_SESSION['email'])->getPName();
         } else if ($role == 'admin') {
-            $replier = $dbManager->getAdmin($_SESSION['email']);
+            $replier = 'Admin';
         }
         $replyee = $dbManager->getUserById($uid);
 
         $res = mav_mail(
-            "RE: " . $title,
-            $content . "<br><br>" . "Best,<br>" . $role == 'admin' ? "Admin" : $replier->getPName(),
+            $title,
+            $content . "<br><br>" . "Best,<br>" . $role == 'admin' ? "Admin" : $replier,
             array($replyee->getEmail()));
 
         if ($res) {

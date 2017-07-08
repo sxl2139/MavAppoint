@@ -760,6 +760,9 @@ $(function(){
                                     $("#feedback_loading_text").text('Success');
                                 }
                                 ,1000);
+                        }else{
+                            $("#feedback_loading_img").attr("src", "app/Views/img/wrong.png");
+                            $("#feedback_loading_text").text('Submit fail, maybe your content is too long.');
                         }
                     }
                 }
@@ -767,4 +770,63 @@ $(function(){
         }
     });
 
+    $(".feedbackReplyBtn").click(function(e){
+        var position = $(this).attr("value");
+        $("#feedbackReplyPosition").val(position);
+        var title = $("#feedback_title"+position).text();
+        $("#feedback_reply_comment_label").text("Re : " + title);
+        $("#feedback_reply_loading_section").hide();
+        $("#feedback_reply_comment").val("");
+    });
+
+    $("#button_feedback_reply_submit").click(function(e){
+        e.preventDefault();
+        var position =  $("#feedbackReplyPosition").val();
+
+        var uid = $("#feedbackUid"+position).val();
+        var fid = $("#feedbackFid"+position).val();
+        var title =  $("#feedback_reply_comment_label").text();
+        var content =  $("#feedback_reply_comment").val();
+
+        if(content == ''){
+            $("#feedback_reply_loading_img").attr("src", "app/Views/img/wrong.png");
+            $("#feedback_reply_loading_text").text('Title or content cannot be null');
+            $("#feedback_reply_loading_section").show();
+        }else {
+            $("#feedback_reply_loading_img").attr("src", "app/Views/img/loader.gif");
+            $("#feedback_reply_loading_text").text('Processing');
+            $("#feedback_reply_loading_section").show();
+
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data: {
+                        c: $("#feedbackController").val(),
+                        a: $("#replyFeedbackAction").val(),
+                        uid: uid,
+                        title: title,
+                        fid:fid,
+                        content: content
+                    },
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        if (data.error == 0) {
+                            setTimeout(
+                                function(){
+                                    $("#feedback_reply_loading_img").attr("src", "app/Views/img/correct.png");
+                                    $("#feedback_reply_loading_text").text('Success');
+                                }
+                                ,1000);
+
+                            $("#feedback_reply_button" + position).attr("disabled","disabled").text("Handled");
+                        }else{
+                            $("#feedback_reply_loading_img").attr("src", "app/Views/img/wrong.png");
+                            $("#feedback_reply_loading_text").text('Submit fail, maybe your content is too long.');
+                        }
+                    }
+                }
+            );
+        }
+    });
 });

@@ -10,7 +10,7 @@ class GetUserById extends SQLCmd {
     }
 
     function queryDB() {
-        $query        = "SELECT * FROM ma_user WHERE id = $this->uid";
+        $query        = "SELECT * FROM ma_user WHERE userId = $this->uid";
         $res          = $this->conn->query($query)->fetch_assoc();
         $this->result = $res;
     }
