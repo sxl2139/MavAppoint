@@ -70,6 +70,7 @@ return array(
     "feedback" => array(
         "getFeedback" => "FeedbackView",
         "getFeedbackAdvisor" => "getFeedbackAdvisor",
-        "addFeedback" => "addFeedback"
+        "addFeedback" => "addFeedback",
+        "replyFeedback" => "replyFeedback"
     ),
 );

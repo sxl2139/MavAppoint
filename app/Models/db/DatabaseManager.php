@@ -241,4 +241,13 @@ class DatabaseManager{
     {
         return $this->impl->getFeedback($uid, $role);
     }
+
+    /**
+     * @param int $uid
+     * @return LoginUser $user
+     */
+    public function getUserById($uid)
+    {
+        return $this->impl->getUserById($uid);
+    }
 }

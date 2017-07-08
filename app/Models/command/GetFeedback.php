@@ -15,9 +15,9 @@ class GetFeedback extends SQLCmd{
     function queryDB(){
         $query = "";
         if($this->role == "admin")
-            $query = "SELECT * FROM ma_feedback WHERE type = 'System'";
+            $query = "SELECT * FROM ma_feedback WHERE type = 'System' ORDER BY fid DESC";
         else if ($this->role == 'advisor')
-            $query = "select * from ma_feedback WHERE type = 'Advising' AND targetId = $this->uid";
+            $query = "select * from ma_feedback WHERE type = 'Advising' AND targetId = $this->uid ORDER BY fid DESC";
 
         $this->result = $this->conn->query($query);
     }

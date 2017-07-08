@@ -64,7 +64,8 @@ class FeedbackController
             array_push($tempFeedback, array(
                 "title" => $f->getTitle(),
                 "content" => $f->getContent(),
-                "isHandled" => $f->getIsHandle()
+                "isHandled" => $f->getIsHandle(),
+                "uid" => $f->getUid()
 //                "type" => $appointment->getAdvisingEndTime(),
             ));
         }
@@ -74,6 +75,33 @@ class FeedbackController
             "data" => array(
                 "feedback" => $tempFeedback
             )
+        );
+    }
+
+    private function replyFeedbackAction() {
+        $uid = $_REQUEST['uid'];
+        $title = $_REQUEST['title'];
+        $content = $_REQUEST['content'];
+
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
+        $dbManager = new DatabaseManager();
+
+        $role = $_SESSION['role'];
+        $replier = null;
+        if ($role == 'advisor') {
+            $replier = $dbManager->getAdvisor($_SESSION['email']);
+        } else if ($role == 'admin') {
+            $replier = $dbManager->getAdmin($_SESSION['email']);
+        }
+        $replyee = $dbManager->getUserById($uid);
+
+        mav_mail(
+            "RE: " . $title,
+            $content . "<br><br>" . "Best,<br>" . $role == 'admin' ? "Admin" : $replier->getPName(),
+            array($replyee->getEmail()));
+
+        return array(
+            "error" => 0
         );
     }
 }

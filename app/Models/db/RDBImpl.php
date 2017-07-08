@@ -381,4 +381,11 @@ class RDBImpl implements DBImplInterface
         $cmd = new GetFeedback($uid, $role);
         return $cmd->execute();
     }
+
+    public function getUserById($uid)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetUserById.php";
+        $cmd = new GetUserById($uid);
+        return $cmd->execute();
+    }
 }

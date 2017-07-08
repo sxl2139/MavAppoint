@@ -61,4 +61,5 @@ interface DBImplInterface
     function setWaitListSchedule($waitList);
     function addFeedback($feedback);
     function getFeedback($uid, $role);
+    function getUserById($uid);
 }
