@@ -158,12 +158,12 @@ class LoginController
 
         mav_mail("MavAppoint - Forgot password",
             "<p>The temporary password for your account is:  ". $password . "</p>"
-            . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>login</a> to your account to change password!", array($emailAddress));
+            . "<br><br>Please click  <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>here</a> to login to your account to change password!", array($emailAddress));
 
 
         return array(
             "error" => 0,
-            "description" => "Reset password successfully! "."<br>"."Please check your email for further details!"
+            "description" => "Reset password successfully! Please check your email for further details!"
         );
     }
 
