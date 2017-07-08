@@ -99,7 +99,7 @@ class FeedbackController
 
         $res = mav_mail(
             $title,
-            $content . "<br><br>" . "Best,<br>" . $role == 'admin' ? "Admin" : $replier,
+            $content . "<br><br>" . "Best,<br>" .  $replier,
             array($replyee->getEmail()));
 
         if ($res) {

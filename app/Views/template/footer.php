@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="feedback_comment">Comment</label>
+                        <label for="feedback_comment">Content</label>
                         <textarea style="z-index:0" class="form-control" rows="5" id="feedback_comment"></textarea>
                     </div>
                 </div>
