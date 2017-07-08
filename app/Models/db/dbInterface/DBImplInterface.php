@@ -60,4 +60,5 @@ interface DBImplInterface
     function getFirstWaitList($aptId);
     function setWaitListSchedule($waitList);
     function addFeedback($feedback);
+    function getFeedback($uid, $role);
 }

@@ -11,7 +11,7 @@ $showAppointmentAction = mav_encrypt("showAppointment");
 <div class="navbar-header">
     <a class="navbar-brand" href="/MavAppoint">
         <font style="font-weight:bold; color: #e67e22" size="6"> MavAppoint </font>
-        <font style="color: #e67e22; margin-left: 10px;" size="2">Logged in as Student</font>
+        <font style="color: #e67e22; margin-left: 10px;" size="3">Logged in as Student</font>
     </a>
 </div>
 

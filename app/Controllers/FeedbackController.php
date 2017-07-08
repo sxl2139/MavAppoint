@@ -1,5 +1,5 @@
 <?php
-include_once ROOT . "/app/Models/db/DatabaseManager.php";
+
 class FeedbackController
 {
     public function getFeedbackAdvisorAction(){
@@ -7,6 +7,7 @@ class FeedbackController
         $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
         $advisors = "";
         if (isset($_SESSION['email'])) {
+            include_once ROOT . "/app/Models/db/DatabaseManager.php";
             $dbManager = new DatabaseManager();
             $advisors = $dbManager->getAdvisors();
         }
@@ -29,6 +30,7 @@ class FeedbackController
         $feedback->setContent($_REQUEST['content']);
         $feedback->setIsHandle(0);
 
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
         if (!$dbManager->addFeedback($feedback)) {
             return array(
@@ -42,9 +44,36 @@ class FeedbackController
         );
     }
 
-    public function getFeedbackAction(){
+
+    public function getFeedbackAction() {
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
+        $dbManager = new DatabaseManager();
+
+        $user = null;
+        if ($_SESSION['role'] == 'advisor') {
+            $user = $dbManager->getAdvisor($_SESSION['email']);
+        } else if ($_SESSION['role'] == 'admin') {
+            $user = $dbManager->getAdmin($_SESSION['email']);
+        }
+
+        $feedback = $dbManager->getFeedback($user->getUserId(), $user->getRole());
+
+        $tempFeedback = array();
+        foreach ($feedback as $f) {
+            /** @var Feedback $f */
+            array_push($tempFeedback, array(
+                "title" => $f->getTitle(),
+                "content" => $f->getContent(),
+                "isHandled" => $f->getIsHandle()
+//                "type" => $appointment->getAdvisingEndTime(),
+            ));
+        }
+
         return array(
-            "error" => 0
+            "error" => 0,
+            "data" => array(
+                "feedback" => $tempFeedback
+            )
         );
     }
 }

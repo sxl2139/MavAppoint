@@ -236,4 +236,9 @@ class DatabaseManager{
     public function addFeedback($feedback) {
         return $this->impl->addFeedback($feedback);
     }
+
+    public function getFeedback($uid, $role)
+    {
+        return $this->impl->getFeedback($uid, $role);
+    }
 }

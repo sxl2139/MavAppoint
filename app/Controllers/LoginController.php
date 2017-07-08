@@ -33,6 +33,7 @@ class LoginController
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
         $time = $manager->getTemporaryPasswordInterval();
+//        $time = 80;
 
         if($res['sendTemPWDate']!=null){
             $today1 = strtotime(date("Y-m-d", time()));

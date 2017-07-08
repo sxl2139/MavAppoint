@@ -374,4 +374,11 @@ class RDBImpl implements DBImplInterface
         $cmd = new AddFeedback($feedback);
         return $cmd->execute();
     }
+
+    public function getFeedback($uid, $role)
+    {
+        include_once dirname(dirname(__FILE__)) . "/command/GetFeedback.php";
+        $cmd = new GetFeedback($uid, $role);
+        return $cmd->execute();
+    }
 }
