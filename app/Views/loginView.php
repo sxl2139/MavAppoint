@@ -7,6 +7,7 @@ $checkAction = mav_encrypt("check");
 $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 $indexController = mav_encrypt("index");
 $testAction = mav_encrypt("test");
+$forgotPasswordDefaultAction = mav_encrypt("forgotPasswordDefault");
 ?>
     <style>
         .panel-heading {
@@ -73,7 +74,7 @@ $testAction = mav_encrypt("test");
 
                                         <div class="form-group">
                                             <input id="signIn" type="submit" name="signIn" class="btn btn-lg btn-primary btn-block" value="Sign in">
-                                            <input type="submit" name="forgotPassword" class="btn btn-lg btn-primary btn-block" value="Forgot Password">
+                                            <a href="?c=<?php echo $loginController?>&a=<?php echo $forgotPasswordDefaultAction?>" class="btn btn-lg btn-primary btn-block">Forgot Password</a>
                                         </div>
                                     </div>
                                 </div>

@@ -32,13 +32,7 @@ class LoginController
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
-        $time = $manager->getTemporaryPasswordInterval();
 
-        if($res['sendTemPWDate']!=null){
-            $today1 = strtotime(date("Y-m-d", time()));
-            $lastDate1 = strtotime($res['sendTemPWDate']);
-            $daysBeforetempPasswordExpired = $time - ($today1-$lastDate1)/(3600*24);
-        }
         if($res['lastModDate'] !=null) {
             $today = strtotime(date("Y-m-d", time()));
             $lastDate = strtotime($res['lastModDate']);
@@ -49,7 +43,7 @@ class LoginController
             "data" => array(
                 "role" => $res['role'],
                 "validated" => $res['validated'],
-//                "lastModDate" => $res['lastModDate'],
+                "lastModDate" => $res['lastModDate'],
                 "daysBeforeExpired" => isset($daysBeforePasswordExpired) ? $daysBeforePasswordExpired : null,
                 "daysBeforetempPasswordExpired" => isset($daysBeforetempPasswordExpired) ? $daysBeforetempPasswordExpired : null
 
@@ -131,6 +125,49 @@ class LoginController
 
     public function testAction()
     {
+        return array(
+            "error" => 0
+        );
+    }
+
+    public function forgotPasswordAction(){
+        $emailAddress = $_REQUEST['emailAddress'];
+        if($emailAddress=="" || $emailAddress==null){
+            return array(
+                "error" =>1,
+                "description" => "Please enter your email Address!"
+            );
+        }
+
+        include_once ROOT . "/app/Models/db/DatabaseManager.php";
+        $manager = new DatabaseManager();
+        $uid = $manager->getUserIdByEmail($emailAddress);
+        $password = generateRandomPassword();
+        if($uid==null){
+            return array(
+                "error" =>1,
+                "description" => "No account exists for this email address!"
+            );
+        }
+        if(!$manager->updatePassword($emailAddress,$password)){
+            return array(
+                "error" =>1,
+                "description" => "Error while reset password, please try again!"
+            );
+        }
+
+        mav_mail("MavAppoint - Forgot password",
+            "<p>The temporary password for your account is:  ". $password . "</p>"
+            . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>login</a> to your account to change password!", array($emailAddress));
+
+
+        return array(
+            "error" => 0,
+            "description" => "Reset password successfully! "."<br>"."Please check your email for further details!"
+        );
+    }
+
+    public function forgotPasswordDefaultAction(){
         return array(
             "error" => 0
         );

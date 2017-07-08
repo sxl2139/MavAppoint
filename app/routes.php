@@ -14,6 +14,8 @@ return array(
         "logout" => "IndexView",
         "changePasswordDefault" => "ChangePasswordView",
         "changePassword" => "changePassword",
+        "forgotPasswordDefault" => "ForgotPasswordView",
+        "forgotPassword" => "forgotPassword",
         "success" => "SuccessView"
     ),
     "index" => array(

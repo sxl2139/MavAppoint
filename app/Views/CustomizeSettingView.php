@@ -116,7 +116,7 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
                 </form>
             </div>
             <div class="panel-footer text-center">
-                <input id="addAppointmentTypeSubmit" type="submit" class="btn-lg" value="Add Appointment Type" href="#"
+                <input id="addAppointmentTypeSubmit" type="submit" class="btn-lg" value="Add Advising Task" href="#"
                        data-toggle="modal" data-target="#addApptType">
             </div>
 
@@ -126,15 +126,15 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"></button>
-                                <h4 class="modal-title" id="addApptTypeLabel">Add Appointment Type</h4>
+                                <h4 class="modal-title" id="addApptTypeLabel">Add Advising Task</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="apptypes">Appointment Type:</label>
+                                    <label for="apptypes">Advising Task:</label>
                                     <input type="typeText" class="form-control" id="apptypes" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="minutes">Minutes</label> <input type="number" class="form-control"
+                                    <label for="minutes">Duration (minutes)</label> <input type="number" class="form-control"
                                                                                 id="minutes" step="5" placeholder="">
                                 </div>
                                 <div>
@@ -143,7 +143,7 @@ $notificationNo = $advisorNotificationState == "no" ? "checked" : "";
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <input id="addTypeAndDurationSubmit" type="submit" value="submit"
+                                <input id="addTypeAndDurationSubmit" class="btn btn-default" type="submit" value="Submit"
                                 >
                             </div>
                         </div>

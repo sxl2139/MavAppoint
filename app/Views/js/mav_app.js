@@ -16,15 +16,17 @@ $(function(){
                 password : passhash
             },
             success: function(data){
-                // alert(data);
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
-                        $("#message3").css("visibility", "visible");
-                    }else if (data.data.validated == 0) {
-                        alert("Please change your password on first login.");
+                    if (data.data.validated == 0) {
+                        if (data.data.lastModDate == null) alert("Please change your password on first login.");
+                        else alert("Please change your temporary password.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
-                    }else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
+                    }
+                    else if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
+                        $("#message3").css("visibility", "visible");
+                    }
+                    else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
                         alert("The password for your account will expire in " + data.data.daysBeforeExpired + "days.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }else if(data.data.daysBeforeExpired <=0){
@@ -38,6 +40,30 @@ $(function(){
             }
         });
     });
+
+    $("#forgotPassword").click(
+        function(e)
+        {
+            e.preventDefault();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#loginController").val(),
+                            a : $("#forgotPasswordAction").val(),
+                            emailAddress : $("#emailAddress").val()
+                        },
+                    success: function(data) {
+                        var data = JSON.parse(data);
+                        $("#forgotPasswordMessage").text(data.description).css({'color' : '#e67e22', 'font-size' : '16px'});
+
+                    }
+                }
+            );
+        }
+    );
 
     $('#loginForm').submit(function (event) {
         event.preventDefault();
@@ -284,7 +310,7 @@ $(function(){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val()
-                            + "&nc=appointment&na=showAppointment";
+                        + "&nc=appointment&na=showAppointment";
                     }else{
                         //TODO redirect to failure page
                         alert("Cancel appointment error");
@@ -313,7 +339,7 @@ $(function(){
                     $.each(data.data.majors, function(key, value) {
                         $('#drp_major')
                             .append($("<option></option>")
-                            //.attr("value",key)
+                                //.attr("value",key)
                                 .text(value));
                     });
                 }else{
