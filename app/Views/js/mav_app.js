@@ -299,7 +299,6 @@ $(function(){
     });
 
 
-
     $(".cancelButton").click(function(){
         var confirmMessage = 'Are you sure you want to delete this appointment?';
         if (confirm(confirmMessage)) {
@@ -670,6 +669,102 @@ $(function(){
         }
     );
 
+    $("#btn_feedback").click(function(e) {
+            e.preventDefault();
+            $("#feedback_loading_section").hide();
+            $("#feedback_title").val("");
+            $("#feedback_comment").val("");
+        });
 
+    $("#drp_feedback_type").change(function(){
+            var type = $("#drp_feedback_type option:selected").text();
+
+            if(type == 'System')
+                $("#drp_feedback_advisor_section").hide();
+            else {
+
+                $.ajax(
+                    {
+                        url: $(".mavAppointUrl").val(),
+                        type: "post",
+                        data:
+                            {
+                                c : $("#feedbackController").val(),
+                                a : $("#getFeedbackAdvisorAction").val()
+                            },
+                        success: function(data) {
+                            var data = JSON.parse(data);
+                            if (data.error == 0) {
+                                $("#drp_feedback_advisor").empty();
+
+                                var pNames = data.data.advisors.pName;
+                                var userIds = data.data.advisors.userId;
+
+                                for(var i = 0; i < pNames.length; i++) {
+                                    $('#drp_feedback_advisor')
+                                        .append($("<option></option>")
+                                            .text(pNames[i])
+                                            .val(userIds[i])
+                                        );
+                                }
+                                $("#drp_feedback_advisor_section").show();
+                            }
+                        }
+                    }
+                );
+
+            }
+        }
+    );
+
+    $("#button_feedback_submit").click(function(e){
+        e.preventDefault();
+
+        var type = $("#drp_feedback_type option:selected").text();
+        var targetId;
+        if(type == 'System')
+            targetId = '0';
+        else
+            targetId = $("#drp_feedback_advisor option:selected").val();
+
+        var title =  $("#feedback_title").val();
+        var content =  $("#feedback_comment").val();
+
+        if(title == '' || content == ''){
+            $("#feedback_loading_img").attr("src", "app/Views/img/wrong.png");
+            $("#feedback_loading_text").text('Title or content cannot be null');
+            $("#feedback_loading_section").show();
+        }else {
+            $("#feedback_loading_img").attr("src", "app/Views/img/loader.gif");
+            $("#feedback_loading_text").text('Processing');
+            $("#feedback_loading_section").show();
+
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data: {
+                        c: $("#feedbackController").val(),
+                        a: $("#addFeedbackAction").val(),
+                        type: type,
+                        tid: targetId,
+                        title: title,
+                        content: content
+                    },
+                    success: function (data) {
+                        var data = JSON.parse(data);
+                        if (data.error == 0) {
+                            setTimeout(
+                                function(){
+                                    $("#feedback_loading_img").attr("src", "app/Views/img/correct.png");
+                                    $("#feedback_loading_text").text('Success');
+                                }
+                                ,1000);
+                        }
+                    }
+                }
+            );
+        }
+    });
 
 });

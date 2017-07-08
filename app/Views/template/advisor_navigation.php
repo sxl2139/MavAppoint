@@ -11,21 +11,31 @@ $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 $showAppointmentAction = mav_encrypt("showAppointment");
 ?>
 
+<div class="navbar-header">
+    <a class="navbar-brand" href="/MavAppoint">
+        <font style="font-weight:bold; color: #e67e22" size="6"> MavAppoint </font>
+        <font style="color: #e67e22; margin-left: 10px;" size="2">Logged in as Advisor</font>
+    </a>
+</div>
+
 <div>
-    <ul class="nav navbar-nav">
-
-        <li><a href="?c=<?php echo $loginController?>&a=<?php echo $changePasswordDefaultAction?>"><font style="color: #e67e22" size="3">Change Password</font></a></li>
-
+    <ul class="nav navbar-nav navbar-right">
         <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showScheduleAction?>"><font style="color: #e67e22" size="3">
                     Update Schedule</font> </a></li>
         <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showAppointmentAction?>"><font style="color: #e67e22" size="3">
                     Appointments</font> </a></li>
-        <li><a href="?c=<?php echo $customizeSettingController?>&a=<?php echo $showAppointmentTypeAction?>"><font style="color: #e67e22" size="3">Customize Settings</font></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
 
-        <li><a href="#"><font style="color: #e67e22" size="3">You are logged in as an Advisor.</font></a></li>
-        <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><span class="glyphicon glyphicon-log-in"><font style="color: #e67e22" size="3">Logout</font></span></a></li>
+        <li class="dropdown" style="margin-right: 20px;">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <font style="color: #e67e22" size="3">Setting</font>
+                <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="?c=<?php echo $loginController?>&a=<?php echo $changePasswordDefaultAction?>"><font size="3">Change Password</font></a></li>
+                <li><a href="?c=<?php echo $customizeSettingController?>&a=<?php echo $showAppointmentTypeAction?>"><font size="3">Customize Settings</font></a></li>
+                <li class="divider"></li>
+                <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><font style="color:red" size="3">Logout</font></a></li>
+            </ul>
+        </li>
     </ul>
 
 </div>

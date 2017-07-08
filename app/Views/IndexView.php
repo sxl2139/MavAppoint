@@ -17,7 +17,7 @@ $getAdvisingInfoAction = mav_encrypt("getAdvisingInfo");
         <?php	}else if($role != "advisor" && $role != "admin"){ ?>
         <a href="?c=<?php echo $advisingController?>&a=<?php echo $getAdvisingInfoAction?>" class="btn btn-primary btn-lg">Make an appointment Now!</a>
         <?php } ?>
-
+        
     </div>
 </div>
 

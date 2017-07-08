@@ -22,13 +22,12 @@ $successAction = mav_encrypt("success");
 
 <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
 <div class="panel panel-default">
-    <div class="panel-heading"><h1>Assign Students To Advisors</h1></div>
+    <div class="panel-heading"><h2>Assign Students To Advisors</h2></div>
     <div class="panel-body">
-        <h2>Ranges - Uses the first letter of the last name</h2>
+        <h3>Ranges - Uses the first letter of the last name</h3>
         <h4>Low - low end of range </h4>
         <h4>High - High end of the range </h4>
     </div>
-
     <table class="table">
         <thead>
         <tr>
@@ -47,7 +46,7 @@ $successAction = mav_encrypt("success");
             echo '<tr>';
 
             echo "<td id='pName" . $position . "' value = '".$rs['userId']."'>" . $rs['pName'] . "</td>";
-            echo "<div id='userId" . $position . "' style=\"visibility:hidden\">".$rs['userId']."</div>";
+            echo "<div id='userId" . $position . "' style=\"display:none\">".$rs['userId']."</div>";
             echo "<td><select name='lowRange" . $position . "' id='lowRange" . $position . "' 
                     title ='" . $rs['nameLow'] . "' 
                     class='btn btn-default dropdown-toggle  pull-left' 

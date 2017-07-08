@@ -68,6 +68,8 @@ return array(
         "changeTypeAndDuration" => "changeTypeAndDuration"
     ),
     "feedback" => array(
+        "getFeedback" => "FeedbackView",
+        "getFeedbackAdvisor" => "getFeedbackAdvisor",
         "addFeedback" => "addFeedback"
     ),
 );

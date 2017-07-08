@@ -51,8 +51,4 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div id="inversenavbar" class="container-fluid"
          style="background-color: #104E8B;">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/MavAppoint"> <b> <font
-                        style="color: #e67e22" size="6"> MavAppoint </font></b></a>
-        </div>
 

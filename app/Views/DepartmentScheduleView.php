@@ -3,6 +3,7 @@ include ("template/header.php");
 if (!isset($_SESSION)) {
     session_start();
 }
+$mavAppointUrl = $_SESSION['mavAppointUrl'];
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include ("template/" . $role . "_navigation.php");
 $content = json_decode($content, true);
