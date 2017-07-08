@@ -18,14 +18,15 @@ $(function(){
             success: function(data){
                 var data = JSON.parse(data);
                 if (data.error == 0) {
-                    if (data.data.validated == 0) {
+                    if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
+                        $("#message3").css("visibility", "visible");
+                    }
+                    else if (data.data.validated == 0) {
                         if (data.data.lastModDate == null) alert("Please change your password on first login.");
                         else alert("Please change your temporary password.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }
-                    else if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
-                        $("#message3").css("visibility", "visible");
-                    }
+
                     else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
                         alert("The password for your account will expire in " + data.data.daysBeforeExpired + "days.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();

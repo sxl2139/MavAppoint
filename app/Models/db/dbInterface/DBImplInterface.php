@@ -7,7 +7,7 @@ interface DBImplInterface
     function updateUser($user);
     function checkUser($set);
     function getUserIdByEmail($email);
-    function updatePassword($email,$password);
+    function updatePassword($email,$password,$time);
 
     function setCutOffTime($id,$time);
     function createAppointment($a, $email);

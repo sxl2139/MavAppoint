@@ -32,7 +32,13 @@ class LoginController
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
+        $time = $manager->getTemporaryPasswordInterval();
 
+        if($res['sendTemPWDate']!=null){
+            $today1 = strtotime(date("Y-m-d", time()));
+            $lastDate1 = strtotime($res['sendTemPWDate']);
+            $daysBeforetempPasswordExpired = $time - ($today1-$lastDate1)/(3600*24);
+        }
         if($res['lastModDate'] !=null) {
             $today = strtotime(date("Y-m-d", time()));
             $lastDate = strtotime($res['lastModDate']);
@@ -143,13 +149,14 @@ class LoginController
         $manager = new DatabaseManager();
         $uid = $manager->getUserIdByEmail($emailAddress);
         $password = generateRandomPassword();
+        $time = date("Y-m-d", time());
         if($uid==null){
             return array(
                 "error" =>1,
                 "description" => "No account exists for this email address!"
             );
         }
-        if(!$manager->updatePassword($emailAddress,$password)){
+        if(!$manager->updatePassword($emailAddress,$password,$time)){
             return array(
                 "error" =>1,
                 "description" => "Error while reset password, please try again!"

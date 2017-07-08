@@ -158,10 +158,10 @@ class RDBImpl implements DBImplInterface
         return $cmd->execute();
     }
 
-    function updatePassword($email, $password)
+    function updatePassword($email, $password,$time)
     {
         include_once dirname(dirname(__FILE__)) . "/command/UpdatePassword.php";
-        $cmd = new UpdatePassword($email, $password);
+        $cmd = new UpdatePassword($email, $password,$time);
         return $cmd->execute();
     }
 

@@ -213,8 +213,8 @@ class DatabaseManager{
         return $this->impl->updateUser($user);
     }
 
-    function updatePassword($email,$password){
-        return $this->impl->updatePassword($email,$password);
+    function updatePassword($email,$password,$time){
+        return $this->impl->updatePassword($email,$password,$time);
     }
 
     function updateAppointment($apt){
