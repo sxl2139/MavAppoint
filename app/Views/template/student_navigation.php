@@ -6,6 +6,9 @@ $advisingController = mav_encrypt("advising");
 $appointmentController = mav_encrypt("appointment");
 $getAdvisingInfoAction = mav_encrypt("getAdvisingInfo");
 $showAppointmentAction = mav_encrypt("showAppointment");
+
+$customizeSettingController = mav_encrypt("customizeSetting");
+$showAppointmentTypeAction = mav_encrypt("showAppointmentType");
 ?>
 
 <div class="navbar-header">
@@ -26,7 +29,7 @@ $showAppointmentAction = mav_encrypt("showAppointment");
                 <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="?c=<?php echo $loginController?>&a=<?php echo $changePasswordDefaultAction?>"><font size="3">Change Password</font></a></li>
-                <li><a href="#"><font size="3">Customize Settings</font></a></li>
+                <li><a href="?c=<?php echo $customizeSettingController?>&a=<?php echo $showAppointmentTypeAction?>"><font size="3">Customize Settings</font></a></li>
                 <li class="divider"></li>
                 <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><font style="color:red" size="3">Logout</font></a></li>
             </ul>

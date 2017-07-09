@@ -37,6 +37,8 @@ class CustomizeSettingController
     }
 
     function showAppointmentTypeAction(){
+        $typeAndDuration = "";
+        $getAdvisorNotificationState = "";
         if($this->role =="advisor" && $this->email!=null){
             $dbm = new DatabaseManager();
             $advisor = $dbm->getAdvisor($this->email);
@@ -53,6 +55,12 @@ class CustomizeSettingController
                 }
             }
             $getAdvisorNotificationState = $advisor->getNotification();
+        }
+
+        if($this->role =="student" && $this->email!=null){
+            $dbm = new DatabaseManager();
+            $student = $dbm->getStudent($this->email);
+            $getAdvisorNotificationState = $student->getNotification();
         }
 
         return array(
@@ -81,10 +89,10 @@ class CustomizeSettingController
         $radioValue = isset($_REQUEST['notify']) ? $_REQUEST['notify'] : "";
         $dbm = new DatabaseManager();
         $uid = $dbm->getUserIdByEmail($_SESSION['email']);
-        $user = new AdvisorUser();
+        $user = new LoginUser();
         $user->setUserId($uid);
-//        var_dump($user);
-//        var_dump($radioValue);die();
+        $user->setRole($this->role);
+
         if (!$dbm->updateUserNotification($user, $radioValue)) {
             return array(
                 "error" => 1
