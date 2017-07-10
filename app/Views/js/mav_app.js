@@ -30,7 +30,7 @@ $(function(){
                     }
 
                     else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
-                        alert("The password for your account will expire in " + data.data.daysBeforeExpired + "days.");
+                        alert("The password for your account will expire in " + data.data.daysBeforeExpired + " days.\nPlease change your password.");
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }else if(data.data.daysBeforeExpired <=0){
                         $("#message2").css("visibility", "visible");
@@ -93,10 +93,8 @@ $(function(){
                 drp_department : drp_department
             },
             success: function(data){
-                alert(data);
                 var data1 = JSON.parse(data);
                 if (data1.error == 0) {
-                    alert(data1.data.message);
                     window.console.log(data1);
                     $("#addAdvisorResult").text(data1.data.message);
                 }else{
