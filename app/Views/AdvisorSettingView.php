@@ -61,15 +61,16 @@
 
         <tr>
             <td>Default Advising Duration</td>
-            <td><input id="defaultDuration" type="text" value="<?php echo $otherDuration; ?>"></td>
+            <td><input id="duration_default" type="text" value="<?php echo $otherDuration; ?>"></td>
             <td>
-                <button class="btn defaultDurationSubmit" type="button"><span
+                <button id="button_default_duration_submit" class="btn" type="button"><span
                         class="glyphicon glyphicon-ok"></span></button>
             </td>
         </tr>
         <!-- end processing advisors -->
     </table>
 </form>
+
 </div>
 <div class="panel-footer text-center">
     <input id="addAppointmentTypeSubmit" type="submit" class="btn-lg" value="Add Advising Task" href="#"

@@ -13,17 +13,6 @@ $url = $content['data'];
     <script type="text/javascript" src="app/Views/components/bootstrap3/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-
-        setInterval("clock()", 1000);
-        function clock() {
-            var span = document.getElementById('second');
-            var num = span.innerHTML;
-            if(num != 0) {
-                num--;
-                span.innerHTML = num;
-            }
-        };
-
         var num = 0;
         setInterval("clock2()", 100);
         function clock2() {
@@ -32,7 +21,7 @@ $url = $content['data'];
             var loadImg = document.getElementById('loadImg');
 
             if(num <= 100) {
-                num = num + 10/2;
+                num = num + 20;
                 prog.setAttribute("style","width:"+num+"%");
             }
 
@@ -41,7 +30,7 @@ $url = $content['data'];
                 loadImg.src = "app/Views/img/correct.png";
             }
         };
-        setTimeout("redirect()", 2500);
+        setTimeout("redirect()", 1000);
         function redirect(){
             window.location.href = "<?php echo $url?>"
         }
@@ -55,7 +44,6 @@ $url = $content['data'];
 				<h1 id="title" style="margin-left: 100px;">Processing...</h1>
 			</span>
 
-        <span id="second" >2</span> seconds will redirect to previous page...
         <div class="progress progress-striped active">
             <div id ="progress" class="progress-bar role="progressbar"
             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"

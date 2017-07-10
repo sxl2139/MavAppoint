@@ -18,10 +18,11 @@ class UpdateAppointmentType extends SQLCmd{
 
     function queryDB(){
         $duration = $this->at->getDuration();
+        $type = $this->at->getType();
 
         $query = "UPDATE ma_appointment_types 
                 SET duration='$duration'
-                WHERE userId = '$this->id'";
+                WHERE userId = '$this->id' and type = '$type'";
         $this->result = $this->conn->query($query);
     }
 

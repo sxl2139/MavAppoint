@@ -515,10 +515,10 @@ $(function(){
         }
     });
 
-    $(".defaultDurationSubmit").click(function(e){
+    $("#button_default_duration_submit").click(function(e){
         e.preventDefault();
         var apptypes = "Other";
-        var minutes = $("#defaultDuration").val();
+        var minutes = $("#duration_default").val();
         $.ajax({
             url: $(".mavAppointUrl").val(),
             type: "post",
@@ -533,7 +533,7 @@ $(function(){
                 if (data.error == 0) {
                     window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#customizeSettingController").val() + "&a=" + $("#successAction").val();
                 }else{
-                    alert("Error while updating notification")
+                    alert("Error while updating duration")
                 }
             }
         });
