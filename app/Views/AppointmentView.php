@@ -109,12 +109,12 @@ $successAction = mav_encrypt("success");
                                 <td class="text-center">
                                     <button type="button" class="cancelButton" value="<?php echo $appointment['appointmentId']?>">Cancel</button>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button">Edit</button>
-                                </td>
-                                <td class="text-center">
-                                    <button type="button">Email</button>
-                                </td>
+<!--                                <td class="text-center">-->
+<!--                                    <button type="button">Edit</button>-->
+<!--                                </td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <button type="button">Email</button>-->
+<!--                                </td>-->
                             </tr>
 
                             <?php

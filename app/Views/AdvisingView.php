@@ -169,6 +169,9 @@ if (count($advisors) == 0) {
                                 basicWeek: true,
                                 'default': true,
                             },
+                            eventMouseover: function(calEvent, jsEvent) {
+                                $(this).css({"cursor": "pointer"})
+                            },
                             eventClick: function (event, element) {
                                 if (event.backgroundColor == 'blue') {
                                     document.getElementById("id1").value = event.id;

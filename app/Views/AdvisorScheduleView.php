@@ -40,7 +40,7 @@ $successAction = mav_encrypt("success");
                         basicWeek: true,
                         'default' : true,
                     },
-                eventMouseOver: function(event,jsEvent,view){
+                eventMouseover: function(event,jsEvent,view){
                     $('.fc-event-inner', this).append('<div id=\"'+event.id+'\" class=\"hover-end\">'+$.fullCalendar.formatDate(event.end, 'h:mmt')+'</div>');
                 },
                 eventMouseout: function(event, jsEvent, view) {
@@ -49,9 +49,7 @@ $successAction = mav_encrypt("success");
                 dayClick: function(date,jsEvent,view){
                     document.getElementById("opendate").value = date.format('YYYY-MM-DD');
                     $("#addTimeSlotModal").modal();
-                }
-
-                ,
+                },
                 eventClick: function(event,element){
                     if (event.id != null){
                         document.getElementById("StartTime2").value = event.start.format('HH:mm');
