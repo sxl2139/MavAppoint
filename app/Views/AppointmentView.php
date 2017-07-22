@@ -6,7 +6,6 @@ include("template/" . $role . "_navigation.php");
 $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $appointments = $content['data']['appointments'];
-$appointmentController = mav_encrypt("appointment");
 $cancelAppointmentAction = mav_encrypt("cancelAppointment");
 $successAction = mav_encrypt("success");
 ?>
@@ -16,7 +15,7 @@ $successAction = mav_encrypt("success");
         .custab {
             border: 1px solid #ccc;
             padding: 5px;
-            margin: 5% 0;
+            margin: auto;
             box-shadow: 3px 3px 2px #ccc;
             transition: 0.5s;
             background-color: #e67e22;
@@ -26,6 +25,7 @@ $successAction = mav_encrypt("success");
             box-shadow: 3px 3px 0px transparent;
             transition: 0.5s;
         }
+
     </style>
 
     <script>
@@ -61,12 +61,23 @@ $successAction = mav_encrypt("success");
     <input type="hidden" id="cancelAppointmentAction" value="<?php echo $cancelAppointmentAction?>">
     <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
-    <div class="container">
-        <div class="btn-group">
-            <form action="appointments" method="post" name="cancel">
-                <input type=hidden name=cancel_button id="cancel_button">
-                <input type=hidden name=edit_button id="edit_button">
-                <div class="row col-md-16  custyle">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading text-center">
+                <div class="panel-title">
+                    <h1>Appointment History</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="pull-right">
+                    <div><a href="<?php echo $mavAppointUrl?>?c=<?php echo $appointmentController?>&a=<?php echo $showAppointmentAction?>" class="btn btn-default btn-xs active" role="button">Appointment History</a></div>
+                    <div><a href="<?php echo $mavAppointUrl?>?c=<?php echo $appointmentController?>&a=<?php echo $showCanceledAppointmentAction?>" class="btn btn-default btn-xs" role="button">Cancellation History</a></div>
+<!--                    <div ><button type="button" class="btn btn-default btn-xs" id="cancellationHistory"  value="CancellationHistory">Cancellation History</button></div>-->
+                </div>
+
+
+            </div>
                     <table class="table table-striped custab">
                         <thead>
                         <tr>
@@ -74,13 +85,14 @@ $successAction = mav_encrypt("success");
                             <th>Appointment Date</th>
                             <th>Start Time</th>
                             <th>End Time</th>
-                            <th>Advising Type</th>
+                            <th>Advising Task</th>
                             <th>Advising Email</th>
                             <th>Description</th>
                             <th>UTA Student ID</th>
                             <th>Student Email</th>
                             <th>Phone Number</th>
                             <th class="text-center">Action</th>
+                            <th style="visibility: visible">Status</th>
                         </tr>
                         </thead>
 
@@ -91,6 +103,7 @@ $successAction = mav_encrypt("success");
                         if (count($appointments) != 0) {
                             $i = 0;
                             foreach ($appointments as $appointment) {
+                                $disabled = ($appointment['status']) ? "disabled" : "";
 
                             ?>
                             <tr>
@@ -104,28 +117,35 @@ $successAction = mav_encrypt("success");
                                 <td><?php echo $appointment['studentId']?></td>
                                 <td><?php echo $appointment['studentEmail']?></td>
                                 <td><?php echo $appointment['studentPhoneNumber']?></td>
-
+                                <div class="btn-group">
 
                                 <td class="text-center">
-                                    <button type="button" class="cancelButton" value="<?php echo $appointment['appointmentId']?>">Cancel</button>
+<!--                                    <div align="center" ><button type="button" class="cancelButton" --><?php //echo $disabled?><!-- value="--><?php //echo $appointment['appointmentId']?><!--">Cancel</button></div>-->
+                                    <button class="cancellationButton btn btn-default btn-xs" data-toggle="modal" data-target="#appointmentCancellation" <?php echo $disabled?> value="<?php echo $appointment['appointmentId']?>">
+                                        Cancel
+                                    </button>
+<!--                                    <div align="center" ><button type="button">Edit</button></div>-->
+<!--                                    <div align="center" ><button type="button">Email</button></div>-->
                                 </td>
-<!--                                <td class="text-center">-->
-<!--                                    <button type="button">Edit</button>-->
-<!--                                </td>-->
-<!--                                <td class="text-center">-->
-<!--                                    <button type="button">Email</button>-->
-<!--                                </td>-->
+                                <td class="text-center">
+                                    <front><?php echo $appointment['statusName']?></front>
+                                </td>
                             </tr>
 
                             <?php
                             }
                         }
                         ?>
-                    </table>
                 </div>
-            </form>
+                    </table>
+
         </div>
     </div>
+
+
+
+
+
 
     <form name=addAppt action="manage" onsubmit="return validate2()" method="post">
         <div class="modal fade" id="addApptModal" tabindex="-1">
@@ -177,5 +197,52 @@ $successAction = mav_encrypt("success");
             </div>
         </div>
     </form>
+
+
+    <div class="modal fade" id="appointmentCancellation" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Appointment Cancellation
+                    </h4>
+                </div>
+
+                <input type="hidden" id="appointmentId">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cancellationReason">Reason (remark) of cancellation:</label>
+                        <textarea style="z-index:0" class="form-control" rows="5" id="cancellationReason"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="cancellation_loading_section" style="display:none; float:left; margin: 5px;">
+                        <img id="cancellation_loading_img" style="margin-bottom:5px; width:15px; height:15px;">
+                        <font id="cancellation_loading_text" size="3"></font>
+                    </div>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button id="cancelSubmitButton" type="button" class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <script type="text/javascript">
+        $(".cancellationButton").click(function(){
+            document.getElementById('appointmentId').value = $(this).attr("value");
+
+        });
+
+
+    </script>
+
 
 <?php include("template/footer.php"); ?>

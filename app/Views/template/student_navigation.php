@@ -6,6 +6,7 @@ $advisingController = mav_encrypt("advising");
 $appointmentController = mav_encrypt("appointment");
 $getAdvisingInfoAction = mav_encrypt("getAdvisingInfo");
 $showAppointmentAction = mav_encrypt("showAppointment");
+$showCanceledAppointmentAction = mav_encrypt("showCanceledAppointment");
 
 $customizeSettingController = mav_encrypt("customizeSetting");
 $showAppointmentTypeAction = mav_encrypt("showAppointmentType");

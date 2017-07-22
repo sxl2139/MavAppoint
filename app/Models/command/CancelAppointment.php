@@ -8,9 +8,13 @@
 include_once dirname(__FILE__) . "/SQLCmd.php";
 class CancelAppointment extends SQLCmd{
     private $id;
+    private $role;
+    private $remark;
 
-    function __construct($id) {
+    function __construct($id,$canceledBy,$remark) {
         $this->id = $id;
+        $this->role = $canceledBy;
+        $this->remark = $remark;
     }
 
     function queryDB(){
@@ -24,8 +28,9 @@ class CancelAppointment extends SQLCmd{
 
         if($res['count(*)'] == 1){
             $this->result = true;
-            $query = "DELETE FROM ma_appointments
-                      WHERE Id='$this->id'";
+            $query = "UPDATE ma_appointments
+                      SET status = -1, isCanceledBy ='$this->role', remark = '$this->remark'
+                      WHERE id='$this->id'";
             $this->conn->query($query);
             $query = "UPDATE ma_advising_schedule 
                       SET studentId=null 

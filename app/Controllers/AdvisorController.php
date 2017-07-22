@@ -58,14 +58,18 @@ class advisorController
             $appointments = $dbm->getAppointments($advisor);
             $tempAppointments = array();
             foreach ($appointments as $appointment){
-                array_push($tempAppointments,
-                    array(
-                        "advisingDate" => $appointment->getAdvisingDate(),
-                        "advisingStartTime" => $appointment->getAdvisingStartTime(),
-                        "advisingEndTime" => $appointment->getAdvisingEndTime(),
-                        "appointmentType" => $appointment->getAppointmentType()
+                if($appointment->getStatus()==0){
+                    array_push($tempAppointments,
+                        array(
+                            "advisingDate" => $appointment->getAdvisingDate(),
+                            "advisingStartTime" => $appointment->getAdvisingStartTime(),
+                            "advisingEndTime" => $appointment->getAdvisingEndTime(),
+                            "appointmentType" => $appointment->getAppointmentType()
                         )
                     );
+
+                }
+
 
             }
 
@@ -86,43 +90,46 @@ class advisorController
 
     }
 
-    function showAppointmentAction(){
-        if (!isset($_SESSION['role'])) {
-            header("Location:" . getUrlWithoutParameters() . "?c=" .mav_encrypt("login"));
-        }
-
-        if($this->role =="advisor" && $this->email!=null) {
-            $dbm = new DatabaseManager();
-            $advisor = $dbm->getAdvisor($this->email);
-
-            $appointments = $dbm->getAppointments($advisor);
-
-            $tempAppointments = array();
-            foreach ($appointments as $appointment) {
-                array_push($tempAppointments, array(
-                    "pName" => $appointment->getPname(),
-                    "advisingDate" => $appointment->getAdvisingDate(),
-                    "advisingStartTime" => $appointment->getAdvisingStartTime(),
-                    "advisingEndTime" => $appointment->getAdvisingEndTime(),
-                    "appointmentType" => $appointment->getAppointmentType(),
-                    "appointmentId" => $appointment->getAppointmentId(),
-                    "advisorEmail" => $appointment->getAdvisorEmail(),
-                    "description" => $appointment->getDescription(),
-                    "studentId" => $appointment->getStudentId(),
-                    "studentEmail" => $appointment->getStudentEmail(),
-                    "studentPhoneNumber" => $appointment->getStudentPhoneNumber()
-                ));
-            }
-
-            return array(
-                "error" => 0,
-                "data" => array(
-                    "appointments" => $tempAppointments
-                )
-            );
-        }
-
-    }
+//    function showAppointmentAction(){
+//        if (!isset($_SESSION['role'])) {
+//            header("Location:" . getUrlWithoutParameters() . "?c=" .mav_encrypt("login"));
+//        }
+//
+//        if($this->role =="advisor" && $this->email!=null) {
+//            $dbm = new DatabaseManager();
+//            $advisor = $dbm->getAdvisor($this->email);
+//
+//            $appointments = $dbm->getAppointments($advisor);
+//
+//            $tempAppointments = array();
+//            foreach ($appointments as $appointment) {
+//                $statusName = ($appointment->getStatus()==0) ? "Scheduled" : "Completed" ;
+//                array_push($tempAppointments, array(
+//                    "pName" => $appointment->getPname(),
+//                    "advisingDate" => $appointment->getAdvisingDate(),
+//                    "advisingStartTime" => $appointment->getAdvisingStartTime(),
+//                    "advisingEndTime" => $appointment->getAdvisingEndTime(),
+//                    "appointmentType" => $appointment->getAppointmentType(),
+//                    "appointmentId" => $appointment->getAppointmentId(),
+//                    "advisorEmail" => $appointment->getAdvisorEmail(),
+//                    "description" => $appointment->getDescription(),
+//                    "studentId" => $appointment->getStudentId(),
+//                    "studentEmail" => $appointment->getStudentEmail(),
+//                    "studentPhoneNumber" => $appointment->getStudentPhoneNumber(),
+//                    "status" => $appointment->getStatus(),
+//                    "statusName" => $statusName
+//                ));
+//            }
+//
+//            return array(
+//                "error" => 0,
+//                "data" => array(
+//                    "appointments" => $tempAppointments
+//                )
+//            );
+//        }
+//
+//    }
 
     function addTimeSlotAction(){
 
@@ -231,8 +238,13 @@ class advisorController
         $appointments = $dbm->getAppointments($advisor);
         $studentEmailAndMsgArr = array();
         foreach ($appointments as $appointment){
-            if(($appointment->getAdvisingDate() === $date) && ($appointment->getAdvisingStartTime() >= $originalStartTime)
-                && ($appointment->getAdvisingEndTime() <= $originalEndTime)){
+            if(($appointment->getAdvisingDate() === $date)
+                && ($appointment->getAdvisingStartTime() >= $originalStartTime)
+                && ($appointment->getAdvisingEndTime() <= $originalEndTime)
+                && ($appointment->getStatus() == 0) ){
+
+                $dbm->cancelAppointment($appointment->getAppointmentId(),$this->role,$reason);
+
                 array_push($studentEmailAndMsgArr,
                     array(
                         "studentEmail" => $appointment->getStudentEmail(),
@@ -241,7 +253,7 @@ class advisorController
                             ."\n" ."Reason: ". $reason,
                     )
                 );
-                $dbm->cancelAppointment($appointment->getAppointmentId());
+
 
             }
 

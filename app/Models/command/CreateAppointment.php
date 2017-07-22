@@ -53,6 +53,7 @@ class CreateAppointment extends SQLCmd {
 		$type        = $this->apt->getAppointmentType();
 		$description = $this->apt->getDescription();
 		$phone       = $this->apt->getStudentPhoneNumber();
+		$status      = $this->apt->getStatus();
 
 		$query = "SELECT COUNT(*) 
                   FROM ma_advising_schedule
@@ -63,9 +64,9 @@ class CreateAppointment extends SQLCmd {
             $flag = true;
 
 			$query = "INSERT INTO ma_appointments
-                      (id,advisorUserId,studentUserId,date,start,end,
-                      type,studentId,description,studentEmail,studentCell)
-                      VALUES('$aptId','$advisorId','$userId','$date','$start','$end','$type','$studentId','$description','$this->email','$phone')";
+                      (advisorUserId,studentUserId,date,start,end,
+                      type,studentId,description,studentEmail,studentCell,status)
+                      VALUES('$advisorId','$userId','$date','$start','$end','$type','$studentId','$description','$this->email','$phone','$status')";
             $flag = $flag && $this->conn->query($query);
 
             if($flag) {

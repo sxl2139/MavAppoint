@@ -56,7 +56,8 @@ return array(
         "makeAppointment" => "makeAppointment",
         "success" => "SuccessView",
         "showAppointment" => "AppointmentView",
-        "cancelAppointment" => "cancelAppointment"
+        "cancelAppointment" => "cancelAppointment",
+        "showCanceledAppointment" => "CancellationHistoryView"
     ),
     "customizeSetting" => array(
         "showAppointmentType" => "CustomizeSettingView",

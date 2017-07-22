@@ -13,6 +13,7 @@ class AppointmentController
         $appointment->setDescription($_REQUEST['description']);
         $appointment->setAppointmentType($_REQUEST['appointmentType']);
         $appointment->setPname($_REQUEST['pName']);
+        $appointment->setStatus(0);
 
         $start = $_REQUEST['start'];
         $dateTime = explode(" ", $start);
@@ -54,7 +55,7 @@ class AppointmentController
 
     public function showAppointmentAction() {
         $dbManager = new DatabaseManager();
-        $user = $dbManager->getStudent($_SESSION['email']);
+        $user = ($_SESSION['role']=="student")? $dbManager->getStudent($_SESSION['email']) : $dbManager->getAdvisor($_SESSION['email']);
         return array(
             "error" => 0,
             "data" => array(
@@ -63,9 +64,22 @@ class AppointmentController
         );
     }
 
+    public function showCanceledAppointmentAction(){
+        $dbManager = new DatabaseManager();
+        $user = ($_SESSION['role']=="student")? $dbManager->getStudent($_SESSION['email']) : $dbManager->getAdvisor($_SESSION['email']);
+        return array(
+            "error" => 0,
+            "data" => array(
+                "appointments" => $this->getCanceledAppointments($user, $dbManager)
+            )
+        );
+    }
+
     public function cancelAppointmentAction() {
         $result = 0;
         $appointmentId = $_REQUEST['appointmentId'];
+        $reason = $_REQUEST['cancellationReason'];
+        $isCanceledBy = isset($_SESSION['role']) ? $_SESSION['role'] : null;
         $dbManager = new DatabaseManager();
         $appointment = $dbManager->getAppointmentById($appointmentId);
 //        $waitList = $dbManager->getFirstWaitList($appointmentId);
@@ -97,7 +111,7 @@ class AppointmentController
 //
 //        } else {
 
-        if ($dbManager->cancelAppointment($appointmentId)) {
+        if ($dbManager->cancelAppointment($appointmentId, $isCanceledBy,$reason)) {
 
             mav_mail("Advising Appointment with " . $appointment->getPname() . " cancelled",
                 "Your appointment on " . $appointment->getAdvisingDate() . " from " . $appointment->getAdvisingStartTime() .
@@ -115,7 +129,9 @@ class AppointmentController
 //        }
 
         return array(
-            "error" => $result
+            "error" => $result,
+//            "description" =>"Error while cancelling appointment, please try again."
+
         );
     }
 
@@ -136,11 +152,12 @@ class AppointmentController
 
 
 
-    private function getAppointments(StudentUser $user, DatabaseManager $dbManager) {
+    private function getAppointments(LoginUser $user, DatabaseManager $dbManager) {
         $appointments = $dbManager->getAppointments($user);
 
         $tempAppointments = array();
         foreach ($appointments as $appointment) {
+            $statusName = ($appointment->getStatus()==0) ? "Reserved" : "Canceled" ;
             array_push($tempAppointments, array(
                 "pName" => $appointment->getPname(),
                 "advisingDate" => $appointment->getAdvisingDate(),
@@ -150,14 +167,47 @@ class AppointmentController
                 "appointmentId" => $appointment->getAppointmentId(),
                 "advisorEmail" => $appointment->getAdvisorEmail(),
                 "description" => $appointment->getDescription(),
-                "studentId" => "Advisor only",  //hidden
+                "studentId" => $appointment->getStudentId(),
                 "studentEmail" => $appointment->getStudentEmail(),
-                "studentPhoneNumber" => $appointment->getStudentPhoneNumber()
+                "studentPhoneNumber" => $appointment->getStudentPhoneNumber(),
+                "status" => $appointment->getStatus(),
+                "statusName" => $statusName
             ));
         }
 
         return $tempAppointments;
     }
+
+
+    private function getCanceledAppointments(LoginUser $user, DatabaseManager $dbManager) {
+        $appointments = $dbManager->getAppointments($user);
+
+        $tempAppointments = array();
+        foreach ($appointments as $appointment) {
+            if($appointment->getStatus() == -1){
+                array_push($tempAppointments, array(
+                    "pName" => $appointment->getPname(),
+                    "advisingDate" => $appointment->getAdvisingDate(),
+                    "advisingStartTime" => $appointment->getAdvisingStartTime(),
+                    "advisingEndTime" => $appointment->getAdvisingEndTime(),
+                    "appointmentType" => $appointment->getAppointmentType(),
+                    "appointmentId" => $appointment->getAppointmentId(),
+                    "advisorEmail" => $appointment->getAdvisorEmail(),
+                    "description" => $appointment->getDescription(),
+                    "studentId" => $appointment->getStudentId(),
+                    "studentEmail" => $appointment->getStudentEmail(),
+                    "studentPhoneNumber" => $appointment->getStudentPhoneNumber(),
+                    "isCanceledBy" => $appointment->getIsCanceledBy(),
+                    "remark" => $appointment->getRemark()
+                ));
+
+            }
+
+        }
+
+        return $tempAppointments;
+    }
+
 
     private function addTime($startTime, $duration) {
         $tmp = explode(":", $startTime);

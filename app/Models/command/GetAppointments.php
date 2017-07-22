@@ -61,6 +61,9 @@ class GetAppointments extends SQLCmd{
             $set->setStudentId($rs['studentId']);
             $set->setStudentEmail($rs['studentEmail']);
             $set->setStudentPhoneNumber($rs['studentCell']);
+            $set->setStatus($rs['status']);
+            $set->setIsCanceledBy($rs['isCanceledBy']);
+            $set->setRemark($rs['remark']);
 
             $set->setPname($rs["pName"]);
             $set->setAdvisorEmail($rs['email']);

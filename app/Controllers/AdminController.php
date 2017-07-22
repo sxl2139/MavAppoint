@@ -260,19 +260,17 @@ class adminController
             if(sizeof($appointments) != 0 ){
 
                 foreach ($appointments as $appointment){
-
-
-
-                    $advisor = $dbm->getAdvisor($appointment->getAdvisorEmail());
-                    array_push($tempAppointments, array(
+                    if($appointment->getStatus()==0){
+                        $advisor = $dbm->getAdvisor($appointment->getAdvisorEmail());
+                        array_push($tempAppointments, array(
                             "advisingDate" => $appointment->getAdvisingDate(),
                             "advisingStartTime" => $appointment->getAdvisingStartTime(),
                             "advisingEndTime" => $appointment->getAdvisingEndTime(),
 //                            "appointmentType" => $appointment->getAppointmentType()
                             "appointmentType" => $appointment->getAppointmentType()." - ".$advisor->getPName()
-                    ));
+                        ));
 
-
+                    }
                 }
 
             }
@@ -314,15 +312,15 @@ class adminController
         $requestDate = isset($_POST['Date']) ? date('Y-m-d',strtotime($_POST['Date'])) : null;
         $repeat = isset($_POST['delete_repeat']) ? intval($_POST['delete_repeat']) : null;
         $reason = isset($_POST['delete_reason']) ? $_POST['delete_reason'] : null;
-        $tittle = isset($_POST['pname']) ? $_POST['pname'] : null;
-        if($requestStartTime==null || $requestEndTime==null ||$requestDate==null || $tittle==null){
+        $pname = isset($_POST['pname']) ? $_POST['pname'] : null;
+        if($requestStartTime==null || $requestEndTime==null ||$requestDate==null || $pname==null){
             return array(
                 "error" => 1
             );
         }
 
-        $pieces = explode(" ", $tittle);
-        $advisorName = $pieces[sizeof($pieces)-1];
+//        $pieces = explode(" ", $tittle);
+//        $advisorName = $pieces[sizeof($pieces)-1];
         $dbm = new DatabaseManager();
         $department = $dbm->getDepartment($this->uid);
         $advisors = $dbm->getAdvisorsOfDepartment($department[0]);
@@ -330,7 +328,7 @@ class adminController
         foreach ($advisors as $adv){
 //            var_dump($adv->getPName());
 //            var_dump($tittle);
-            if($adv->getPName() == $advisorName){
+            if($adv->getPName() == $pname){
                 $advisor = $adv;
                 break;
             }
@@ -344,7 +342,8 @@ class adminController
 
         $date = $requestDate;
         $originalTimeSlots = $dbm->getAdvisorSchedule($advisor->getPName(),true,$date);
-
+        $originalStartTime="";
+        $originalEndTime="";
         foreach ($originalTimeSlots as $timeSlot){
             if($requestStartTime>=$timeSlot->getStartTime() && $requestEndTime<=$timeSlot->getEndTime())
             {
@@ -372,7 +371,8 @@ class adminController
         $studentEmailAndMsgArr = array();
         foreach ($appointments as $appointment){
             if(($appointment->getAdvisingDate() === $date) && ($appointment->getAdvisingStartTime() >= $originalStartTime)
-                && ($appointment->getAdvisingEndTime() <= $originalEndTime)){
+                && ($appointment->getAdvisingEndTime() <= $originalEndTime)
+                && ($appointment->getStatus() == 0)){
                 array_push($studentEmailAndMsgArr,
                     array(
                         "studentEmail" => $appointment->getStudentEmail(),
@@ -381,7 +381,7 @@ class adminController
                             ."\n" ."Reason: ". $reason,
                     )
                 );
-                $dbm->cancelAppointment($appointment->getAppointmentId());
+                $dbm->cancelAppointment($appointment->getAppointmentId(),$this->role,$reason);
 
             }
 

@@ -133,10 +133,14 @@ $successAction = mav_encrypt("success");
                         <input type="text" class="form-control" name=delete_reason id="delete_reason" placeholder="Reason for cancelling slot/s.">
                     </div>
                     <div class="modal-footer">
+                        <div id="deleteTimeSlot_loading_section" style="display:none; float:left; margin: 5px;">
+                            <img id="deleteTimeSlot_loading_img" style="margin-bottom:5px; width:15px; height:15px;">
+                            <font id="deleteTimeSlot_loading_text" size="3" color="black"></font>
+                        </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <button type="submit" id="adminDeleteTimeSlot" class="btn btn-default" data-dismiss="modal" value="submit"
-                                onclick="return validate();">Submit</button>
+                        <button type="submit" id="adminDeleteTimeSlot" class="btn btn-default" value="submit"
+                                >Submit</button>
                     </div>
                 </div>
             </div>

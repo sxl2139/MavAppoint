@@ -255,12 +255,16 @@ class AdvisingController
 
         $tempAppointments = array();
         foreach ($appointments as $appointment) {
-            array_push($tempAppointments, array(
-                "advisingDate" => $appointment->getAdvisingDate(),
-                "advisingStartTime" => $appointment->getAdvisingStartTime(),
-                "advisingEndTime" => $appointment->getAdvisingEndTime(),
-                "appointmentType" => $appointment->getAppointmentType(),
-            ));
+            if($appointment->getStatus()==0){
+                array_push($tempAppointments, array(
+                    "advisingDate" => $appointment->getAdvisingDate(),
+                    "advisingStartTime" => $appointment->getAdvisingStartTime(),
+                    "advisingEndTime" => $appointment->getAdvisingEndTime(),
+                    "appointmentType" => $appointment->getAppointmentType(),
+                ));
+
+            }
+
         }
 
         return $tempAppointments;

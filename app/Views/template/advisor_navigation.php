@@ -11,6 +11,8 @@ $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 $showAppointmentAction = mav_encrypt("showAppointment");
 $feedbackController = mav_encrypt("feedback");
 $getFeedbackAction = mav_encrypt("getFeedback");
+$appointmentController = mav_encrypt("appointment");
+$showCanceledAppointmentAction = mav_encrypt("showCanceledAppointment");
 ?>
 
 <div class="navbar-header">
@@ -24,7 +26,7 @@ $getFeedbackAction = mav_encrypt("getFeedback");
     <ul class="nav navbar-nav navbar-right">
         <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showScheduleAction?>"><font style="color: #e67e22" size="3">
                     Update Schedule</font> </a></li>
-        <li><a href="?c=<?php echo $advisorController?>&a=<?php echo $showAppointmentAction?>"><font style="color: #e67e22" size="3">
+        <li><a href="?c=<?php echo $appointmentController?>&a=<?php echo $showAppointmentAction?>"><font style="color: #e67e22" size="3">
                     Appointments</font> </a></li>
 
         <li><a href="?c=<?php echo $feedbackController?>&a=<?php echo $getFeedbackAction?>"><font style="color: #e67e22" size="3">

@@ -74,10 +74,10 @@ class RDBImpl implements DBImplInterface
         return $cmd->execute();
     }
 
-    function cancelAppointment($id)
+    function cancelAppointment($id,$canceledBy,$remark)
     {
         include_once dirname(dirname(__FILE__)) . "/command/CancelAppointment.php";
-        $cmd = new CancelAppointment($id);
+        $cmd = new CancelAppointment($id,$canceledBy,$remark);
         return $cmd->execute();
     }
 

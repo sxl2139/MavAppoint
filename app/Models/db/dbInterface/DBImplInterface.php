@@ -12,7 +12,7 @@ interface DBImplInterface
     function setCutOffTime($id,$time);
     function createAppointment($a, $email);
     function updateAppointment($a);
-    function cancelAppointment($id);
+    function cancelAppointment($id,$canceledBy,$remark);
     function getAppointment($d,$e);
     function getAppointments($user);
     function getAppointmentsByDate($start, $end);

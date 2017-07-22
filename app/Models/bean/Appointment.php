@@ -20,6 +20,9 @@ class Appointment
     private $studentPhoneNumber;
     private $advisorUserId;
     private $studentUserId;
+    private $status;
+    private $isCanceledBy;
+    private $remark;
 
     /**
      * @return mixed
@@ -227,6 +230,48 @@ class Appointment
     public function setStudentUserId($studentUserId)
     {
         $this->studentUserId = $studentUserId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus(){
+        return $this->status;
+    }
+
+    /**
+     * @param $status
+     */
+    public function setStatus($status){
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsCanceledBy(){
+        return $this->isCanceledBy;
+    }
+
+    /**
+     * @param $isCanceledBy
+     */
+    public function setIsCanceledBy($isCanceledBy){
+        $this->isCanceledBy = $isCanceledBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRemark(){
+        return $this->remark;
+    }
+
+    /**
+     * @param $remark
+     */
+    public function setRemark($remark){
+        $this->remark = $remark;
     }
 
 

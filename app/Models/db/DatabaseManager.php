@@ -68,8 +68,8 @@ class DatabaseManager{
         return $this->impl->deleteTimeSlot($time);
     }
 
-    function cancelAppointment($id){
-        return $this->impl->cancelAppointment($id);
+    function cancelAppointment($id , $cancelledBy, $reason){
+        return $this->impl->cancelAppointment($id, $cancelledBy , $reason);
     }
 
     function createAdvisor($advisorUser){
