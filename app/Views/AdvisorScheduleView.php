@@ -138,7 +138,7 @@ $successAction = mav_encrypt("success");
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <button type="submit" id="advisorAddTimeSlot" value="submit" class="btn btn-default" data-dismiss="modal"
+                        <button type="submit" id="advisorAddTimeSlot" value="submit" class="btn btn-primary" data-dismiss="modal"
                                 onclick="javascript:FormSubmit();">Submit</button>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ $successAction = mav_encrypt("success");
                         </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <button type="button" id="advisorDeleteTimeSlot" value="submit" class="btn btn-default"
+                        <button type="button" id="advisorDeleteTimeSlot" value="submit" class="btn btn-primary"
                                >Submit</button>
                     </div>
                 </div>

@@ -717,15 +717,6 @@ $(function(){
         function(e)
         {
             e.preventDefault();
-            alert("c:"+ $("#adminController").val()
-            +" a:" + $("#deleteTimeSlotAction").val()
-                +" StartTime2:" + $("#StartTime2").val()
-                +" EndTime2:" +$("#EndTime2").val()
-                +" Date:" +$("#Date").val()
-                +" repeat:" +$("#delete_repeat").val()
-                +" reason:" +$("#delete_reason").val()
-                +" pname" + $("#pname").val()
-            );
             var reason = $("#delete_reason").val();
             if(reason == ''|| reason == null){
                 $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/wrong.png");

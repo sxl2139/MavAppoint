@@ -135,7 +135,7 @@ if (count($schedules) != 0) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-default" id="makeAppointment">Submit</button>
+                        <button type="button" class="btn btn-primary" id="makeAppointment">Submit</button>
                     </div>
                 </div>
             </div>

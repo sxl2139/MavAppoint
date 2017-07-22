@@ -139,7 +139,7 @@ $successAction = mav_encrypt("success");
                         </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
-                        <button type="submit" id="adminDeleteTimeSlot" class="btn btn-default" value="submit"
+                        <button type="submit" id="adminDeleteTimeSlot" class="btn btn-primary" value="submit"
                                 >Submit</button>
                     </div>
                 </div>
