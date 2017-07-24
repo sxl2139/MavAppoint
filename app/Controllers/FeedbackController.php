@@ -3,24 +3,30 @@
 class FeedbackController
 {
     public function getFeedbackAdvisorAction(){
-
         $_SESSION['mavAppointUrl'] = getUrlWithoutParameters();
-        $advisors = "";
+
         if (isset($_SESSION['email'])) {
             include_once ROOT . "/app/Models/db/DatabaseManager.php";
             $dbManager = new DatabaseManager();
             $advisors = $dbManager->getAdvisors();
-        }
 
-        return array(
-            "error" => 0,
-            "data" => array(
-                "advisors" => $advisors
-            )
-        );
+            return array(
+                "error" => 0,
+                "data" => array(
+                    "advisors" => $advisors
+                )
+            );
+        }else
+            return array("error" => 1);
     }
 
     public function addFeedbackAction() {
+        if($_REQUEST['title'] == '' || $_REQUEST['content'] == '')
+            return array(
+                "error" => 1,
+                "description" => "Errors while creating feedback"
+            );
+
         include_once ROOT . "/app/Models/bean/Feedback.php";
         $feedback = new Feedback();
         $feedback->setUid($_SESSION['uid']);
@@ -54,7 +60,8 @@ class FeedbackController
             $user = $dbManager->getAdvisor($_SESSION['email']);
         } else if ($_SESSION['role'] == 'admin') {
             $user = $dbManager->getAdmin($_SESSION['email']);
-        }
+        } else
+            return array("error" => 1);
 
         $feedback = $dbManager->getFeedback($user->getUserId(), $user->getRole());
 

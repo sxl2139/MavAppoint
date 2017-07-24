@@ -27,9 +27,7 @@ return array(
         "addDepartment" => "AddDepartmentView",
         "createNewDepartment" => "createNewDepartment",
         "setTemporaryPasswordInterval" => "setTemporaryPasswordInterval",
-
         "addAdvisor" => "CreateAdvisorView",
-//        "addAdvisor" => "addAdvisor",
         "createNewAdvisor" => "createNewAdvisor",
         "showDepartmentSchedule" => "DepartmentScheduleView",
         "deleteTimeSlot" => "deleteTimeSlot",

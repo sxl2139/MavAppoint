@@ -46,7 +46,6 @@ class CreateAppointment extends SQLCmd {
 		$res          = $this->conn->query($query)->fetch_assoc();
 		$advisorEmail = $res['email'];
 
-		$aptId       = $this->apt->getAppointmentId();
 		$date        = $this->apt->getAdvisingDate();
 		$start       = $this->apt->getAdvisingStartTime();
 		$end         = $this->apt->getAdvisingEndTime();
@@ -84,7 +83,7 @@ class CreateAppointment extends SQLCmd {
 			"student_notify" => $notify,
 			"advisor_notify" => $notify_advisor,
 			"advisor_email"  => $advisorEmail,
-			"response"       => $success,
+			"response"       => $success
 		);
 	}
 

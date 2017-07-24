@@ -27,8 +27,8 @@ if (!class_exists("SQLCmd")){
 		function connectDB() {
 			$this->conn = new mysqli(
 				config("DB.HOST"), config("DB.USERNAME"), config("DB.PASSWORD"), config("DB.DATABASE"));
-//				"localhost","root","123","new_mavappointdb2s");
-			//env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
+                //"localhost","root","1234","mavappointdb2s");
+			    //env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
 		}
 
 		abstract function queryDB();

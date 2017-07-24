@@ -8,7 +8,6 @@ class AppointmentController
 
         $appointment = new Appointment();
         $appointment->setStudentPhoneNumber($_REQUEST['phoneNumber']);
-        $appointment->setAppointmentId($_REQUEST['appointmentId']);
         $appointment->setStudentId($_REQUEST['studentId']);
         $appointment->setDescription($_REQUEST['description']);
         $appointment->setAppointmentType($_REQUEST['appointmentType']);
@@ -55,7 +54,18 @@ class AppointmentController
 
     public function showAppointmentAction() {
         $dbManager = new DatabaseManager();
-        $user = ($_SESSION['role']=="student")? $dbManager->getStudent($_SESSION['email']) : $dbManager->getAdvisor($_SESSION['email']);
+        switch ($_SESSION['role']){
+            case 'student':
+                $user = $dbManager->getStudent($_SESSION['email']);
+                break;
+            case 'advisor':
+                $user = $dbManager->getAdvisor($_SESSION['email']);
+                break;
+            default:
+                return array("error" => 1);
+                break;
+        }
+
         return array(
             "error" => 0,
             "data" => array(
@@ -66,7 +76,18 @@ class AppointmentController
 
     public function showCanceledAppointmentAction(){
         $dbManager = new DatabaseManager();
-        $user = ($_SESSION['role']=="student")? $dbManager->getStudent($_SESSION['email']) : $dbManager->getAdvisor($_SESSION['email']);
+        switch ($_SESSION['role']){
+            case 'student':
+                $user = $dbManager->getStudent($_SESSION['email']);
+                break;
+            case 'advisor':
+                $user = $dbManager->getAdvisor($_SESSION['email']);
+                break;
+            default:
+                return array("error" => 1);
+                break;
+        }
+
         return array(
             "error" => 0,
             "data" => array(
@@ -144,15 +165,7 @@ class AppointmentController
         );
     }
 
-
-
-
-
-
-
-
-
-    private function getAppointments(LoginUser $user, DatabaseManager $dbManager) {
+   private function getAppointments(LoginUser $user, DatabaseManager $dbManager) {
         $appointments = $dbManager->getAppointments($user);
 
         $tempAppointments = array();
