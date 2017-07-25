@@ -92,6 +92,12 @@ class FeedbackController
         $title = $_REQUEST['title'];
         $content = $_REQUEST['content'];
 
+        if($title == '' || $content == '' || $fid == '' || $uid == '')
+            return array(
+                "error" => 1,
+                "description" => "Content could not be null"
+            );
+
         include_once ROOT . "/app/Models/db/DatabaseManager.php";
         $dbManager = new DatabaseManager();
 
@@ -101,7 +107,8 @@ class FeedbackController
             $replier = $dbManager->getAdvisor($_SESSION['email'])->getPName();
         } else if ($role == 'admin') {
             $replier = 'Admin';
-        }
+        } else
+            return array('error' => 1);
         $replyee = $dbManager->getUserById($uid);
 
         $res = mav_mail(
@@ -116,7 +123,7 @@ class FeedbackController
             );
         }
 
-        if (!$dbManager->updateFeedBack($fid)) {
+        if (!$dbManager->updateFeedBack($fid,1)) {
             return array(
                 "error" => 1,
                 "description" => "Errors while updating database"

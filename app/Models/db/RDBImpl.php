@@ -389,10 +389,10 @@ class RDBImpl implements DBImplInterface
         return $cmd->execute();
     }
 
-    public function updateFeedback($fid)
+    public function updateFeedback($fid,$isHandled)
     {
         include_once dirname(dirname(__FILE__)) . "/command/UpdateFeedback.php";
-        $cmd = new UpdateFeedback($fid);
+        $cmd = new UpdateFeedback($fid,$isHandled);
         return $cmd->execute();
     }
 }

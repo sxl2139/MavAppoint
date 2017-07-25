@@ -7,14 +7,15 @@
  */
 include_once dirname(__FILE__) . "/SQLCmd.php";
 class UpdateFeedback extends SQLCmd {
-    private $fid;
+    private $fid,$isHandled;
 
-    function __construct($fid) {
+    function __construct($fid,$isHandled) {
         $this->fid = $fid;
+        $this->isHandled = $isHandled;
     }
 
     function queryDB() {
-        $query = "UPDATE ma_feedback SET isHandled = 1 where fid = '$this->fid'";
+        $query = "UPDATE ma_feedback SET isHandled = '$this->isHandled' where fid = '$this->fid'";
         $this->conn->query($query);
 
         if (mysqli_affected_rows($this->conn) == 0) {

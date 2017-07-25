@@ -62,5 +62,5 @@ interface DBImplInterface
     function addFeedback($feedback);
     function getFeedback($uid, $role);
     function getUserById($uid);
-    function updateFeedback($fid);
+    function updateFeedback($fid,$isHandled);
 }
