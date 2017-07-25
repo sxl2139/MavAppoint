@@ -6,6 +6,7 @@ include("template/" . $role . "_navigation.php");
 $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $appointments = $content['data']['appointments'];
+$errorMsg = ( isset($content['data']['errorMsg']) ) ? $content['data']['errorMsg'] : null;
 $cancelAppointmentAction = mav_encrypt("cancelAppointment");
 $successAction = mav_encrypt("success");
 ?>
@@ -59,6 +60,7 @@ $successAction = mav_encrypt("success");
 
     <input type="hidden" id="appointmentController" value="<?php echo $appointmentController?>">
     <input type="hidden" id="cancelAppointmentAction" value="<?php echo $cancelAppointmentAction?>">
+    <input type="hidden" id="showAppointmentAction" value="<?php echo $showAppointmentAction?>">
     <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container-fluid">
@@ -136,11 +138,21 @@ $successAction = mav_encrypt("success");
                             }
                         }
                         ?>
-                </div>
+                    </div>
                     </table>
-
+                    <?php if(count($appointments) ==0 && $errorMsg==null)
+                          {?>
+                            <h4>Currently, you have no appointment record.</h4>
+                    <?php }
+                        if($errorMsg!==null)
+                         {?>
+                             <h4><?php echo $errorMsg ?></h4>
+                         <?php }?>
         </div>
     </div>
+
+
+
 
 
 
@@ -203,7 +215,7 @@ $successAction = mav_encrypt("success");
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button id="cancellationCloseButton1" type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
@@ -225,7 +237,7 @@ $successAction = mav_encrypt("success");
                         <font id="cancellation_loading_text" size="3"></font>
                     </div>
 
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button id="cancellationCloseButton2" type="button" class="btn btn-default" data-dismiss="modal">
                         Cancel
                     </button>
                     <button id="cancelSubmitButton" type="button" class="btn btn-primary">

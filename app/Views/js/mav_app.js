@@ -325,33 +325,31 @@ $(function(){
     //
     // });
 
+    $("#cancellationCloseButton1").click(function(e){
+        e.preventDefault();
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#showAppointmentAction").val() ;
+    });
+    $("#cancellationCloseButton2").click(function(e){
+        e.preventDefault();
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#showAppointmentAction").val() ;
+    });
+
     $("#cancelSubmitButton").click(function(e){
         e.preventDefault();
-        var appointmentId = $("#appointmentId").val();
-        var cancellationReason =  $("#cancellationReason").val();
 
-        if(appointmentId == ''|| appointmentId == null){
-            $("#cancellation_loading_img").attr("src", "app/Views/img/wrong.png");
-            $("#cancellation_loading_text").text('System cannot get this appointment ID. Please refresh appointment page and try again.');
-            $("#cancellation_loading_section").show();
-        }else if(cancellationReason == ''){
-            $("#cancellation_loading_img").attr("src", "app/Views/img/wrong.png");
-            $("#cancellation_loading_text").text('Reason for appointment cancellation cannot be null');
-            $("#cancellation_loading_section").show();
-        } else {
-            $("#cancellation_loading_img").attr("src", "app/Views/img/loader.gif");
-            $("#cancellation_loading_text").text('Sending');
-            $("#cancellation_loading_section").show();
+        $("#cancellation_loading_img").attr("src", "app/Views/img/loader.gif");
+        $("#cancellation_loading_text").text('Sending...');
+        $("#cancellation_loading_section").show();
 
-            $.ajax(
-                {
-                    url: $(".mavAppointUrl").val(),
-                    type: "post",
-                    data: {
-                        c: $("#appointmentController").val(),
-                        a: $("#cancelAppointmentAction").val(),
-                        appointmentId : appointmentId,
-                        cancellationReason : cancellationReason
+        $.ajax(
+            {
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c: $("#appointmentController").val(),
+                    a: $("#cancelAppointmentAction").val(),
+                    appointmentId : $("#appointmentId").val(),
+                    cancellationReason : $("#cancellationReason").val()
                     },
                     success: function (data) {
                         var data = JSON.parse(data);
@@ -359,12 +357,12 @@ $(function(){
                             window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#appointmentController").val() + "&a=" + $("#successAction").val() + "&nc=appointment&na=showAppointment";
                         }else{
                             $("#cancellation_loading_img").attr("src", "app/Views/img/wrong.png");
-                            $("#cancellation_loading_text").text("Error while cancelling appointment. Please try again.");
+                            $("#cancellation_loading_text").text(data.data.errorMsg);
                         }
                     }
-                }
-            );
-        }
+            }
+        );
+
     });
             // $.ajax({
             //     url: $(".mavAppointUrl").val(),
@@ -638,6 +636,10 @@ $(function(){
         function(e)
         {
             e.preventDefault();
+            // alert(">>>opendata:" +$("#opendate").val()+" >>>starttime:"+$("#starttime").val()+" >>>endtime"+$("#endtime").val() +" >>>repeat:"+$("#repeat").val());
+            $("#advisorAddTimeSlot_loading_img").attr("src", "app/Views/img/loader.gif");
+            $("#advisorAddTimeSlot_loading_text").text('Sending...');
+            $("#advisorAddTimeSlot_loading_section").show();
             $.ajax(
                 {
                     url: $(".mavAppointUrl").val(),
@@ -652,48 +654,45 @@ $(function(){
                             repeat : $("#repeat").val()
                         },
                     success: function(data) {
-                        // alert("running");
                         var data = JSON.parse(data);
                         if (data.error == 0) {
                             window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisorController").val() + "&a=" + $("#successAction").val() + "&nc=advisor&na=showSchedule";
                         }
                         else{
-                            //TODO redirect to failure page
-                            alert("Add TimeSlot error");
+                            $("#advisorAddTimeSlot_loading_img").attr("src", "app/Views/img/wrong.png");
+                            $("#advisorAddTimeSlot_loading_text").text(data.data.errorMsg);
                         }
                     }
                 }
             );
         }
     );
+    $("#advisorAddTimeSlotCloseButton").click(function(e){
+        e.preventDefault();
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisorController").val() + "&a=" + $("#showScheduleAction").val() ;
+    });
 
     $("#advisorDeleteTimeSlot").click(
         function(e)
         {
             e.preventDefault();
-            var reason = $("#delete_reason").val();
-            if(reason == ''|| reason == null){
-                $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/wrong.png");
-                $("#deleteTimeSlot_loading_text").text('Reason for deleting time slot cannot be empty.');
-                $("#deleteTimeSlot_loading_section").show();
-            }else {
-                $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/loader.gif");
-                $("#deleteTimeSlot_loading_text").text('Sending');
-                $("#deleteTimeSlot_loading_section").show();
-                $.ajax(
-                    {
-                        url: $(".mavAppointUrl").val(),
-                        type: "post",
-                        data:
-                            {
-                                c : $("#advisorController").val(),
-                                a : $("#deleteTimeSlotAction").val(),
-                                StartTime2 : $("#StartTime2").val(),
-                                EndTime2 : $("#EndTime2").val(),
-                                Date : $("#Date").val(),
-                                delete_repeat : $("#delete_repeat").val(),
-                                delete_reason : $("#delete_reason").val()
-                            },
+            $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/loader.gif");
+            $("#deleteTimeSlot_loading_text").text('Sending...');
+            $("#deleteTimeSlot_loading_section").show();
+            $.ajax(
+                {
+                    url: $(".mavAppointUrl").val(),
+                    type: "post",
+                    data:
+                        {
+                            c : $("#advisorController").val(),
+                            a : $("#deleteTimeSlotAction").val(),
+                            StartTime2 : $("#StartTime2").val(),
+                            EndTime2 : $("#EndTime2").val(),
+                            Date : $("#Date").val(),
+                            delete_repeat : $("#delete_repeat").val(),
+                            delete_reason : $("#delete_reason").val()
+                        },
                         success: function(data) {
                             var data = JSON.parse(data);
                             if (data.error == 0) {
@@ -701,17 +700,21 @@ $(function(){
                             }
                             else{
                                 $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/wrong.png");
-                                $("#deleteTimeSlot_loading_text").text('Error while deleting TimeSlot. Please try again.');
+                                $("#deleteTimeSlot_loading_text").text(data.data.errorMsg);
                                 $("#deleteTimeSlot_loading_section").show();
                             }
                         }
                     }
                 );
 
-            }
+
 
         }
     );
+    $("#advisorDeleteTimeSlotCloseButton").click(function(e){
+        e.preventDefault();
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#advisorController").val() + "&a=" + $("#showScheduleAction").val() ;
+    });
 
     $("#adminDeleteTimeSlot").click(
         function(e)
@@ -724,7 +727,7 @@ $(function(){
                 $("#deleteTimeSlot_loading_section").show();
             }else {
                 $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/loader.gif");
-                $("#deleteTimeSlot_loading_text").text('Sending');
+                $("#deleteTimeSlot_loading_text").text('Sending...');
                 $("#deleteTimeSlot_loading_section").show();
 
                 $.ajax(
@@ -749,7 +752,7 @@ $(function(){
                             }
                             else{
                                 $("#deleteTimeSlot_loading_img").attr("src", "app/Views/img/wrong.png");
-                                $("#deleteTimeSlot_loading_text").text('Error while deleting TimeSlot. Please try again.');
+                                $("#deleteTimeSlot_loading_text").text('Error while deleting TimeSlot. Please close this window and try again.');
                                 $("#deleteTimeSlot_loading_section").show();
                             }
                         }
@@ -760,6 +763,11 @@ $(function(){
 
         }
     );
+    $("#adminDeleteTimeSlotCloseButton").click(function(e){
+        e.preventDefault();
+        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#showDepartmentScheduleAction").val() ;
+    });
+
 
     $("#btn_feedback").click(function(e) {
             e.preventDefault();

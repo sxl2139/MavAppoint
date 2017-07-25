@@ -14,6 +14,7 @@ $successAction = mav_encrypt("success");
 ?>
 
 <input type="hidden" id="advisorController" value="<?php echo $advisorController?>">
+<input type="hidden" id="showScheduleAction" value="<?php echo $showScheduleAction?>">
 <input type="hidden" id="addTimeSlotAction" value="<?php echo $addTimeSlotAction?>">
 <input type="hidden" id="deleteTimeSlotAction" value="<?php echo $deleteTimeSlotAction?>">
 <input type="hidden" id="successAction" value="<?php echo $successAction?>">
@@ -114,8 +115,6 @@ $successAction = mav_encrypt("success");
         });
     </script>
 
-
-    <form name=addTimeSlot id="add_time_slot" action="?c=<?php echo $advisorController?>&a=<?php echo $addTimeSlotAction?>" method="post">
         <div class="modal fade" id="addTimeSlotModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -136,15 +135,23 @@ $successAction = mav_encrypt("success");
                                 id="result"><font style="color: #e67e22" size="4"></label>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Close</button>
-                        <button type="submit" id="advisorAddTimeSlot" value="submit" class="btn btn-primary" data-dismiss="modal"
-                                onclick="javascript:FormSubmit();">Submit</button>
+                        <div id="advisorAddTimeSlot_loading_section" style="display:none; float:left; margin: 5px;">
+                            <img id="advisorAddTimeSlot_loading_img" style="margin-bottom:5px; width:15px; height:15px;">
+                            <font id="advisorAddTimeSlot_loading_text" size="3" color="black"></font>
+                        </div>
+
+                        <button id="advisorAddTimeSlotCloseButton" type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button id="advisorAddTimeSlot" type="button" class="btn btn-primary">
+                            Submit
+                        </button>
                     </div>
+
                 </div>
             </div>
         </div>
-    </form>
+
     <form name=deleteTimeSlot id="delete_time_slot" action="?c=<?php echo $advisorController?>&a=<?php echo $deleteTimeSlotAction?>" method="post">
         <div class="modal fade" id="deleteTimeSlotModal" tabindex="-1">
             <div class="modal-dialog">
@@ -172,7 +179,7 @@ $successAction = mav_encrypt("success");
                             <img id="deleteTimeSlot_loading_img" style="margin-bottom:5px; width:15px; height:15px;">
                             <font id="deleteTimeSlot_loading_text" size="3" color="black"></font>
                         </div>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <button id="advisorDeleteTimeSlotCloseButton" type="button" class="btn btn-default" data-dismiss="modal">
                             Close</button>
                         <button type="button" id="advisorDeleteTimeSlot" value="submit" class="btn btn-primary"
                                >Submit</button>

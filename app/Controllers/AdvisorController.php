@@ -132,13 +132,45 @@ class advisorController
 //    }
 
     function addTimeSlotAction(){
+        $openDate = $_POST['opendate'];
+        $startTime = $_POST['starttime'];
+        $endTime = $_POST['endtime'];
+        $repeat = $_POST['repeat'];
 
+        if ($startTime == "" || $startTime == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Please enter Start Time correctly."
+                )
+            );
+        if ($endTime == "" || $endTime == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Please enter End Time correctly."
+                )
+            );
+        if ($startTime >= $endTime)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "EndTime must after StartTime."
+                )
+            );
+        if ($openDate == "" || $openDate == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Please enter Date correctly."
+                )
+            );
         $dbm = new DatabaseManager();
         $time = new AllocateTime();
-        $time->setDate($_POST['opendate']);
-        $time->setStartTime($_POST['starttime']);
-        $time->setEndTime($_POST['endtime']);
-        $repeat = $_POST['repeat'];
+        $time->setDate($openDate);
+        $time->setStartTime($startTime);
+        $time->setEndTime($endTime);
+
         try{
             $rep = intval($repeat);
         }catch (Exception $e){
@@ -150,7 +182,9 @@ class advisorController
         if($time->getDate()<=$todayDate){
             return array(
                 "error" => 1,
-
+                "data" => array(
+                    "errorMsg" => "Error. The date must after today (" . $todayDate . ")."
+                )
             );
         }
         $flag = $dbm->addTimeSlot($time, $this->uid);
@@ -162,7 +196,9 @@ class advisorController
         if($flag == false){
             return array(
                 "error" => 1,
-
+                "data" => array(
+                    "errorMsg" => "Error occurs, Please try again."
+                )
             );
         }
         else
@@ -185,13 +221,42 @@ class advisorController
         $repeat = isset($_POST['delete_repeat']) ? intval($_POST['delete_repeat']) : null;
         $reason = isset($_POST['delete_reason']) ? $_POST['delete_reason'] : null;
 
-        if($requestStartTime==null || $requestEndTime==null || $requestDate==null){
+        if($requestStartTime==null || $requestStartTime == ""){
             return array(
-              "error"=>1
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Please enter Start Time correctly."
+                )
             );
-
         }
-
+        if($requestEndTime == null || $requestEndTime == "")
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Please enter End Time correctly."
+                )
+            );
+        if($requestStartTime >= $requestEndTime)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "EndTime must after StartTime."
+                )
+            );
+        if($requestDate == null || $requestDate == "")
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Error occurs, Please enter Date correctly."
+                )
+            );
+        if($reason == null || $reason == "")
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Reason for deleting time slot cannot be empty."
+                )
+            );
         //date('Y-m-d',strtotime());
         $dbm = new DatabaseManager();
         $advisor = $dbm->getAdvisor($this->email);

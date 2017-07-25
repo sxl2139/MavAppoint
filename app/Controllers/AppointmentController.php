@@ -53,7 +53,15 @@ class AppointmentController
     }
 
     public function showAppointmentAction() {
+        if($_SESSION['role'] ==null || $_SESSION['email'] == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Session expired, please login and try again."
+                )
+            );
         $dbManager = new DatabaseManager();
+        $user = null;
         switch ($_SESSION['role']){
             case 'student':
                 $user = $dbManager->getStudent($_SESSION['email']);
@@ -62,9 +70,22 @@ class AppointmentController
                 $user = $dbManager->getAdvisor($_SESSION['email']);
                 break;
             default:
-                return array("error" => 1);
+                return array(
+                    "error" => 1,
+                    "data" => array(
+                        "errorMsg" => "User's role is wrong. Please re-login and try again."
+                    )
+                );
                 break;
         }
+
+        if($user->getUserId() == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "System cannot get your account info. Please re-login and try again."
+                )
+            );
 
         return array(
             "error" => 0,
@@ -75,6 +96,13 @@ class AppointmentController
     }
 
     public function showCanceledAppointmentAction(){
+        if($_SESSION['role'] ==null || $_SESSION['email'] == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Session expired, please login and try again."
+                )
+            );
         $dbManager = new DatabaseManager();
         switch ($_SESSION['role']){
             case 'student':
@@ -84,9 +112,22 @@ class AppointmentController
                 $user = $dbManager->getAdvisor($_SESSION['email']);
                 break;
             default:
-                return array("error" => 1);
+                return array(
+                    "error" => 1,
+                    "data" => array(
+                        "errorMsg" => "User's role is wrong. Please re-login and try again."
+                    )
+                );
                 break;
         }
+
+        if($user->getUserId() == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "System cannot get your account info. Please re-login and try again."
+                )
+            );
 
         return array(
             "error" => 0,
@@ -97,10 +138,30 @@ class AppointmentController
     }
 
     public function cancelAppointmentAction() {
-        $result = 0;
         $appointmentId = $_REQUEST['appointmentId'];
+        if($appointmentId == null || $appointmentId=='')
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "System cannot get this appointment, please refresh Appointment History page and try again.",
+                )
+            );
         $reason = $_REQUEST['cancellationReason'];
+        if($reason == null || $reason == "")
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Reason for cancellation cannot be empty.",
+                )
+            );
         $isCanceledBy = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+        if($isCanceledBy == null)
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Failed to fetch user's role, please re-login and try again.",
+                )
+            );
         $dbManager = new DatabaseManager();
         $appointment = $dbManager->getAppointmentById($appointmentId);
 //        $waitList = $dbManager->getFirstWaitList($appointmentId);
@@ -145,15 +206,21 @@ class AppointmentController
                 array($appointment->getAdvisorEmail()));
 
         } else {
-            $result = 1;
+            return array(
+                "error" => 1,
+                "data" => array(
+                    "errorMsg" => "Error, please close this window and try again.",
+                )
+            );
         }
 //        }
 
         return array(
-            "error" => $result,
-//            "description" =>"Error while cancelling appointment, please try again."
-
-        );
+            "error" => 0,
+            "data" => array(
+                "successMsg" => "Appointment has been cancelled successfully.",
+                )
+            );
     }
 
     public function successAction(){

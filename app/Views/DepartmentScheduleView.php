@@ -15,6 +15,7 @@ $successAction = mav_encrypt("success");
 ?>
 
 <input type="hidden" id="adminController" value="<?php echo $adminController?>">
+<input type="hidden" id="showDepartmentScheduleAction" value="<?php echo $showDepartmentScheduleAction?>">
 <input type="hidden" id="deleteTimeSlotAction" value="<?php echo $deleteTimeSlotAction?>">
 <input type="hidden" id="successAction" value="<?php echo $successAction?>">
 <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
@@ -137,7 +138,7 @@ $successAction = mav_encrypt("success");
                             <img id="deleteTimeSlot_loading_img" style="margin-bottom:5px; width:15px; height:15px;">
                             <font id="deleteTimeSlot_loading_text" size="3" color="black"></font>
                         </div>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <button type="button" id="adminDeleteTimeSlotCloseButton" class="btn btn-default" data-dismiss="modal">
                             Close</button>
                         <button type="submit" id="adminDeleteTimeSlot" class="btn btn-primary" value="submit"
                                 >Submit</button>

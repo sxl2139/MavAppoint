@@ -6,6 +6,7 @@ include("template/" . $role . "_navigation.php");
 $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
 $appointments = $content['data']['appointments'];
+$errorMsg = ( isset($content['data']['errorMsg']) ) ? $content['data']['errorMsg'] : null;
 $appointmentController = mav_encrypt("appointment");
 ?>
 
@@ -122,6 +123,14 @@ $appointmentController = mav_encrypt("appointment");
                 ?>
         </div>
         </table>
+        <?php if(count($appointments) ==0 && $errorMsg==null)
+        {?>
+            <h4>Currently, you have no cancellation record.</h4>
+        <?php }
+        if($errorMsg!==null)
+        {?>
+            <h4><?php echo $errorMsg ?></h4>
+        <?php }?>
 
     </div>
     </div>
