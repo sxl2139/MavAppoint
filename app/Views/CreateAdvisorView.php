@@ -4,10 +4,11 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include ("template/" . $role . "_navigation.php");
 $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
-$departments = $content;
-
+$departments = $content['departments'];
+$message = $content['message'];
 $adminController = mav_encrypt("admin");
 $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
+$successAction=mav_encrypt("success");
 ?>
 
     <style>
@@ -22,6 +23,7 @@ $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
 
     <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
     <input id="createNewAdvisorAction" type="hidden" value="<?php echo $createNewAdvisorAction?>"/>
+    <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
     <div class="container">
         <!-- Panel -->
@@ -61,7 +63,7 @@ $createNewAdvisorAction = mav_encrypt("createNewAdvisor");
                 </div>
             </form>
 
-            <label id="addAdvisorResult"></label>
+            <label id="addAdvisorResult"><?php echo $message?></label>
 
         </div>
     </div>

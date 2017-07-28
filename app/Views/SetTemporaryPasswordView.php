@@ -1,13 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: shenchen
+ * Date: 7/10/17
+ * Time: 2:52 PM
+ */
 include ("template/header.php");
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : "visitor";
 include ("template/" . $role . "_navigation.php");
 $mavAppointUrl = $_SESSION['mavAppointUrl'];
 $content = json_decode($content, true);
-$departments = $content;
 
 $adminController = mav_encrypt("admin");
-$createNewDepartmentAction = mav_encrypt("createNewDepartment");
 $setTemporaryPasswordIntervalAction = mav_encrypt("setTemporaryPasswordInterval");
 $successAction=mav_encrypt("success");
 ?>
@@ -23,7 +27,6 @@ $successAction=mav_encrypt("success");
 
 
     <input id="adminController" type="hidden" value="<?php echo $adminController?>"/>
-    <input id="createNewDepartmentAction" type="hidden" value="<?php echo $createNewDepartmentAction?>"/>
     <input id="setTemporaryPasswordInterval" type="hidden" value="<?php echo $setTemporaryPasswordIntervalAction?>"/>
     <input type="hidden" id="successAction" value="<?php echo $successAction?>">
     <input class="mavAppointUrl" type="hidden" value="<?php echo $mavAppointUrl?>"/>
@@ -31,14 +34,15 @@ $successAction=mav_encrypt("success");
 
         <!-- Panel -->
         <div class="panel panel-default resize center-block">
-            <div class="panel-heading text-center"><h1>Add New Department</h1></div>
+            <div class="panel-heading text-center"><h1>Set Temporary Password Expiration Time</h1></div>
             <!-- Default panel contents -->
-            <form action="#" method="post" name="department_form" id="department_form" onsubmit="return false;">
+
+            <form action="#" method="post" name="setTemporaryPasswordInterval_form" id="setTemporaryPasswordInterval_form" onsubmit="return false;">
                 <div class="panel-body resize-body center-block">
 
                     <div class="form-group">
-                        <label for="department"><font color="#0" size="4">Department</font></label><br>
-                        <input type="text" style="width: 350px;" class="form-control" id="enterDepartment" name="department" placeholder="">
+                        <label for="setTemporaryPasswordInterval"><font color="#0" size="4">Time(days)</font></label><br>
+                        <input type="text" style="width: 350px;" class="form-control" id="entertemporaryPasswordInterval" name="temporaryPasswordInterval" placeholder="">
 
                         <!--                        <label for="pname"><font color="#0" size="4">Display-->
                         <!--                                Name</font></label><br> <input type="text" style="width: 350px;"-->
@@ -49,17 +53,9 @@ $successAction=mav_encrypt("success");
                 </div>
 
                 <div class= "panel-footer text-center">
-                    <input id="addDepartmentSubmit" type="submit" class="btn-lg" value="Submit">
+                    <input id="setTemporaryPasswordIntervalSubmit" type="submit" class="btn-lg" value="Submit">
                 </div>
-
-
-
-<!--                <div class= "panel-footer text-center">-->
-<!--                    <input onclick="javascript:FormSubmit();" id="addDepartmentButton" type="submit" class="btn-lg" value="Submit">-->
-<!--                </div>-->
             </form>
-            <label id="addDepartmentResult"><?php echo $departments['message']?></label>
-
         </div>
     </div>
 

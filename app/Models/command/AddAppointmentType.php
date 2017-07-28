@@ -13,10 +13,12 @@ class AddAppointmentType extends SQLCmd
 
     private $at, $id;
 
-    function __construct($id, AppointmentType $at)
+    public function __construct($id, AppointmentType $at)
     {
         $this->at = $at;
         $this->id = $id;
+
+
     }
 
     function queryDB()
@@ -30,12 +32,14 @@ class AddAppointmentType extends SQLCmd
                       VALUES('$this->id','$type','$duration')";
             $this->conn->query($query);
 
-            if (mysqli_affected_rows($this->conn) > 0)
+            if (mysqli_affected_rows($this->conn) > 0) {
                 $this->result = true;
-            else
+            }else {
                 $this->result = false;
-        } else
+            }
+        } else {
             $this->result = false;
+        }
     }
 
     function processResult()

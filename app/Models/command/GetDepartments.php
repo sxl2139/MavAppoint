@@ -10,6 +10,7 @@ include_once dirname(__FILE__) . "/SQLCmd.php";
 class GetDepartments extends SQLCmd
 {
     function __construct() {
+
     }
 
     function queryDB(){
@@ -24,4 +25,5 @@ class GetDepartments extends SQLCmd
         }
         return $arr;
     }
+
 }

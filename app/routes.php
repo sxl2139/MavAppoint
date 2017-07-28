@@ -26,6 +26,7 @@ return array(
         "deleteSelectAdvisor" => "deleteSelectAdvisor",
         "addDepartment" => "AddDepartmentView",
         "createNewDepartment" => "createNewDepartment",
+        "setTemporaryPassword" => "SetTemporaryPasswordView",
         "setTemporaryPasswordInterval" => "setTemporaryPasswordInterval",
         "addAdvisor" => "CreateAdvisorView",
         "createNewAdvisor" => "createNewAdvisor",

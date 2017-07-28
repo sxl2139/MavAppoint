@@ -30,7 +30,6 @@ class CreateUser extends SQLCmd
                   (email,password,role,sendTemPWDate) 
                   VALUES('$email','$password','$role','$sendTemPWDate')";
         $res = $this->conn->query($query);
-
         if ($res) {
             include_once dirname(__FILE__) . "/GetUserIdByEmail.php";
             $cmd = new GetUserIdByEmail($email);

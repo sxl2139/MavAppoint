@@ -39,103 +39,86 @@ class adminController
     }
 
     public function addAdvisorAction(){
-
+        $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
         $dbm = new DatabaseManager();
         $departments = $dbm->getDepartments();
-        return $departments;
-//        return array(
-//            "department" => array(
-//                0 => array(
-//                    "name" => "CSE"
-//                ),
-//                1 => array(
-//                    "name" => "MATH"
-//                ),
-//                2 => array(
-//                    "name" => "MAE"
-//                ),
-//                3 => array(
-//                    "name" => "ARCH"
-//                ),
-//            )
-//        );
-    }
-
-    function createNewAdvisorAction(){
-
-        $manager = new DatabaseManager();
-
-        $department = $_REQUEST['drp_department'];
-        $email = $_REQUEST['email'];
-        $name = $_REQUEST['pname'];
-        $password = generateRandomPassword();
-
-        $loginUser = new LoginUser();
-        $loginUser->setEmail($email);
-        $loginUser->setPassword($password);
-        $loginUser->setRole("advisor");
-        $loginUser->setDepartments(array($department));
-        $loginUser->setMajors(array("Software Engineering"));
-        $loginUser->setSendTemPWDate(date("Y-m-d", time()));
-
-
-        $id = $manager->createUser($loginUser);
-
-        $Advisor = new AdvisorUser();
-        $Advisor->setUserId($id);
-        $Advisor->setPName($name);
-        $Advisor->setNotification("Yes");
-        $Advisor->setNameLow("a");
-        $Advisor->setNameHigh("Z");
-        $Advisor->setDegType("7");
-
-        $manager->createAdvisor($Advisor);
-
-        $apt=new AppointmentType();
-        $apt->setType("Other");
-        $apt->setDuration("10");
-        $res=$manager->addAppointmentType($id,$apt);
-
-        if($res)
-        {
-            mav_mail("MavAppoint Account Created",
-                "<p>Your account for MavAppoint has been created! Your account information is:</p>"
-                . "<p>Role: Advisor </p>"
-                . "<p>Password: " . $password . "</p>"
-                . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>",
-                array($loginUser->getEmail())
-            );
-            return array(
-                "error" => 0,
-                "data" => array(
-                    "message" => "Advisor created successfully. An email has been sent to the advisor's account with his/her temporary password",
-
-                )
-
-            );
-
-        } else {
-            return array(
-                "error" => 1,
-                "data" => array(
-                    "message" => "Fail"
-                )
-            );
-//            return "Failed";
+        $departmentsandmessage = array();
+        $departmentsandmessage['departments'] = $departments;
+        if(mav_decrypt($tag)=="yes") {
+            $departmentsandmessage['message'] = "Advisor created successfully. An email has been sent to the advisor's account with his/her temporary password";
+            return $departmentsandmessage;
+        }else{
+            $departmentsandmessage['message'] = "";
+            return $departmentsandmessage;
         }
 
-
-
-
-//        echo "department:".$department."<br>";
-//        echo "email:".$email."<br>";
-//        echo "name:".$name."<br>";
-
-
     }
+
+        function createNewAdvisorAction(){
+
+            $manager = new DatabaseManager();
+
+            $department = isset($_REQUEST['drp_department'])? $_REQUEST['drp_department']:null;
+            $email = isset($_REQUEST['email'])? $_REQUEST['email']:null;
+            $name = isset($_REQUEST['pname'])?$_REQUEST['pname']:null;
+            if($department!=null && $email !=null && $name!=null){
+                $password = generateRandomPassword();
+                $loginUser = new LoginUser();
+                $loginUser->setEmail($email);
+                $loginUser->setPassword($password);
+                $loginUser->setRole("advisor");
+                $loginUser->setDepartments(array($department));
+                $loginUser->setMajors(array("Software Engineering"));
+                $loginUser->setSendTemPWDate(date("Y-m-d", time()));
+
+                $id = $manager->createUser($loginUser);
+
+                $Advisor = new AdvisorUser();
+                $Advisor->setUserId($id);
+                $Advisor->setPName($name);
+                $Advisor->setNotification("Yes");
+                $Advisor->setNameLow("a");
+                $Advisor->setNameHigh("Z");
+                $Advisor->setDegType("7");
+
+                $manager->createAdvisor($Advisor);
+
+                $apt=new AppointmentType();
+                $apt->setType("Other");
+                $apt->setDuration("10");
+                $res=$manager->addAppointmentType($id,$apt);
+                if($res)
+                {
+                                mav_mail("MavAppoint Account Created",
+                                    "<p>Your account for MavAppoint has been created! Your account information is:</p>"
+                                    . "<p>Role: Advisor </p>"
+                                    . "<p>Password: " . $password . "</p>"
+                                    . "<br><br>Click here to <a href='" . getUrlWithoutParameters() . "?c=" . mav_encrypt("login") . "'>Login</a>",
+                                    array($loginUser->getEmail())
+                                );
+                    return array(
+                        "error" => 0,
+                        "data" => array(
+                            "message" => "Advisor created successfully. An email has been sent to the advisor's account with his/her temporary password",
+
+                        )
+
+                    );
+
+                } else {
+                    return array(
+                        "error" => 1,
+                        "data" => array(
+                            "message" => "Fail"
+                        )
+                    );
+                }
+            }
+        }
 
     function deleteAdvisorAction(){
         $tag = isset($_REQUEST["tag"])? $_REQUEST["tag"] : "error";
+
         $dbm = new DatabaseManager();
         $advisors = $dbm->getAdvisors();
         if(mav_decrypt($tag)=="yes"){
@@ -149,9 +132,9 @@ class adminController
     function deleteSelectAdvisorAction(){
 
         $advisors = isset($_REQUEST['advisors']) ? $_REQUEST['advisors'] : "error";
-        $advisors = explode(',',$advisors);
         $dbm = new DatabaseManager();
         if($advisors != "error") {
+            $advisors = explode(',',$advisors);
             for ($i = 0; $i < count($advisors); $i++) {
                 $dbm->deleteAdvisor($advisors[$i]);
             }
@@ -177,16 +160,18 @@ class adminController
 
         if(mav_decrypt($tag)=="yes") {
             return array("message" => "Add department Successfully");
-        }elseif (mav_encrypt($tag)=="yes2"){
-            return array("message" => "Set Temporary password Expiration Time Successfully");
         }else{
             return null;
         }
     }
 
+
+
+
     function createNewDepartmentAction(){
         $department = isset($_REQUEST['department']) ? $_REQUEST['department']: null;
         $dbm = new DatabaseManager();
+
         if($department!=null) {
             $res = $dbm->addNewDepartment($department);
 
@@ -220,13 +205,19 @@ class adminController
 
     }
 
+    function setTemporaryPasswordAction(){
+        return null;
+    }
+
+
+
     function setTemporaryPasswordIntervalAction()
     {
         $time = isset($_REQUEST['temporaryPasswordInterval']) ? $_REQUEST['temporaryPasswordInterval'] : null;
         $dbm = new DatabaseManager();
         if ($time != null) {
             $res = $dbm->setTemporaryPasswordInterval($time);
-
+            $res = true;
         } else {
             $res = false;
 
@@ -326,8 +317,6 @@ class adminController
         $advisors = $dbm->getAdvisorsOfDepartment($department[0]);
         $advisor = null;
         foreach ($advisors as $adv){
-//            var_dump($adv->getPName());
-//            var_dump($tittle);
             if($adv->getPName() == $pname){
                 $advisor = $adv;
                 break;
@@ -408,6 +397,7 @@ class adminController
         $majors = $dbm->getMajorsOfDepartment($this->dep);
 
         $res = array();
+
         foreach ($advisors as $rs){
             $advisorMajors = $dbm->getMajorsByUserId($rs->getUserId());
 
@@ -467,23 +457,31 @@ class adminController
     function assignStudentToAdvisorAction(){
         $dbm = new DatabaseManager();
         $advisorsNew = isset($_POST['advisors']) ? $_POST['advisors'] : null;
-        $advisorsNew = json_decode($advisorsNew, true);
+        if($advisorsNew!=null){
+            $advisorsNew = json_decode($advisorsNew, true);
 
-        foreach ($advisorsNew as $res){
-            $user = new AdvisorUser();
-            $user->setUserId($res['userId']);
-            $user->setPName($res['pName']);
-            $user->setNameLow($res['nameLow']);
-            $user->setNameHigh($res['nameHigh']);
-            $user->setDegType($res['degreeType']);
-            $user->setMajors($res['majors']);
+            foreach ($advisorsNew as $res){
+                $user = new AdvisorUser();
+                $user->setUserId($res['userId']);
+                $user->setPName($res['pName']);
+                $user->setNameLow($res['nameLow']);
+                $user->setNameHigh($res['nameHigh']);
+                $user->setDegType($res['degreeType']);
+                $user->setMajors($res['majors']);
 
-            $dbm->updateAdvisor($user);
+                $dbm->updateAdvisor($user);
+            }
+
+            return array(
+                "error" => 0
+                ,'$advisorsNew'=>$advisorsNew
+            );
+        }else{
+            return array(
+                "error" => 1
+            );
         }
 
-        return array(
-            "error" => 0
-        );
     }
 
     public function successAction(){

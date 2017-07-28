@@ -16,6 +16,7 @@ $(function(){
                 password : passhash
             },
             success: function(data){
+                // alert(data);
                 var data = JSON.parse(data);
                 if (data.error == 0) {
                     if(data.data.validated == 0 && data.data.daysBeforetempPasswordExpired<0){
@@ -82,27 +83,36 @@ $(function(){
         var pname = $("#pname").val();
         var drp_department = $("#drp_department").val();
 
-        $.ajax({
-            url: $(".mavAppointUrl").val(),
-            type: "post",
-            data: {
-                c : $("#adminController").val(),
-                a : $("#createNewAdvisorAction").val(),
-                email : email,
-                pname : pname,
-                drp_department : drp_department
-            },
-            success: function(data){
-                var data1 = JSON.parse(data);
-                if (data1.error == 0) {
-                    window.console.log(data1);
-                    $("#addAdvisorResult").text(data1.data.message);
-                }else{
-                    alert(data1.data.message);
-                    $("#addAdvisorResult").text(data1.data.message);
+        var emaliValue = email.replace(/(^\s*)|(\s*$)/g, "");
+        var pnammeValue = pname.replace(/(^\s*)|(\s*$)/g, "");
+        if(emaliValue==null || emaliValue=="" || pnammeValue==null || pnammeValue=="") {
+            alert("Please Enter Email Address and Display Name");
+        }else{
+            $.ajax({
+                url: $(".mavAppointUrl").val(),
+                type: "post",
+                data: {
+                    c : $("#adminController").val(),
+                    a : $("#createNewAdvisorAction").val(),
+                    email : email,
+                    pname : pname,
+                    drp_department : drp_department
+                },
+                success: function(data){
+                    var data1 = JSON.parse(data);
+                    if (data1.error == 0) {
+                        // window.location.href = "http://www.google.com";
+                        window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
+                            + "&nc=admin&na=addAdvisor&nt=yes";
+                        // $("#addAdvisorResult").text(data1.data.message);
+                    }else{
+                        alert(data1.data.message);
+                        $("#addAdvisorResult").text(data1.data.message);
+                    }
                 }
-            }
-        });
+            });
+        }
+
     });
 
     $(".advisorButton").on("click", function (e) {
@@ -176,7 +186,6 @@ $(function(){
             advisor.majors = majors;
             advisors.push(advisor);
         }
-
         $.ajax({
             url: $(".mavAppointUrl").val(),
             type: "post",
@@ -271,6 +280,8 @@ $(function(){
         var time = $("#entertemporaryPasswordInterval").val();
         if(time==null || time==""){
             alert("Need to enter interval of time");
+        }else if(time <=0){
+            alert("Please enter a valid time");
         }else {
             $.ajax({
                 url: $(".mavAppointUrl").val(),
@@ -284,7 +295,7 @@ $(function(){
                     var data = JSON.parse(data);
                     if (data.error == 0) {
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#adminController").val() + "&a=" + $("#successAction").val()
-                            + "&nc=admin&na=addDepartment&nt=yes2";
+                            + "&nc=admin&na=setTemporaryPassword";
                     }else{
                         //TODO redirect to failure page
                         alert("Set Temporary Password Expiration Time error");

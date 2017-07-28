@@ -1,5 +1,4 @@
 <?php
-
 if (!class_exists("SQLCmd")){
 	abstract class SQLCmd {
 
@@ -27,7 +26,7 @@ if (!class_exists("SQLCmd")){
 		function connectDB() {
 			$this->conn = new mysqli(
 				config("DB.HOST"), config("DB.USERNAME"), config("DB.PASSWORD"), config("DB.DATABASE"));
-                //"localhost","root","1234","mavappointdb2s");
+//                "localhost","CSE5328Spring16","er1ja@18xs@3","mavappointdb2s");
 			    //env("DB_HOST"),env("DB_USERNAME"),env("DB_PASSWORD"),env("DB_DATABASE"));
 		}
 

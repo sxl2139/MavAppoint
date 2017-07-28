@@ -5,6 +5,7 @@ $addAdvisorAction = mav_encrypt("addAdvisor");
 $loginController = mav_encrypt("login");
 $addDepartmentAction = mav_encrypt("addDepartment");
 $deleteAdvisorAction = mav_encrypt("deleteAdvisor");
+$setTemporaryPasswordAction = mav_encrypt("setTemporaryPassword");
 $changePasswordDefaultAction = mav_encrypt("changePasswordDefault");
 $logoutAction = mav_encrypt("logout");
 $showDepartmentScheduleAction = mav_encrypt("showDepartmentSchedule");
@@ -54,6 +55,8 @@ $getFeedbackAction = mav_encrypt("getFeedback");
                 <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="?c=<?php echo $loginController?>&a=<?php echo $changePasswordDefaultAction?>"><font size="3">Change Password</font></a></li>
+                <li class="divider"></li>
+                <li><a href="?c=<?php echo $adminController?>&a=<?php echo $setTemporaryPasswordAction?>"><font size="3">Temporary Password</font></a></li>
                 <li class="divider"></li>
                 <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><font style="color:red" size="3">Logout</font></a></li>
             </ul>

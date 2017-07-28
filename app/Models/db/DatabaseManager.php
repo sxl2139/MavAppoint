@@ -201,7 +201,7 @@ class DatabaseManager{
     }
 
     function getAppointmentsByDate($start, $end) {
-        return $this->impl->getappointmentsByDate($start, $end);
+        return $this->impl->getAppointmentsByDate($start, $end);
     }
 
 

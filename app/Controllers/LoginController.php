@@ -28,7 +28,6 @@ class LoginController
             );
         }
 
-
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $res['role'];
         $_SESSION['uid'] = $manager->getUserIdByEmail($email);
@@ -77,7 +76,6 @@ class LoginController
         } else {
             $user = $dbManager->getStudent($_SESSION['email']);
         }
-
         if (md5($currentPassword) != $user->getPassword()) {
             return array(
                 "error" => 1,
