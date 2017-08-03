@@ -79,6 +79,7 @@ $(function(){
     });
 
     $("#createAdvisorSubmit").on("click", function(){
+        var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
         var email = $("#emailAdvisor").val();
         var pname = $("#pname").val();
         var drp_department = $("#drp_department").val();
@@ -87,6 +88,9 @@ $(function(){
         var pnammeValue = pname.replace(/(^\s*)|(\s*$)/g, "");
         if(emaliValue==null || emaliValue=="" || pnammeValue==null || pnammeValue=="") {
             alert("Please Enter Email Address and Display Name");
+        }
+        else if(!reg.test(emaliValue)){
+            alert("Invilid Email Address")
         }else{
             $.ajax({
                 url: $(".mavAppointUrl").val(),

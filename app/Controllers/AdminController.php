@@ -109,7 +109,7 @@ class adminController
                     return array(
                         "error" => 1,
                         "data" => array(
-                            "message" => "Fail"
+                            "message" => "Advisor with entered email already exists."
                         )
                     );
                 }
@@ -122,7 +122,7 @@ class adminController
         $dbm = new DatabaseManager();
         $advisors = $dbm->getAdvisors();
         if(mav_decrypt($tag)=="yes"){
-            $advisors["message"] = "Delete advisor successfully";
+            $advisors["message"] = "Deleted advisor successfully";
         }else{
             $advisors["message"] = "";
         }
