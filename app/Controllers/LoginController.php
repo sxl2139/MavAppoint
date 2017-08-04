@@ -86,7 +86,7 @@ class LoginController
         if (strlen($newPassword) < 8) {
             return array(
                 "error" => 1,
-                "description" => "New password must be 8 characters long"
+                "description" => "New password must be be atleast 8 characters long"
             );
         }
 
