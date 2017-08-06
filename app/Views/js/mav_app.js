@@ -31,7 +31,12 @@ $(function(){
                     }
 
                     else if(data.data.daysBeforeExpired !=null && data.data.daysBeforeExpired<=14 && data.data.daysBeforeExpired>=1){
-                        alert("The password for your account will expire in " + data.data.daysBeforeExpired + " days.\nPlease change your password.");
+                        if(data.data.daysBeforeExpired == 1){
+                            alert("The password for your account will expire in " + data.data.daysBeforeExpired + " day.\nPlease change your password.");
+                        }
+                        else{
+                            alert("The password for your account will expire in " + data.data.daysBeforeExpired + " days.\nPlease change your password.");
+                        }
                         window.location.href = $(".mavAppointUrl").val() + "?c=" + $("#loginController").val() + "&a=" + $("#changePasswordDefaultAction").val();
                     }else if(data.data.daysBeforeExpired <=0){
                         $("#message2").css("visibility", "visible");
