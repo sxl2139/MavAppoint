@@ -48,8 +48,7 @@ $getFeedbackAction = mav_encrypt("getFeedback");
         </li>
 
         <li><a href="?c=<?php echo $feedbackController?>&a=<?php echo $getFeedbackAction?>"><font style="color: #e67e22" size="3">Feedback</font></a></li>
-
-        <li class="dropdown" style="margin-right: 20px;">
+        <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <font style="color: #e67e22" size="3">Setting</font>
                 <span class="caret"></span></a>
@@ -57,10 +56,9 @@ $getFeedbackAction = mav_encrypt("getFeedback");
                 <li><a href="?c=<?php echo $loginController?>&a=<?php echo $changePasswordDefaultAction?>"><font size="3">Change Password</font></a></li>
                 <li class="divider"></li>
                 <li><a href="?c=<?php echo $adminController?>&a=<?php echo $setTemporaryPasswordAction?>"><font size="3">Temporary Password</font></a></li>
-                <li class="divider"></li>
-                <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><font style="color:red" size="3">Logout</font></a></li>
             </ul>
         </li>
+        <li><a href="?c=<?php echo $loginController?>&a=<?php echo $logoutAction?>"><font style="color:#e67e22" size="3">Logout</font></a></li>
     </ul>
 
 </div>
