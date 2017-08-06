@@ -83,10 +83,10 @@ class LoginController
             );
         }
 
-        if (strlen($newPassword) < 8) {
+        if (!preg_match( '/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $newPassword)) {
             return array(
                 "error" => 1,
-                "description" => "New password must be be atleast 8 characters long"
+                "description" => "New password must contain at least 8 characters,one number,one lowercase and one uppercase letter."
             );
         }
 
